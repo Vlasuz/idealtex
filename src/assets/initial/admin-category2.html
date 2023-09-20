@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Редагування категорії</title>
+	<meta charset="UTF-8">
+	<meta name="format-detection" content="telephone=no">
+	<!-- <style>body{opacity: 0;}</style> -->
+	<link rel="stylesheet" href="css/style.min.css?_v=20230717212737">
+	<link rel="shortcut icon" href="favicon.ico">
+	<!-- <meta name="robots" content="noindex, nofollow"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<div class="header__main main-header">
+				<div class="header__overlay"></div>
+				<aside class="main-header__menu menu menu_admin">
+					<button data-close-menu class="menu__close button-icon">
+						<img src="img/icons/close-blue.svg" alt="">
+					</button>
+					<ul class="menu__admin-list">
+						<li>
+							<a href="">
+								Замовлення
+							</a>
+						</li>
+						<li>
+							<a href="">
+								Накладна
+							</a>
+						</li>
+						<li>
+							<a href="">
+								Продукт
+							</a>
+						</li>
+						<li>
+							<a href="">
+								Категорії
+							</a>
+						</li>
+						<li>
+							<a href="">
+								Прайс
+							</a>
+						</li>
+						<li>
+							<a href="">
+								Налаштування
+							</a>
+						</li>
+						<li>
+							<a href="">
+								Сортування
+							</a>
+						</li>
+					</ul>
+				</aside>
+				<div class="main-header__container">
+					<div class="main-header__row">
+						<div class="main-header__left">
+							<button data-open-menu class="main-header__menu"><img src="img/icons/menu.svg" alt=""></button>
+							<a href="#" class="main-header__logo"><picture><source srcset="img/main-img/logo.webp" type="image/webp"><img src="img/main-img/logo.png" alt=""></picture></a>
+						</div>
+						<div class="main-header__right">
+							<a href="" class="main-header__link button button_admin">На головну</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<main class="page">
+			<section class="admin">
+				<div class="admin__container">
+					<div class="admin__head">
+						<h2 class="admin__title">
+							Редагування категорії
+						</h2>
+					</div>
+					<div class="admin-cor-cat">
+						<div class="admin-cor-cat__row">
+							<div class="admin-cor-cat__label">
+								Забраження
+							</div>
+							<div class="admin-cor-cat__images">
+								<label class="form-file__item">
+									<span class="form-file__plus-icon">
+										<img src="img/icons/load.svg" alt="">
+									</span>
+									<span class="form-file__text">
+										Select a file or drag and
+										drop here
+									</span>
+									<span class="form-file__link">
+										Select file
+									</span>
+									<span class="form-file__remove">
+										<img src="img/icons/trash.svg" alt="">
+									</span>
+									<span class="form-file__preview-ibg">
+
+									</span>
+									<input accept="image/*" type='file' class="form-file__input" />
+								</label>
+								<div class="admin-cor-cat__image-ibg">
+									<picture><source srcset="img/main-img/01.webp" type="image/webp"><img src="img/main-img/01.png" alt=""></picture>
+								</div>
+							</div>
+						</div>
+						<div class="admin-cor-cat__items">
+							<div class="correct-item">
+								<div class="correct-item__label">
+									Назва UKR
+								</div>
+								<input type="text" placeholder="" value="Назва  UKR" name="form" class="input input_admin">
+							</div>
+							<div class="correct-item">
+								<div class="correct-item__label">
+									Назва RU
+								</div>
+								<input type="text" placeholder="" value="Назва RU" name="form" class="input input_admin">
+							</div>
+							<div class="correct-item">
+								<div class="correct-item__label">
+									Батько
+								</div>
+								<select data-class-modif="admin" name="form[]" class="form">
+									<option value="" selected>Новин</option>
+									<option value="2">Новинки 1</option>
+									<option value="3">Новинки 2</option>
+								</select>
+
+							</div>
+						</div>
+						<div class="admin-cor-cat__button-wrap">
+							<a href="" class="admin-cor-cat__button button button_admin">Зберегти</a>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+	</div>
+	<script src="js/app.min.js?_v=20230717212737"></script>
+</body>
+
+</html>

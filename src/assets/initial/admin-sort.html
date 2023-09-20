@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Сортування</title>
+	<meta charset="UTF-8">
+	<meta name="format-detection" content="telephone=no">
+	<!-- <style>body{opacity: 0;}</style> -->
+	<link rel="stylesheet" href="css/style.min.css?_v=20230717212737">
+	<link rel="shortcut icon" href="favicon.ico">
+	<!-- <meta name="robots" content="noindex, nofollow"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<div class="header__main main-header">
+				<div class="header__overlay"></div>
+				<aside class="main-header__menu menu menu_admin">
+					<button data-close-menu class="menu__close button-icon">
+						<img src="img/icons/close-blue.svg" alt="">
+					</button>
+					<ul class="menu__admin-list">
+						<li>
+							<a href="">
+								Замовлення
+							</a>
+						</li>
+						<li>
+							<a href="">
+								Накладна
+							</a>
+						</li>
+						<li>
+							<a href="">
+								Продукт
+							</a>
+						</li>
+						<li>
+							<a href="">
+								Категорії
+							</a>
+						</li>
+						<li>
+							<a href="">
+								Прайс
+							</a>
+						</li>
+						<li>
+							<a href="">
+								Налаштування
+							</a>
+						</li>
+						<li>
+							<a href="">
+								Сортування
+							</a>
+						</li>
+					</ul>
+				</aside>
+				<div class="main-header__container">
+					<div class="main-header__row">
+						<div class="main-header__left">
+							<button data-open-menu class="main-header__menu"><img src="img/icons/menu.svg" alt=""></button>
+							<a href="#" class="main-header__logo"><picture><source srcset="img/main-img/logo.webp" type="image/webp"><img src="img/main-img/logo.png" alt=""></picture></a>
+						</div>
+						<div class="main-header__right">
+							<a href="" class="main-header__link button button_admin">На головну</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<main class="page">
+			<section class="admin">
+				<div class="admin__container">
+					<div class="admin__head  mb-100">
+						<h2 class="admin__title">
+							Сортування
+						</h2>
+					</div>
+					<div class="admin__sort sort-admin">
+						<div class="sort-admin__row">
+							<div class="sort-admin__column">
+								<h2 class="sort-admin__title-big">
+									Категорії
+								</h2>
+								<div class="sort-admin__scroll">
+									<ul data-spollers class="sort-admin__list">
+										<li>
+											<details>
+												<summary class="sort-admin__title">
+													<span> +</span> <span>НОВИНКИ</span>
+													<button class="sort-admin__btn">
+														<img src="img/icons/arrow-white.svg" alt="">
+													</button>
+												</summary>
+												<ul data-spollers class="sort-admin__list">
+													<li>
+														<details>
+															<summary class="sort-admin__title">
+																<span> +</span> <span>НОВИНКИ1</span>
+																<button class="sort-admin__btn">
+																	<img src="img/icons/arrow-white.svg" alt="">
+																</button>
+															</summary>
+															<ul data-spollers class="sort-admin__list">
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span> <span>НОВИНКИ2</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span> <span>ВСЕ ДЛЯ ШИТТЯ</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span>
+																			<span>ТКАНИНИ І ПРИКЛАДНІ МАТЕРІАЛИ</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span>
+																			<span>БЛИСКАВКА, НИТКА, ГУДЗИК</span>
+																		</summary>
+																	</details>
+																</li>
+															</ul>
+														</details>
+													</li>
+												</ul>
+											</details>
+										</li>
+										<li>
+											<details>
+												<summary class="sort-admin__title">
+													<span> +</span> <span>НОВИНКИ</span>
+													<button class="sort-admin__btn">
+														<img src="img/icons/arrow-white.svg" alt="">
+													</button>
+												</summary>
+												<ul data-spollers class="sort-admin__list">
+													<li>
+														<details>
+															<summary class="sort-admin__title">
+																<span> +</span> <span>НОВИНКИ1</span>
+																<button class="sort-admin__btn">
+																	<img src="img/icons/arrow-white.svg" alt="">
+																</button>
+															</summary>
+															<ul data-spollers class="sort-admin__list">
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span> <span>НОВИНКИ2</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span> <span>ВСЕ ДЛЯ ШИТТЯ</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span>
+																			<span>ТКАНИНИ І ПРИКЛАДНІ МАТЕРІАЛИ</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span>
+																			<span>БЛИСКАВКА, НИТКА, ГУДЗИК</span>
+																		</summary>
+																	</details>
+																</li>
+															</ul>
+														</details>
+													</li>
+												</ul>
+											</details>
+										</li>
+										<li>
+											<details>
+												<summary class="sort-admin__title">
+													<span> +</span> <span>НОВИНКИ</span>
+													<button class="sort-admin__btn">
+														<img src="img/icons/arrow-white.svg" alt="">
+													</button>
+												</summary>
+												<ul data-spollers class="sort-admin__list">
+													<li>
+														<details>
+															<summary class="sort-admin__title">
+																<span> +</span> <span>НОВИНКИ1</span>
+																<button class="sort-admin__btn">
+																	<img src="img/icons/arrow-white.svg" alt="">
+																</button>
+															</summary>
+															<ul data-spollers class="sort-admin__list">
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span> <span>НОВИНКИ2</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span> <span>ВСЕ ДЛЯ ШИТТЯ</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span>
+																			<span>ТКАНИНИ І ПРИКЛАДНІ МАТЕРІАЛИ</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span>
+																			<span>БЛИСКАВКА, НИТКА, ГУДЗИК</span>
+																		</summary>
+																	</details>
+																</li>
+															</ul>
+														</details>
+													</li>
+												</ul>
+											</details>
+										</li>
+										<li>
+											<details>
+												<summary class="sort-admin__title">
+													<span> +</span> <span>НОВИНКИ</span>
+													<button class="sort-admin__btn">
+														<img src="img/icons/arrow-white.svg" alt="">
+													</button>
+												</summary>
+												<ul data-spollers class="sort-admin__list">
+													<li>
+														<details>
+															<summary class="sort-admin__title">
+																<span> +</span> <span>НОВИНКИ1</span>
+																<button class="sort-admin__btn">
+																	<img src="img/icons/arrow-white.svg" alt="">
+																</button>
+															</summary>
+															<ul data-spollers class="sort-admin__list">
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span> <span>НОВИНКИ2</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span> <span>ВСЕ ДЛЯ ШИТТЯ</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span>
+																			<span>ТКАНИНИ І ПРИКЛАДНІ МАТЕРІАЛИ</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span>
+																			<span>БЛИСКАВКА, НИТКА, ГУДЗИК</span>
+																		</summary>
+																	</details>
+																</li>
+															</ul>
+														</details>
+													</li>
+												</ul>
+											</details>
+										</li>
+										<li>
+											<details>
+												<summary class="sort-admin__title">
+													<span> +</span> <span>НОВИНКИ</span>
+													<button class="sort-admin__btn">
+														<img src="img/icons/arrow-white.svg" alt="">
+													</button>
+												</summary>
+												<ul data-spollers class="sort-admin__list">
+													<li>
+														<details>
+															<summary class="sort-admin__title">
+																<span> +</span> <span>НОВИНКИ1</span>
+																<button class="sort-admin__btn">
+																	<img src="img/icons/arrow-white.svg" alt="">
+																</button>
+															</summary>
+															<ul data-spollers class="sort-admin__list">
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span> <span>НОВИНКИ2</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span> <span>ВСЕ ДЛЯ ШИТТЯ</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span>
+																			<span>ТКАНИНИ І ПРИКЛАДНІ МАТЕРІАЛИ</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span>
+																			<span>БЛИСКАВКА, НИТКА, ГУДЗИК</span>
+																		</summary>
+																	</details>
+																</li>
+															</ul>
+														</details>
+													</li>
+												</ul>
+											</details>
+										</li>
+										<li>
+											<details>
+												<summary class="sort-admin__title">
+													<span> +</span> <span>ТКАНИНИ І ПРИКЛАДНІ МАТЕРІАЛИ</span>
+												</summary>
+												<ul data-spollers class="sort-admin__list">
+													<li>
+														<details>
+															<summary class="sort-admin__title">
+																<span> +</span> <span>НОВИНКИ1</span>
+																<button class="sort-admin__btn">
+																	<img src="img/icons/arrow-white.svg" alt="">
+																</button>
+															</summary>
+															<ul data-spollers class="sort-admin__list">
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span> <span>НОВИНКИ2</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span> <span>ВСЕ ДЛЯ ШИТТЯ</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span>
+																			<span>ТКАНИНИ І ПРИКЛАДНІ МАТЕРІАЛИ</span>
+																		</summary>
+																	</details>
+																</li>
+																<li>
+																	<details>
+																		<summary class="sort-admin__title">
+																			<span> +</span>
+																			<span>БЛИСКАВКА, НИТКА, ГУДЗИК</span>
+																		</summary>
+																	</details>
+																</li>
+															</ul>
+														</details>
+													</li>
+												</ul>
+											</details>
+										</li>
+									</ul>
+								</div>
+
+							</div>
+							<div class="sort-admin__column">
+								<h2 class="sort-admin__title-big">
+									Продукти
+								</h2>
+								<form action="#" class="search-header__form">
+									<div class="search-header__item">
+										<span class="search-header__icon">
+											<img src="img/icons/search.svg" alt="">
+										</span>
+										<input placeholder="Пошук" type="text" class="search-header__input input" />
+										<button class="search-header__button">
+											Знайти
+										</button>
+									</div>
+								</form>
+								<div class="sort-admin__scroll">
+									<ul data-spollers class="sort-admin__list gap-20">
+										<li>
+											<div class="sort-admin__item">
+												<div class="sort-admin__name">
+													код 88888888888
+												</div>
+												<div class="sort-admin__image-ibg">
+													<picture><source srcset="img/main-img/01.webp" type="image/webp"><img src="img/main-img/01.png" alt=""></picture>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="sort-admin__item">
+												<div class="sort-admin__name">
+													код 88888888888
+												</div>
+												<div class="sort-admin__image-ibg">
+													<picture><source srcset="img/main-img/01.webp" type="image/webp"><img src="img/main-img/01.png" alt=""></picture>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="sort-admin__item">
+												<div class="sort-admin__name">
+													код 88888888888
+												</div>
+												<div class="sort-admin__image-ibg">
+													<picture><source srcset="img/main-img/01.webp" type="image/webp"><img src="img/main-img/01.png" alt=""></picture>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="sort-admin__item">
+												<div class="sort-admin__name">
+													код 88888888888
+												</div>
+												<div class="sort-admin__image-ibg">
+													<picture><source srcset="img/main-img/01.webp" type="image/webp"><img src="img/main-img/01.png" alt=""></picture>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="sort-admin__item">
+												<div class="sort-admin__name">
+													код 88888888888
+												</div>
+												<div class="sort-admin__image-ibg">
+													<picture><source srcset="img/main-img/01.webp" type="image/webp"><img src="img/main-img/01.png" alt=""></picture>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="sort-admin__item">
+												<div class="sort-admin__name">
+													код 88888888888
+												</div>
+												<div class="sort-admin__image-ibg">
+													<picture><source srcset="img/main-img/01.webp" type="image/webp"><img src="img/main-img/01.png" alt=""></picture>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="sort-admin__item">
+												<div class="sort-admin__name">
+													код 88888888888
+												</div>
+												<div class="sort-admin__image-ibg">
+													<picture><source srcset="img/main-img/01.webp" type="image/webp"><img src="img/main-img/01.png" alt=""></picture>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="sort-admin__item">
+												<div class="sort-admin__name">
+													код 88888888888
+												</div>
+												<div class="sort-admin__image-ibg">
+													<picture><source srcset="img/main-img/01.webp" type="image/webp"><img src="img/main-img/01.png" alt=""></picture>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="sort-admin__item">
+												<div class="sort-admin__name">
+													код 88888888888
+												</div>
+												<div class="sort-admin__image-ibg">
+													<picture><source srcset="img/main-img/01.webp" type="image/webp"><img src="img/main-img/01.png" alt=""></picture>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="sort-admin__item">
+												<div class="sort-admin__name">
+													код 88888888888
+												</div>
+												<div class="sort-admin__image-ibg">
+													<picture><source srcset="img/main-img/01.webp" type="image/webp"><img src="img/main-img/01.png" alt=""></picture>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="sort-admin__button-wrap">
+							<a href="" class="sort-admin__button button button_admin">Зберегти</a>
+						</div>
+					</div>
+
+
+				</div>
+			</section>
+		</main>
+	</div>
+	<script src="js/app.min.js?_v=20230717212737"></script>
+</body>
+
+</html>

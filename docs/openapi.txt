@@ -1,0 +1,3191 @@
+openapi: 3.0.3
+info:
+  title: idealtex-api
+  version: 1.0.0
+servers:
+  - url: http://localhost
+tags:
+  - name: products-public
+  - name: products-admin
+  - name: orders-public
+  - name: orders-admin
+  - name: auth-public
+  - name: categories-public
+  - name: categories-admin
+  - name: images-public
+  - name: settings-admin
+  - name: settings-public
+  - name: users-admin
+  - name: users-public
+  - name: exports-admin
+  - name: invoices-admin
+  - name: userscommunications-admin
+paths:
+  /v1/public/products:
+    get:
+      summary: Get products
+      description: Get all product
+      tags:
+      - products-public
+      parameters:
+      - $ref: "#/components/parameters/CategoryAlias"
+      - $ref: "#/components/parameters/ProductsSearch"
+      - $ref: "#/components/parameters/ProductsCodes"
+      - $ref: "#/components/parameters/Offset"
+      - $ref: "#/components/parameters/Limit"
+      - name: type
+        in: query
+        description: Return specific products.
+        schema:
+          type: string
+          enum:
+            - new
+            - discount
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductsPublicResponse'
+
+  /v1/public/products/{productCode}:
+    get:
+      summary: Get product
+      description: Get product by using product code
+      tags:
+      - products-public
+      parameters:
+      - $ref: "#/components/parameters/ProductCode"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductPublicResponse'
+
+  /v1/admin/products:
+    get:
+      summary: Get products
+      description: Get all products
+      tags:
+      - products-admin
+      parameters:
+      - $ref: "#/components/parameters/CategoryIds"
+      - $ref: "#/components/parameters/ProductsSearch"
+      - $ref: "#/components/parameters/Offset"
+      - $ref: "#/components/parameters/Limit"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductsAdminResponse'
+    post:
+      summary: Create product
+      description: Create one product
+      tags:
+      - products-admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostProductAdminRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductAdminResponse'
+
+  /v1/admin/products/{productCode}:
+    get:
+      summary: Get product by its id
+      description: Get product by using product id
+      tags:
+      - products-admin
+      parameters:
+      - $ref: "#/components/parameters/ProductCode"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductAdminResponse'
+    put:
+      summary: Update product by its id
+      description: Update one product by using product Id
+      tags:
+      - products-admin
+      parameters:
+      - $ref: "#/components/parameters/ProductCode"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutProductAdminRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductAdminResponse'
+    delete:
+      summary: Delete product by its id
+      description: Delete one product by using product Id
+      tags:
+      - products-admin
+      parameters:
+      - $ref: "#/components/parameters/ProductCode"
+      responses:
+        '200':
+          description: Successful operation
+
+  /v1/admin/products/{productCode}/publish:
+    put:
+      summary: Publish draft version to live
+      description: Get product by using product id
+      tags:
+      - products-admin
+      parameters:
+      - $ref: "#/components/parameters/ProductCode"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductAdminResponse'
+
+  /v1/public/orders:
+    post:
+      summary: Create order
+      description: Create one order
+      tags:
+      - orders-public
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostOrderPublicRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostOrderPublicResponse'
+
+  /v1/public/users/{userId}/orders:
+    get:
+      summary: Get orders of current
+      description: Get orders of current
+      tags:
+      - orders-public
+      parameters:
+      - $ref: '#/components/parameters/Offset'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: "#/components/parameters/UserId"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrdersPublicResponse'
+
+  /v1/admin/orders:
+    get:
+      summary: Get orders
+      description: Get all orders
+      tags:
+      - orders-admin
+      parameters:
+      - $ref: '#/components/parameters/Offset'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/OrderNumberQuery'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrdersAdminResponse'
+    post:
+      summary: Create orders
+      description: Create one order
+      tags:
+      - orders-admin
+      requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostOrderAdminRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrderAdminResponse'
+
+  /v1/admin/orders/{orderNumber}/publish:
+    put:
+      summary: Publish orders
+      description: Create one order
+      tags:
+      - orders-admin
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revision: 
+                    type: integer
+                    minimum: 1
+      parameters:
+      - $ref: "#/components/parameters/OrderNumber"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrderAdminResponse'
+
+  /v1/admin/orders/{orderNumber}/confirm:
+    put:
+      summary: Confirm orders
+      description: Configrm order
+      tags:
+      - orders-admin
+      parameters:
+      - $ref: "#/components/parameters/OrderNumber"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrderAdminResponse'
+
+  /v1/admin/orders/{orderNumber}:
+    get:
+      summary: Get order by its id
+      description: Get one order by using order id
+      tags:
+      - orders-admin
+      parameters:
+      - $ref: "#/components/parameters/OrderNumber"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrderAdminResponse'
+    put:
+      summary: Update order by its id
+      description: Update one order by using order id
+      tags:
+      - orders-admin
+      parameters:
+      - $ref: "#/components/parameters/OrderNumber"
+      requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PutOrderAdminRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrderAdminResponse'
+
+    delete:
+      summary: Delete order by its id
+      description: Delete one order by using order id
+      tags:
+      - orders-admin
+      parameters:
+      - $ref: "#/components/parameters/OrderNumber"
+      responses:
+        '200':
+          description: Successful operation
+
+  /v1/public/auth/login#basic:
+    post:
+      summary: Create token
+      description: Create token by using login and password or refresh token.
+      tags:
+      - auth-public
+      requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostAuthBasicLoginPublicRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAuthLoginPublicResponse'
+
+  /v1/public/auth/login#refreshToken:
+    post:
+      summary: Create token
+      description: Create token by using login and password or refresh token.
+      tags:
+      - auth-public
+      requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostAuthRefreshTokenLoginPublicRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAuthLoginPublicResponse'
+
+  /v1/public/auth/signup:
+    post:
+      summary: Create user
+      tags:
+      - auth-public
+      requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignupUserPublicRequest'
+      responses:
+        '200':
+          description: Successful operation
+
+  /v1/public/categories:
+    get:
+      summary: Get main categories
+      description: Get categories without children
+      tags:
+      - categories-public
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPublicCategoriesResponse'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+
+  /v1/public/categories/{alias}/children:
+    get:
+      summary: Get category children
+      description: Get children of category by using alias of category
+      tags:
+      - categories-public
+      parameters:
+        - $ref: '#/components/parameters/Alias'
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPublicCategoriesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+
+  /v1/public/categories/{alias}:
+    get:
+      summary: Get category
+      description: Get one category
+      tags:
+      - categories-public
+      parameters:
+        - $ref: '#/components/parameters/Alias'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPublicCategoryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+
+  /v1/admin/categories:
+    get:
+      summary: Get categories
+      description: Get all categories
+      tags:
+      - categories-admin
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/CategoryIds'
+        - $ref: '#/components/parameters/CategoryName'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAdminCategoriesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+
+    post:
+      summary: Create category
+      description: Create one category by using its id
+      tags:
+      - categories-admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostAdminCategoryRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAdminCategoryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          $ref: '#/components/responses/ResourceAlreadyExists'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+
+  /v1/admin/categories/{categoryId}:
+
+    put:
+      summary: Update category
+      description: Update one category by using its id
+      tags:
+      - categories-admin
+      parameters:
+        - $ref: '#/components/parameters/CategoryId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAdminCategoryRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAdminCategoryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+    get:
+      summary: Get category
+      description: Get all category
+      tags:
+      - categories-admin
+      parameters:
+        - $ref: '#/components/parameters/CategoryId'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAdminCategoryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+
+    delete:
+      summary: Delete category
+      description: Delete one category by using its id
+      tags:
+      - categories-admin
+      parameters:
+        - $ref: '#/components/parameters/CategoryId'
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '504':
+          $ref: '#/components/responses/GatewayTimeout'
+
+  /v1/public/images/{imageName}:
+    get:
+      summary: Get image
+      description: The resource give you ability to create or update image.
+      tags:
+      - images-public
+      parameters:
+      - name: imageName
+        in: path
+        required: true
+        schema:
+          type: string
+          example: someImageName
+      responses:
+        '200':
+          description: Successful operation
+
+  /v1/public/settings/discounts:
+    get:
+      summary: Get publicDiscounts setting
+      tags:
+      - settings-public
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        discount:
+                          type: integer
+                        price:
+                          type: string
+
+  /v1/public/settings/headerImageAd:
+    get:
+      summary: Get headerImageAd setting
+      tags:
+      - settings-public
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        imageName:
+                          type: string
+
+  /v1/public/settings/headerImageSchedule:
+    get:
+      summary: Get headerImageSchedule setting
+      tags:
+      - settings-public
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        imageName:
+                          type: string
+
+  /v1/public/settings/homeFirstBannersAd:
+    get:
+      summary: Get homeFirstBannersAd setting
+      tags:
+      - settings-public
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        imageName:
+                          type: string
+
+  /v1/public/settings/homeSecondBannersAd:
+    get:
+      summary: Get homeSecondBannersAd setting
+      tags:
+      - settings-public
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        imageName:
+                          type: string
+
+  /v1/public/settings/companyEmail:
+    get:
+      summary: Get companyEmail setting
+      tags:
+      - settings-public
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyEmail:
+                    type: string
+                    example: someEmail@gmail.com
+
+  /v1/public/settings/companyPhoneVodafone:
+    get:
+      summary: Get companyPhoneVodafone setting
+      tags:
+      - settings-public
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyPhoneVodafone:
+                    type: string
+                    example: "3801231233232"
+
+  /v1/public/settings/companyPhoneKyivstar:
+    get:
+      summary: Get companyPhoneKyivstar setting
+      tags:
+      - settings-public
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyPhoneKyivstar:
+                    type: string
+                    example: "3801231233232"
+
+  /v1/public/settings/companyPhoneLifecell:
+    get:
+      summary: Get companyPhoneLifecell setting
+      tags:
+      - settings-public
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyPhoneLifecell:
+                    type: string
+                    example: "3801231233232"
+
+  /v1/public/settings/communicationMethods:
+    get:
+      summary: Get communicationMethods setting
+      tags:
+      - settings-public
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  communicationMethods:
+                    type: array
+                    items:
+                      type: string
+
+  /v1/public/settings/paymentMethods:
+    get:
+      summary: Get paymentMethods setting
+      tags:
+      - settings-public
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  paymentMethods:
+                    type: array
+                    items:
+                      type: string
+
+  /v1/admin/settings/discounts:
+    get:
+      summary: Get publicDiscounts setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        discount:
+                          type: integer
+                        price:
+                          type: string
+    put:
+      summary: Get publicDiscounts setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        discount:
+                          type: integer
+                        price:
+                          type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        discount:
+                          type: integer
+                        price:
+                          type: string
+
+  /v1/admin/settings/headerImageAd:
+    get:
+      summary: Get headerImageAd setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        imageName:
+                          type: string
+    put:
+      summary: Get headerImageAd setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        image:
+                          type: object
+                          properties:
+                            imageName:
+                              description: Image name. Max length name of file 150 chars.
+                            imageSource:
+                              format: binary
+                              description: Base 64 encoded file of image. Max length of file 100MB. If null, image will be deleted
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        imageName:
+                          type: string
+
+  /v1/admin/settings/headerImageSchedule:
+    get:
+      summary: Get headerImageSchedule setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        imageName:
+                          type: string
+    put:
+      summary: Get headerImageSchedule setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        image:
+                          type: object
+                          properties:
+                            imageName:
+                              description: Image name. Max length name of file 150 chars.
+                            imageSource:
+                              format: binary
+                              description: Base 64 encoded file of image. Max length of file 100MB. If null, image will be deleted
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        imageName:
+                          type: string
+
+  /v1/admin/settings/homeFirstBannersAd:
+    get:
+      summary: Get homeFirstBannersAd setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        imageName:
+                          type: string
+    put:
+      summary: Get homeFirstBannersAd setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        image:
+                          type: object
+                          properties:
+                            imageName:
+                              description: Image name. Max length name of file 150 chars.
+                            imageSource:
+                              format: binary
+                              description: Base 64 encoded file of image. Max length of file 100MB. If null, image will be deleted
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        imageName:
+                          type: string
+
+  /v1/admin/settings/homeSecondBannersAd:
+    get:
+      summary: Get homeSecondBannersAd setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        imageName:
+                          type: string
+    put:
+      summary: Get homeSecondBannersAd setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        image:
+                          type: object
+                          properties:
+                            imageName:
+                              description: Image name. Max length name of file 150 chars.
+                            imageSource:
+                              format: binary
+                              description: Base 64 encoded file of image. Max length of file 100MB. If null, image will be deleted
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        route:
+                          type: string
+                        imageName:
+                          type: string
+
+  /v1/admin/settings/currency:
+    get:
+      summary: Get currency setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currency:
+                    type: number
+                    example: "123.2"
+    put:
+      summary: Get currency setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currency:
+                    type: number
+                    example: "123.2"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currency:
+                    type: number
+                    example: "123.2"
+
+  /v1/admin/settings/companyEmail:
+    get:
+      summary: Get companyEmail setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyEmail:
+                    type: string
+                    example: "someEmail@gmail.com"
+    put:
+      summary: Get companyEmail setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyEmail:
+                    type: string
+                    example: "someEmail@gmail.com"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyEmail:
+                    type: string
+                    example: "someEmail@gmail.com"
+
+  /v1/admin/settings/companyPhoneVodafone:
+    get:
+      summary: Get companyPhoneVodafone setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyPhoneVodafone:
+                    type: string
+                    example: "3801231233232"
+    put:
+      summary: Get companyPhoneVodafone setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyPhoneVodafone:
+                    type: string
+                    example: "3801231233232"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyPhoneVodafone:
+                    type: string
+                    example: "3801231233232"
+
+  /v1/admin/settings/companyPhoneKyivstar:
+    get:
+      summary: Get companyPhoneKyivstar setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyPhoneKyivstar:
+                    type: string
+                    example: "3801231233232"
+    put:
+      summary: Get companyPhoneKyivstar setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyPhoneKyivstar:
+                    type: string
+                    example: "3801231233232"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyPhoneKyivstar:
+                    type: string
+                    example: "3801231233232"
+
+  /v1/admin/settings/companyPhoneLifecell:
+    get:
+      summary: Get companyPhoneLifecell setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyPhoneLifecell:
+                    type: string
+                    example: "3801231233232"
+    put:
+      summary: Get companyPhoneLifecell setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyPhoneLifecell:
+                    type: string
+                    example: "3801231233232"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyPhoneLifecell:
+                    type: string
+                    example: "3801231233232"
+
+  /v1/admin/settings/communicationMethods:
+    get:
+      summary: Get communicationMethods setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  communicationMethods:
+                    type: array
+                    items:
+                      type: string
+    put:
+      summary: Get communicationMethods setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  communicationMethods:
+                    type: array
+                    items:
+                      type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  communicationMethods:
+                    type: array
+                    items:
+                      type: string
+
+  /v1/admin/settings/paymentMethods:
+    get:
+      summary: Get paymentMethods setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  paymentMethods:
+                    type: array
+                    items:
+                      type: string
+    put:
+      summary: Get paymentMethods setting
+      description: Get one setting
+      tags:
+      - settings-admin
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  paymentMethods:
+                    type: array
+                    items:
+                      type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  paymentMethods:
+                    type: array
+                    items:
+                      type: string
+
+  /v1/admin/users:
+    get:
+      summary: Get users
+      description: Get all users
+      tags:
+      - users-admin
+      parameters:
+      - $ref: "#/components/parameters/Offset"
+      - $ref: "#/components/parameters/Limit"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUsersAdminRespnse'
+    post:
+      summary: Create user
+      description: Create User
+      tags:
+      - users-admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostUserAdminRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserAdminRespnse'
+
+  /v1/admin/users/{userId}:
+    get:
+      summary: Get user
+      description: Get user by id
+      tags:
+      - users-admin
+      parameters:
+      - $ref: "#/components/parameters/UserId"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserAdminRespnse'
+    put:
+      summary: Update user
+      description: Update user by id
+      tags:
+      - users-admin
+      parameters:
+      - $ref: "#/components/parameters/UserId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutUserAdminRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserAdminRespnse'
+    delete:
+      summary: Delete user
+      description: Delete user by id
+      tags:
+      - users-admin
+      parameters:
+      - $ref: "#/components/parameters/UserId"
+      responses:
+        '200':
+          description: Successful operation
+
+  /v1/public/users/{userId}:
+    get:
+      summary: Get current user
+      description: Get current user
+      tags:
+      - users-public
+      parameters:
+      - $ref: "#/components/parameters/UserId"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserPublicResponse'
+
+  /v1/public/users/passwords#startChangePassword:
+    put:
+      summary: Start change password
+      description: Send email to user with link to change user password 
+      tags:
+      - users-public
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutStartChangePasswordPublicRequest'
+      responses:
+        '202':
+          description: Successful operation
+
+  /v1/public/users/passwords#endChangePassword:
+    put:
+      summary: End change password
+      description: Change user password
+      tags:
+      - users-public
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutEndChangePasswordPublicRequest'
+      responses:
+        '204':
+          description: Successful operation
+
+  /v1/admin/exports/{exportName}/orders/{orderNumber}:
+    get:
+      summary: Get order export
+      tags:
+      - exports-admin
+      parameters:
+      - $ref: "#/components/parameters/OrderNumber"
+      - $ref: "#/components/parameters/ExportName"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/pdf:
+              schema:
+                $ref: "#/components/schemas/BaseAdminExportResponse"
+
+  /v1/admin/categories/sort:
+    put:
+      summary: sort categories
+      tags:
+      - categories-admin
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  categories:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        categoryId: 
+                          type: string
+                          description: Must be a valida GUID
+                        sortNumber:
+                          type: integer
+      responses:
+        '200':
+          description: Successful operation
+
+  /v1/admin/categories/{categoryId}/products/sort:
+    put:
+      summary: sort products
+      tags:
+      - products-admin
+      parameters:
+      - $ref: "#/components/parameters/CategoryId"
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        productCode: 
+                          type: string
+                          description: Must be a valida product code
+                        sortNumber:
+                          type: integer
+      responses:
+        '200':
+          description: Successful operation
+
+  /v1/admin/userscommunications/userOrder:
+    post:
+      summary: Send order to user
+      tags:
+      - userscommunications-admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                orderId:
+                  type: string
+                  description: ID of order. Must be a GUID
+      responses:
+        '200':
+          description: Successful operation
+
+  /v1/admin/invoices:
+    get:
+      summary: Get incoming invoices
+      description: Get all incoming invoices
+      tags:
+      - invoices-admin
+      parameters:
+      - $ref: "#/components/parameters/Offset"
+      - $ref: "#/components/parameters/Limit"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetInvoicesAdminResponse'
+    post:
+      summary: Create product
+      description: Create one product
+      tags:
+      - invoices-admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostInvoiceAdminRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetInvoiceAdminResponse'
+
+  /v1/admin/invoices/{invoiceId}:
+    get:
+      summary: Get invoice by its id
+      description: Get invoice by using invoice id
+      tags:
+      - invoices-admin
+      parameters:
+      - $ref: "#/components/parameters/InvoiceId"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetInvoiceAdminResponse'
+    put:
+      summary: Update invoice by its id
+      description: Update one invoice by using invoice Id
+      tags:
+      - invoices-admin
+      parameters:
+      - $ref: "#/components/parameters/InvoiceId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInvoiceAdminRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetInvoiceAdminResponse'
+    delete:
+      summary: Update invoice by its id
+      description: Update one invoice by using invoice Id
+      tags:
+      - invoices-admin
+      parameters:
+      - $ref: "#/components/parameters/InvoiceId"
+      responses:
+        '200':
+          description: Successful operation
+
+  /v1/admin/invoices/{invoiceId}/publish:
+    put:
+      summary: Publish changes from draft to live version
+      description: Update one invoice by using invoice Id
+      tags:
+      - invoices-admin
+      parameters:
+      - $ref: "#/components/parameters/InvoiceId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInvoiceAdminRequest'
+      responses:
+        '200':
+          description: Successful operation
+
+  /v1/admin/invoices/{invoiceId}/confirm:
+    put:
+      summary: Confirm invoice.
+      description: Confirm invoice. After coinfirm you cannot change invoice
+      tags:
+      - invoices-admin
+      parameters:
+      - $ref: "#/components/parameters/InvoiceId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInvoiceAdminRequest'
+      responses:
+        '200':
+          description: Successful operation
+components:
+  schemas:
+
+    PostAuthBasicLoginPublicRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email of user
+        password:
+          type: string
+          description: password of user
+        rememberMe:
+          type: boolean
+          description: return remember token or not
+
+    PostAuthRefreshTokenLoginPublicRequest:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+          description: refresh token
+        rememberMe:
+          type: boolean
+          description: return remember token or not
+
+    BaseAdminExportResponse:
+      type: object
+      properties:
+        fileContents: 
+          type: string
+          description: Export file that contains data. Encoded as base64
+        contentType: 
+          type: string
+          description: type of file
+        fileDownloadName: 
+          type: string
+          description: name of file
+        lastModified: 
+          type: string
+          description: latest date of update of file (can be null)
+        entityTag: 
+          type: string
+          description: tag of file (can be null)
+        enableRangeProcessing: 
+          type: boolean
+          description: Is range processing enabled or not
+
+    GetPublicCategoriesResponse:
+      type: object
+      properties:
+        categories:
+          type: array
+          description: List of categories
+          items:
+            $ref: '#/components/schemas/GetPublicCategoryResponse'
+
+    GetPublicCategoryResponse:
+      type: object
+      properties:
+        categoryAlias:
+          type: string
+          default: someAlias
+          description: Unique alias of category.
+        imageName:
+          type: string
+          description: Image url. Can be null
+        categoryName:
+          type: string
+          default: someName
+          description: Human readable category name
+        hasChildren:
+          type: boolean
+          default: false
+          description: Category has children or not
+
+    GetAdminCategoriesResponse:
+      type: object
+      properties:
+        categories:
+          type: array
+          description: List of categories
+          items:
+            $ref: '#/components/schemas/GetAdminCategoryResponse'
+
+    GetAdminCategoryResponse:
+      type: object
+      properties:
+        categoryId:
+          type: string
+          default: 00000000-0000-0000-0000-000000000000
+          description: Uniq id of category
+        categoryAlias:
+          type: string
+          default: someAlias
+          description: Unique alias of category.
+        imageName:
+          type: string
+          description: Url image. Can be null
+        categoryName:
+          type: string
+          default: someCategoryName
+          description: Human readable category name
+        parentId:
+          type: string
+          default: 00000000-0000-0000-0000-000000000000
+          description: Identifier of parent of this category
+
+    PostAdminCategoryRequest:
+      type: object
+      properties:
+        categoryAlias:
+          type: string
+          default: someAlias
+          description: Unique alias of category. This filed is not required. If filed is not specified than new alias will be generated. Maximum chars are 200
+        categoryName:
+          type: string
+          default: someCategoryName
+          description: Human readable category name. Must not be empty. Maximum chars are 100
+        parentId:
+          type: string
+          default: 00000000-0000-0000-0000-000000000000
+          description: Identifier of parent of this category. Must be valid GUID
+        image: 
+          type: object
+          properties:
+            imageName:
+              description: Image name. Max length name of file 150 chars.
+            imageSource:
+              format: binary
+              description: Base 64 encoded file of image. Max length of file 100MB.
+
+    UpdateAdminCategoryRequest:
+      type: object
+      properties:
+        categoryAlias:
+          type: string
+          default: someAlias
+          description: Unique alias of category. This filed is not required. If filed is not specified than new alias will be generated. Maximum chars are 200
+        categoryName:
+          type: string
+          default: someCategoryName
+          description: Human readable category name. Must not be empty. Maximum chars are 100
+        parentId:
+          type: string
+          default: 00000000-0000-0000-0000-000000000000
+          description: Identifier of parent of this category. Must be valid GUID and category with this guid must exist.
+        image: 
+          type: object
+          properties:
+            imageName:
+              description: Image name. Max length name of file 150 chars.
+            imageSource:
+              format: binary
+              description: Base 64 encoded file of image. Max length of file 100MB. If null, image will be deleted
+
+    GetAuthLoginPublicResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT token that contain infromation about user
+        expiredAt:
+          type: string
+          description: Time when token will be expired
+        refreshToken:
+          type: string
+          description: token for refreshing token for session. Can be null
+        refreshTokenExpiredAt:
+          type: string
+          description: Time when refresh token will be expired
+
+    PostOrderPublicRequest:
+      type: object
+      properties:
+        orderProducts:
+          type: array
+          description: Products contained in order
+          items:
+            type: object
+            properties:
+              productCode:
+                type: string
+                description: Uniq code of product. Must be following structure XXXX-XXX(C/M/B)
+                pattern: ^\d{4}-?\d{0,4}[C,M,B]?$
+                example: 0000-000C
+              productPackagesSizes:
+                type: object 
+                description: at least one package should have productAmount bigger than 
+                properties:
+                  big:
+                    type: object
+                    properties:
+                      productAmount:
+                        type: number
+                        description: Numer of product in order
+                  mid:
+                    type: object
+                    properties:
+                      productAmount:
+                        type: number
+                        description: Numer of product in order.
+                  small:
+                    type: object
+                    properties:
+                      productAmount:
+                        type: number
+                        description: Numer of product in order. 
+        postOffice:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Name of post office. Max length is 200
+              maximum: 200
+            area:
+              type: string
+              description: Area where post office is placed. Max length is 200
+              maximum: 200
+            city:
+              type: string
+              description: City where post office is placed. Max length is 200
+              maximum: 200
+            office:
+              type: string
+              description: Address of postOffice or its number. Max length is 200
+              maximum: 200
+        customer:
+          type: object
+          properties:
+            phone:
+              type: string
+              description: Phone of customer. Must be valid phone number
+            email:
+              type: string
+              description: Email of customer. Must be valid email. Can be null. Should be valid email
+            firstName:
+              type: string
+              description: first name of customer. Max length is 200
+            secondName:
+              type: string
+              description: second name of customer. Max length is 200
+        recipient:
+          type: object
+          properties:
+            phone:
+              type: string
+              description: Phone of customer. Must be valid phone number
+            firstName:
+              type: string
+              description: first name of customer. Max length is 200
+            secondName:
+              type: string
+              description: second name of customer. Max length is 200
+        communicationMethod:
+          type: string
+          description: Communication method. Max length is 30
+        paymentMethod:
+          type: string
+          description: payment method. Max length is 30
+        cartId:
+          type: string
+          description: id of current cart of user. It needs for deny repeating orders
+        customerMessage:
+          type: string
+          description: message from client. Max length is 2000
+
+    PostOrderPublicResponse:
+      type: object
+      properties:
+        orderNumber:
+          type: number
+          description: Uniq number of order
+
+    GetOrdersPublicResponse:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+           $ref: "#/components/schemas/GetOrderPublicResponse"
+
+    GetOrderPublicResponse:
+      type: object
+      properties:
+        orderNumber:
+          type: number
+          description:  Uniq number of order
+        orderProducts:
+          type: array
+          description: Products contained in order
+          items:
+            type: object
+            properties:
+              productName:
+                type: string
+                description: Readable for human name of product
+              productCode:
+                type: string
+                description: Uniq code for product
+                example: 0000-000
+              productMetric:
+                type: string
+                description: Unit of measurement for thi sproduct
+              imageNames:
+                type: array
+                description: List of names of product's images
+                items:
+                  type: string
+              productCountry:
+                type: string
+                description: The country where it was created
+              productPackagesSizes:
+                type: object
+                properties:
+                  big:
+                    type: object
+                    properties:
+                      productAmount: 
+                        type: number
+                        description: Numer of product in order. Min value is 1
+                      productPackagePrice:
+                        type: number
+                        description: Price of one package
+                      productAuction:
+                        type: boolean
+                        description: Discounts inluent to the product or not
+                  mid:
+                    type: object
+                    properties:
+                      productAmount: 
+                        type: number
+                        description: Numer of product in order. Min value is 1
+                      productPackagePrice:
+                        type: number
+                        description: Price of one package
+                      productAuction:
+                        type: boolean
+                        description: Discounts inluent to the product or not
+                  small:
+                    type: object
+                    properties:
+                      productAmount: 
+                        type: number
+                        description: Numer of product in order. Min value is 1
+                      productPackagePrice:
+                        type: number
+                        description: Price of one package
+                      productAuction:
+                        type: boolean
+                        description: Discounts inluent to the product or not
+        totalSumOfProducts:
+          type: number
+          description:  Sum of all products with discount
+        discount:
+          type: number
+          description:  Discount of order
+
+
+    GetOrdersAdminResponse:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+           $ref: "#/components/schemas/GetOrderAdminResponse"
+
+    GetOrderAdminResponse:
+      type: object
+      properties:
+        live:
+           $ref: "#/components/schemas/OrderAdminResponse"
+        draft:
+           $ref: "#/components/schemas/OrderAdminResponse"
+
+    OrderAdminResponse:
+      type: object
+      properties:
+        orderNumber:
+          type: number
+          description:  Uniq number of order
+        orderProducts:
+          type: array
+          description: Products contained in order
+          items:
+            type: object
+            properties:
+              productName:
+                type: string
+                description: Readable for human name of product
+              productCode:
+                type: string
+                description: Uniq code for product
+                example: 0000-000
+              imageNames:
+                type: array
+                description: List of names of product's images
+                items:
+                  type: string
+              productAuction:
+                type: boolean
+                description: Discounts inluent to the product or not
+              productPackagesSizes:
+                type: object
+                properties:
+                  big:
+                    type: object
+                    properties:
+                      productPrice: 
+                        type: number
+                        description: Price of one unit of product
+                      productCountInPackage:
+                        type: number
+                        description: Total count of product in one package
+                      productPackagePrice:
+                        type: number
+                        description: Price of one package
+                      productAuction:
+                        type: boolean
+                        description: Discounts inluent to the product or not
+                      productAmount: 
+                        type: number
+                        description: Numer of product in order. Min value is 1
+                  mid:
+                    type: object
+                    properties:
+                      productPrice: 
+                        type: number
+                        description: Price of one unit of product
+                      productCountInPackage:
+                        type: number
+                        description: Total count of product in one package
+                      productPackagePrice:
+                        type: number
+                        description: Price of one package
+                      productAuction:
+                        type: boolean
+                        description: Discounts inluent to the product or not
+                      productAmount: 
+                        type: number
+                        description: Numer of product in order. Min value is 1
+                  small:
+                    type: object
+                    properties:
+                      productPrice: 
+                        type: number
+                        description: Price of one unit of product
+                      productCountInPackage:
+                        type: number
+                        description: Total count of product in one package
+                      productPackagePrice:
+                        type: number
+                        description: Price of one package
+                      productAuction:
+                        type: boolean
+                        description: Discounts inluent to the product or not
+                      productAmount: 
+                        type: number
+                        description: Numer of product in order. Min value is 1
+        postOffice:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Name of post office
+            area:
+              type: string
+              description: Area where post office is placed
+            city:
+              type: string
+              description: City where post office is placed
+            office:
+              type: string
+              description: Address of postOffice or its number
+        customer:
+          type: object
+          properties:
+            phone:
+              type: string
+              description: Phone of customer. Must be valid phone number
+            email:
+              type: string
+              description: Phone of customer. Must be valid email. Can be null
+            firstName:
+              type: string
+              description: first name of customer
+            secondName:
+              type: string
+              description: second name of customer
+        recipient:
+          type: object
+          properties:
+            phone:
+              type: string
+              description: Phone of customer. Must be valid phone number
+            firstName:
+              type: string
+              description: first name of customer
+            secondName:
+              type: string
+              description: second name of customer
+        communicationMethod:
+          type: string
+          description: Communication method
+        paymentMethod:
+          type: string
+          description: payment method
+        customerMessage:
+          type: string
+          description: message from client
+        revision:
+          type: number
+          description: revision of order
+        discount:
+          type: number
+          description: discount of order
+        status:
+          type: string
+          enum:
+          - confirmed
+          - pending
+          description: stage of order
+
+    PostOrderAdminRequest:
+      type: object
+      properties:
+        orderProducts:
+          type: array
+          description: Products contained in order
+          items:
+            type: object
+            properties:
+              productCode:
+                type: string
+                description: Uniq code of product. Must be following structure XXXX-XXXX
+                pattern: ^\d{4}-?\d{3}[S,M,B]?$
+                example: 0000-000M
+              productPackagesSizes:
+                type: object 
+                description: at least one package should have productAmount bigger than 
+                properties:
+                  big:
+                    type: object
+                    properties:
+                      productAmount:
+                        type: number
+                        description: Numer of product in order
+                  mid:
+                    type: object
+                    properties:
+                      productAmount:
+                        type: number
+                        description: Numer of product in order.
+                  small:
+                    type: object
+                    properties:
+                      productAmount:
+                        type: number
+                        description: Numer of product in order. 
+        postOffice:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Name of post office. Max length is 200
+            area:
+              type: string
+              description: Area where post office is placed. Max length is 200
+            city:
+              type: string
+              description: City where post office is placed. Max length is 200
+            office:
+              type: string
+              description: Address of postOffice or its number. Max length is 200
+        customer:
+          type: object
+          properties:
+            phone:
+              type: string
+              description: Phone of customer. Must be valid phone number
+            email:
+              type: string
+              description: Email of customer. Must be valid email. Can be null
+              example: example@exmp.com
+            firstName:
+              type: string
+              description: first name of customer. Max length is 200
+            secondName:
+              type: string
+              description: second name of customer. Max length is 200
+        recipient:
+          type: object
+          properties:
+            phone:
+              type: string
+              description: Phone of customer. Must be valid phone number
+            firstName:
+              type: string
+              description: first name of customer. Max length is 200
+            secondName:
+              type: string
+              description: second name of customer. Max length is 200
+        communicationMethod:
+          type: string
+          description: Communication method. Max length is 30
+        paymentMethod:
+          type: string
+          description: payment method. Max length is 30
+        customerMessage:
+          type: string
+          description: message from client. Max length is 2000
+        discount:
+          type: number
+          description: revision of order
+
+    PutOrderAdminRequest:
+      allOf:
+      - $ref: "#/components/schemas/PostOrderAdminRequest"
+      - type: object
+        properties:
+          revision:
+            type: number
+            description: revision of order
+
+    GetProductsPublicResponse:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/GetProductPublicResponse"
+
+    GetProductPublicResponse:
+      type: object
+      properties:
+        productName:
+          type: string
+          description: Readable for human name of product
+        productCode:
+          type: string
+          description: Uniq code for product
+          example: 0000-000
+        productMetric:
+          type: string
+          description: Unit of measurement for thi sproduct
+        imageNames:
+          type: array
+          description: List of names of product's images
+          items:
+            type: string
+        productCountry:
+          type: string
+          description: The country where it was created
+        productPackagesSizes:
+          type: object
+          properties:
+            big:
+              $ref: "#/components/schemas/PackageSizePublicResponse"
+            mid:
+              $ref: "#/components/schemas/PackageSizePublicResponse"
+            small:
+              $ref: "#/components/schemas/PackageSizePublicResponse"
+
+    PackageSizePublicResponse:
+      type: object
+      description: Can be null if size is hidden 
+      properties:
+        displayPackageCount:
+          type: string
+          description: string that represented number of packages. Can be bigger than some number or less than some number
+          example: "> 100"
+        productPrice: 
+          type: number
+          description: Price of one unit of product
+        productCountInPackage:
+          type: number
+          description: Total count of product in one package
+        productPackagePrice:
+          type: number
+          description: Price of one package
+        productAuction:
+          type: boolean
+          description: Discounts inluent to the product or not
+
+    GetProductsAdminResponse:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/GetProductAdminResponse"
+
+    ProductAdminResponse:
+      type: object
+      properties:
+        productName:
+          type: string
+          description: Readable for human name of product
+        productCode:
+          type: string
+          description: Uniq code for product
+          example: 0000-000
+        categoryIds:
+          type: array
+          description: Categories that contain the product
+          items:
+            type: string
+            example: someCategoryId
+        productPrice:
+          type: number
+          description: Price of the product.
+        productMetric:
+          type: string
+          description: Unit of measurement for thi sproduct
+        imagesNames:
+          type: array
+          description: List of names of product's images
+          items:
+            type: string
+        productCountry:
+          type: string
+          description: The country where it was created
+        productArticul:
+          type: string
+          description: Some info abouit product
+        productPackagesSizes:
+          type: object
+          properties: 
+            big:
+              $ref: "#/components/schemas/PackageSizeAdminResponse"
+            mid:
+              $ref: "#/components/schemas/PackageSizeAdminResponse"
+            small:
+              $ref: "#/components/schemas/PackageSizeAdminResponse"
+        revision:
+          type: integer
+        status:
+          type: string
+
+    PackageSizeAdminResponse:
+      type: object
+      properties:
+        productCountInPackage:
+          type: number
+          description: Number of the product in one package.
+        productPriceCoefficient:
+          type: number
+          description: Coefficient that represent how product price will be change for this package
+        productAuction:
+          type: boolean
+          description: Discounts inluent to the product or not
+        productHidden:
+          type: boolean
+          description: Product is hidden or not
+        packageCount:
+          type: number
+          description: Number of the packages in storage
+        packageMinCount:
+          type: number
+          description: Min packages of product
+        storage:
+          type: string
+          description: Storage where product is stored
+
+    GetProductAdminResponse:
+      type: object
+      properties:
+        draft:
+          $ref: "#/components/schemas/ProductAdminResponse"
+        live:
+          $ref: "#/components/schemas/ProductAdminResponse"
+
+    PostProductAdminRequest:
+      type: object
+      properties:
+        productName:
+          type: string
+          description: Readable for human name of product. Max 200 chars.
+        productCode:
+          type: string
+          description: Uniq code for product
+          example: 0000-000
+        categoryIds:
+          type: array
+          description: Categories that contain the product
+          items:
+            type: string
+            example: someCategoryId
+        productPrice:
+          type: number
+          description: Cost of the product. Cost will have 4 number after comma
+          pattern: \d*\.\d{4}
+        productMetric:
+          type: string
+          description: Unit of measurement for this product. Max 30 chars
+        images:
+          type: array
+          description: List of images
+          items:
+            type: object
+            properties:
+              imageName:
+                description: Image name. Max length name of file 150 chars.
+              imageSource:
+                format: binary
+                description: Base 64 encoded file of image. Max length of file 100MB. If null, image will be deleted
+        productPackagesSizes:
+          type: object
+          properties:
+            big:
+              $ref: "#/components/schemas/PackageSizeAdminRequest"
+            mid:
+              $ref: "#/components/schemas/PackageSizeAdminRequest"
+            small:
+              $ref: "#/components/schemas/PackageSizeAdminRequest"
+        
+    PackageSizeAdminRequest:
+      type: object
+      properties:
+        productCountInPackage:
+          type: number
+          description: Number of the product in one package.
+          pattern: \d*\.\d{4}
+        productPriceCoefficient:
+          type: number
+          description: Coefficient that represent how product price will be change for this package
+          pattern: \d*\.\d{4}
+        productAuction:
+          type: boolean
+          description: Discounts inluent to the product or not
+        productHidden:
+          type: boolean
+          description: Product is hidden or not
+        packageCount:
+          type: number
+          description: Number of the packages in storage
+          pattern: \d*\.\d{4}
+        packageMinCount:
+          type: number
+          description: Min packages of product
+          pattern: \d*\.\d{4}
+        storage:
+          type: string
+          description: Storage where product is stored. Max chars 300
+
+    PutProductAdminRequest:
+      allOf:
+      - $ref: "#/components/schemas/PostProductAdminRequest"
+      - type: object
+        properties:
+          revision:
+              type: number
+              description: revision of product
+
+    GetSettingPublicRespnse:
+      type: object
+      properties:
+        settingValue:
+          type: string
+
+    GetSettingAdminRespnse:
+      type: object
+      properties:
+        settingKey:
+          type: string
+        settingValue:
+          type: string
+
+    PutSettingWithImageAdminRequest:
+      type: object
+      properties:
+        settingValue:
+          type: string
+        image:
+          type: object
+          properties:
+            imageName:
+              description: Image name. Max length name of file 150 chars.
+            imageSource:
+              format: binary
+              description: Base 64 encoded file of image. Max length of file 100MB. If null, image will be deleted
+
+    PutSettingAdminRequest:
+      type: object
+      properties:
+        settingValue:
+          type: string
+                
+    GetUsersAdminRespnse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: "#/components/schemas/GetUserAdminRespnse"
+
+    GetUserAdminRespnse:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Uniq user id
+        email:
+          type: string
+          description: Email of user
+        phone:
+          type: string
+          description: Phone of user
+        role:
+          type: string
+          description: Role of user
+        firstName:
+          type: string
+          description: FirstName of user
+        secondName:
+          type: string
+          description: SecondName of user
+
+    GetUserPublicResponse:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Uniq user id
+        email:
+          type: string
+          description: Email of user
+        role:
+          type: string
+          description: Role of user
+        firstName:
+          type: string
+          description: FirstName of user
+        secondName:
+          type: string
+          description: SecondName of user
+
+    PutStartChangePasswordPublicRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          description: change
+
+    PutEndChangePasswordPublicRequest:
+      type: object
+      properties:
+        token:
+          type: string
+          description: change
+        password:
+          type: string
+          description: change
+
+    SignupUserPublicRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Uniq email. Max length is 100
+        phone:
+          type: string
+          description: Uniq phone
+        password:
+          type: string
+          description: Password of user. Set as null to leave current password. Max length is 100
+        confirmPassword:
+          type: string
+          description: Password of user. Set as null to leave current password. Max length is 100
+        firstName:
+          type: string
+          description: First name of user. Max length is 200
+        secondName:
+          type: string
+          description: Second name of user. Max length is 200
+
+    PostUserAdminRequest:
+      allOf:
+      - $ref: "#/components/schemas/PutUserAdminRequest"
+      - type: object
+        properties:
+          userId:
+            type: string
+            description: Uniq user id
+        
+    PutUserAdminRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Uniq email. Max length is 100
+        phone:
+          type: string
+          description: Uniq phone. Max length is 10
+        password:
+          type: string
+          description: Password of user. Set as null to leave current password. Max length is 100
+        login:
+          type: string
+          description: Uniq login of user. Max length is 100
+        role:
+          type: string
+          description: role of user. Max length is 100
+        firstName:
+          type: string
+          description: First name of user. Max length is 200
+        secondName:
+          type: string
+          description: Second name of user. Max length is 200
+
+    GetInvoicesAdminResponse:
+      type: object
+      properties:
+        invoices:
+          type: array
+          items:
+            $ref: "#/components/schemas/GetInvoiceAdminResponse"
+
+
+    GetInvoiceAdminResponse:
+      type: object
+      properties:
+        draft:
+          $ref: "#/components/schemas/InvoiceAdminResponse" 
+        live:
+          $ref: "#/components/schemas/InvoiceAdminResponse" 
+
+    InvoiceAdminResponse:
+      type: object
+      properties:
+        invoiceId:
+          type: string
+          description: Unic ID of invoice
+        invoiceName:
+          type: string
+          description: Name of  invoice
+        invoiceDescription:
+          type: string
+          description: description of  invoice
+        revision:
+          type: string
+          description: version of product
+        state:
+          type: string
+          description: state of product. Can be following values confirm, 
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              productCode:
+                type: string
+                description: Code of product
+              productImage:
+                type: string
+                description: Image name of product
+              productName:
+                type: string
+                description: Name of product
+              productPackagesSizes:
+                type: object
+                description: Types of product packages
+                properties:
+                  small:
+                    type: object
+                    properties:
+                      packageAdd:
+                        type: number
+                        description: Count of packages that need to add product packages
+                      packageSub:
+                        type: number
+                        description: Count of packages that need to sub product packages
+                      packageCount:
+                        type: number
+                        description: Number of the packages in storage
+                        pattern: \d*\.\d{4}
+                      packagePrice:
+                        type: number
+                        description: Price of package
+                        pattern: \d*\.\d{4}
+                      packageMinCount:
+                        type: number
+                        description: Min packages of product
+                        pattern: \d*\.\d{4}
+                      storage:
+                        type: string
+                        enum:
+                        - confirmed
+                        - pending
+                        description: Change storage of package
+                      bigCodeCount: 
+                        type: number
+                        description: Count of big codes
+                  mid:
+                    type: object
+                    properties:
+                      packageAdd:
+                        type: number
+                        description: Count of packages that need to add product packages
+                      packageSub:
+                        type: number
+                        description: Count of packages that need to sub product packages
+                      packageCount:
+                        type: number
+                        description: Number of the packages in storage
+                        pattern: \d*\.\d{4}
+                      packagePrice:
+                        type: number
+                        description: Price of package
+                        pattern: \d*\.\d{4}
+                      packageMinCount:
+                        type: number
+                        description: Min packages of product
+                        pattern: \d*\.\d{4}
+                      storage:
+                        type: string
+                        enum:
+                        - confirmed
+                        - pending
+                        description: Change storage of package
+                      bigCodeCount: 
+                        type: number
+                        description: Count of big codes
+                  big:
+                    type: object
+                    properties:
+                      packageAdd:
+                        type: number
+                        description: Count of packages that need to add product packages
+                      packageSub:
+                        type: number
+                        description: Count of packages that need to sub product packages
+                      packageCount:
+                        type: number
+                        description: Number of the packages in storage
+                        pattern: \d*\.\d{4}
+                      packagePrice:
+                        type: number
+                        description: Price of package
+                        pattern: \d*\.\d{4}
+                      packageMinCount:
+                        type: number
+                        description: Min packages of product
+                        pattern: \d*\.\d{4}
+                      storage:
+                        type: string
+                        enum:
+                        - confirmed
+                        - pending
+                        description: Change storage of package
+                      bigCodeCount: 
+                        type: number
+                        description: Count of big codes
+    
+    PostInvoiceAdminRequest:
+      type: object
+      properties:
+        invoiceName:
+          type: string
+          description: Name of  invoice
+        invoiceDescription:
+          type: string
+          description: Description of  invoice
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              productCode:
+                type: string
+                description: Code of product
+              productPackagesSizes:
+                type: object
+                description: Types of product packages
+                properties:
+                  small:
+                    type: object
+                    properties:
+                      packageAdd:
+                        type: number
+                        description: Count of packages that need to add product packages
+                      packageSub:
+                        type: number
+                        description: Count of packages that need to sub product packages
+                      storage:
+                        type: string
+                        description: Change storage of package
+                      bigCodeCount: 
+                        type: number
+                        description: Count of big codes
+                  mid:
+                    type: object
+                    properties:
+                      packageAdd:
+                        type: number
+                        description: Count of packages that need to add product packages
+                      packageSub:
+                        type: number
+                        description: Count of packages that need to sub product packages
+                      storage:
+                        type: string
+                        description: Change storage of package
+                      bigCodeCount: 
+                        type: number
+                        description: Count of big codes
+                  big:
+                    type: object
+                    properties:
+                      packageAdd:
+                        type: number
+                        description: Count of packages that need to add product packages
+                      packageSub:
+                        type: number
+                        description: Count of packages that need to sub product packages
+                      storage:
+                        type: string
+                        description: Change storage of package
+                      bigCodeCount: 
+                        type: number
+                        description: Count of big codes
+    
+
+    UpdateInvoiceAdminRequest:
+      type: object
+      properties:
+        invoiceName:
+          type: string
+          description: Name of  invoice
+        invoiceDescription:
+          type: string
+          description: Description of  invoice
+        revision:
+          type: string
+          description: version of product
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              productCode:
+                type: string
+                description: Code of product
+              productPackagesSizes:
+                type: object
+                description: Types of product packages
+                properties:
+                  small:
+                    type: object
+                    properties:
+                      packageAdd:
+                        type: number
+                        description: Count of packages that need to add product packages
+                      packageSub:
+                        type: number
+                        description: Count of packages that need to sub product packages
+                      storage:
+                        type: string
+                        description: Change storage of package
+                      bigCodeCount: 
+                        type: number
+                        description: Count of big codes
+                  mid:
+                    type: object
+                    properties:
+                      packageAdd:
+                        type: number
+                        description: Count of packages that need to add product packages
+                      packageSub:
+                        type: number
+                        description: Count of packages that need to sub product packages
+                      storage:
+                        type: string
+                        description: Change storage of package
+                      bigCodeCount: 
+                        type: number
+                        description: Count of big codes
+                  big:
+                    type: object
+                    properties:
+                      packageAdd:
+                        type: number
+                        description: Count of packages that need to add product packages
+                      packageSub:
+                        type: number
+                        description: Count of packages that need to sub product packages
+                      storage:
+                        type: string
+                        description: Change storage of package
+                      bigCodeCount: 
+                        type: number
+                        description: Count of big codes
+    
+
+  parameters:
+
+    UserId:
+      name: userId
+      in: path
+      required: true
+      schema:
+        type: string
+
+    SettingKey:
+      name: settingKey
+      in: path
+      required: true
+      schema:
+        type: string
+
+    ProductCode:
+      name: productCode
+      in: path
+      description: Uniq product code.
+      required: true
+      schema:
+        type: string
+        example: 0000-000C
+
+    CategoryAlias:
+      name: categoryAlias
+      in: query
+      schema:
+        type: string
+        example: someCategoryId
+
+    ProductsCodes:
+      name: productsCodes
+      in: query
+      description: Products Codes separate by comma
+      schema:
+        type: string
+
+    ProductsSearch:
+      name: search
+      in: query
+      description: Products search by code and name
+      schema:
+        type: string
+        example: someCodeOrNameOfProduct
+
+    Alias:
+      name: alias
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Alias of category. Must not be empty. Maximum charaters are 200
+
+    CategoryId:
+      name: categoryId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Id of category. Must be valid GUID.
+
+    InvoiceId:
+      name: invoiceId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Id of invoice. Must be valid GUID. 
+
+    CategoryName:
+      name: categoryName
+      in: query
+      schema:
+        type: string
+      description: Filter by name. Max 100 chars
+
+    CategoryIds:
+      name: categoryIds
+      in: query
+      schema:
+        type: string
+      description: Filter by category ids. Must be comma separated guids
+
+    OrderNumber:
+      name: orderNumber
+      in: path
+      required: true
+      schema:
+        type: string
+      description: number of order
+
+    OrderNumberQuery:
+      name: orderNumber
+      in: query
+      required: false
+      schema:
+        type: string
+      description: number of order
+
+    ExportName:
+      name: exportName
+      in: path
+      required: true
+      schema:
+        type: string
+        enum: 
+        - zero
+        - products
+        - bill
+        - expenditure
+      description: name of export
+
+    CommunicatonName:
+      name: communicationName
+      in: path
+      required: true
+      schema:
+        type: string
+        enum: 
+        - sendOrder
+      description: name of export
+
+    Offset:
+      name: offset
+      in: query
+      example: 0
+      schema:
+        type: integer
+      description: Specify this parameter if you want to skip items. Default 0
+
+    Limit:
+      name: limit
+      in: query
+      example: 50
+      schema:
+        type: integer
+      description: restrict number of items in response. Default 50
+
+  responses:
+
+    BadRequest:
+      description: Request have invalid data
+
+    NotFound:
+      description: Resource not found
+
+    ResourceAlreadyExists:
+      description: Resource already exists
+
+    GatewayTimeout:
+      description: Unable connect to service
