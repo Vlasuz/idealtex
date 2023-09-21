@@ -1,7 +1,8 @@
-import { HeaderMain } from "./components/header/HeaderMain/HeaderMain";
+import { Header } from "./components/header/Header";
+
 
 export const Main = () =>{
     return(
-        <HeaderMain />
+        <Header/>
     );
 }

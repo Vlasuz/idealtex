@@ -1,4 +1,4 @@
-export const HeaderMain = () => {
+export const HeaderTop = () => {
   return (
     <div className="header__top top-header">
       <button data-close-banner className="top-header__close">
