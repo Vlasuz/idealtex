@@ -83,9 +83,12 @@ export const HeaderTopStyle = styled.div`
         top: 10px;
     }
 
-    .top-header__image {
-        width: 30px;
-        height: 30px;
-        margin-bottom: -10px;
+    @media (max-width: 29.99875em){
+        .top-header__image {
+            width: 30px;
+            height: 30px;
+            margin-bottom: -10px;
+        }
     }
+
 `
