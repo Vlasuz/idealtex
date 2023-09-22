@@ -94,7 +94,6 @@ const Login = () => {
                         </div>
 
                         <div className="form-error">{error}</div>
-                        {/*<div className="form-success">{success}</div>*/}
 
                         <button disabled={isLoading ? "disable" : ""} className="button login__button button_violet button_fw">
                             Увійти
