@@ -1,20 +1,33 @@
-export const HeaderAside = () => {
+import "../../../../assets/initial/css/style.css";
+
+import closeBlue from "../../../../assets/initial/img/icons/close-blue.svg";
+import catalog from "../../../../assets/initial/img/icons/catalog.svg";
+import basket from "../../../../assets/initial/img/icons/basket.svg";
+
+import logoBig from "../../../../assets/initial/img/main-img/logo-big.webp";
+import logoBig2 from "../../../../assets/initial/img/main-img/logo-big.png";
+
+export const HeaderAside = ({ onClose }) => {
   return (
     <aside className="main-header__menu menu">
-      <button data-close-menu className="menu__close button-icon">
-        <img src="img/icons/close-blue.svg" alt="" />
+      <button
+        data-close-menu
+        className="menu__close button-icon"
+        onClick={onClose}
+      >
+        <img src={closeBlue} alt="icon" />
       </button>
       <a href="" className="menu__logo">
         <picture>
-          <source srcset="img/main-img/logo-big.webp" type="image/webp" />
-          <img src="img/main-img/logo-big.png" alt="" />
+          <source srcset={logoBig} type="image/webp" />
+          <img src={logoBig2} alt="img" />
         </picture>
       </a>
       <ul className="menu__main-list">
         <li>
           <a href="">
             <span className="menu__icon button-icon">
-              <img src="img/icons/catalog.svg" alt="" />
+              <img src={catalog} alt="icon" />
             </span>
             Каталог товарів
           </a>
@@ -22,7 +35,7 @@ export const HeaderAside = () => {
         <li>
           <a href="">
             <span className="menu__icon button-icon">
-              <img src="img/icons/basket.svg" alt="" />
+              <img src={basket} alt="icon" />
             </span>
             Кошик
             <span className="menu__count-product">12</span>

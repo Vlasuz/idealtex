@@ -1,10 +1,15 @@
-export const HeaderCatalog = () => {
+import "../../../../assets/initial/css/style.css";
+
+export const HeaderCatalog = ({ onClose }) => {
   return (
     <div className="header-catalog">
       <div className="header-catalog__wrap">
         <div className="header-catalog__head">
           <div className="header-catalog__big-title">Каталог</div>
-          <button className="header-catalog__close button-icon">
+          <button
+            className="header-catalog__close button-icon"
+            onClick={onClose}
+          >
             <img src="img/icons/close-blue.svg" alt="" />
           </button>
         </div>
