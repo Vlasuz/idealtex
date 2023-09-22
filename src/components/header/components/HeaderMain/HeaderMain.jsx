@@ -66,7 +66,7 @@ export const HeaderMain = () => {
 
             <a href="#" className="main-header__logo">
               <picture>
-                <source srcset={logo} type="image/webp" />
+                <source srcSet={logo} type="image/webp" />
                 <img src={logo2} alt="img" />
               </picture>
             </a>

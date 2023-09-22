@@ -14,7 +14,7 @@ export const HeaderPhone = () => {
         <li className="phone-header__item">
           <div className="phone-header__operator">
             <picture>
-              <source srcset={vodafone} type="image/webp" />
+              <source srcSet={vodafone} type="image/webp" />
               <img src={vodafone2} alt="img" />
             </picture>
           </div>
@@ -33,7 +33,7 @@ export const HeaderPhone = () => {
         <li className="phone-header__item">
           <div className="phone-header__operator">
             <picture>
-              <source srcset={kyivstar} type="image/webp" />
+              <source srcSet={kyivstar} type="image/webp" />
               <img src={kyivstar2} alt="" />
             </picture>
           </div>
@@ -52,7 +52,7 @@ export const HeaderPhone = () => {
         <li className="phone-header__item">
           <div className="phone-header__operator">
             <picture>
-              <source srcset={life} type="image/webp" />
+              <source srcSet={life} type="image/webp" />
               <img src={life2} alt="img" />
             </picture>
           </div>

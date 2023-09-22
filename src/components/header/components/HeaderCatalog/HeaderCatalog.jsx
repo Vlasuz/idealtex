@@ -106,7 +106,7 @@ export const HeaderCatalog = ({ onClose }) => {
                 <div className="category-card__image-ibg">
                   <picture>
                     <source
-                      srcset="img/main-img/category.webp"
+                      srcSet="img/main-img/category.webp"
                       type="image/webp"
                     />
                     <img src="img/main-img/category.png" alt="" />
@@ -118,7 +118,7 @@ export const HeaderCatalog = ({ onClose }) => {
                 <div className="category-card__image-ibg">
                   <picture>
                     <source
-                      srcset="img/main-img/category.webp"
+                      srcSet="img/main-img/category.webp"
                       type="image/webp"
                     />
                     <img src="img/main-img/category.png" alt="" />
@@ -130,7 +130,7 @@ export const HeaderCatalog = ({ onClose }) => {
                 <div className="category-card__image-ibg">
                   <picture>
                     <source
-                      srcset="img/main-img/category.webp"
+                      srcSet="img/main-img/category.webp"
                       type="image/webp"
                     />
                     <img src="img/main-img/category.png" alt="" />
@@ -142,7 +142,7 @@ export const HeaderCatalog = ({ onClose }) => {
                 <div className="category-card__image-ibg">
                   <picture>
                     <source
-                      srcset="img/main-img/category.webp"
+                      srcSet="img/main-img/category.webp"
                       type="image/webp"
                     />
                     <img src="img/main-img/category.png" alt="" />
@@ -156,7 +156,7 @@ export const HeaderCatalog = ({ onClose }) => {
                 <div className="category-card__image-ibg">
                   <picture>
                     <source
-                      srcset="img/main-img/category.webp"
+                      srcSet="img/main-img/category.webp"
                       type="image/webp"
                     />
                     <img src="img/main-img/category.png" alt="" />
@@ -170,7 +170,7 @@ export const HeaderCatalog = ({ onClose }) => {
                 <div className="category-card__image-ibg">
                   <picture>
                     <source
-                      srcset="img/main-img/category.webp"
+                      srcSet="img/main-img/category.webp"
                       type="image/webp"
                     />
                     <img src="img/main-img/category.png" alt="" />
@@ -184,7 +184,7 @@ export const HeaderCatalog = ({ onClose }) => {
                 <div className="category-card__image-ibg">
                   <picture>
                     <source
-                      srcset="img/main-img/category.webp"
+                      srcSet="img/main-img/category.webp"
                       type="image/webp"
                     />
                     <img src="img/main-img/category.png" alt="" />
@@ -204,7 +204,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -218,7 +218,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -232,7 +232,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -246,7 +246,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -260,7 +260,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -274,7 +274,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -295,7 +295,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -309,7 +309,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -323,7 +323,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -337,7 +337,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -351,7 +351,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -365,7 +365,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -386,7 +386,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -400,7 +400,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -414,7 +414,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -428,7 +428,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -442,7 +442,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -456,7 +456,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -478,7 +478,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -492,7 +492,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -506,7 +506,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -520,7 +520,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -534,7 +534,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -548,7 +548,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -570,7 +570,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -584,7 +584,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -598,7 +598,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -612,7 +612,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -626,7 +626,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -640,7 +640,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -662,7 +662,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -676,7 +676,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -690,7 +690,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -704,7 +704,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -718,7 +718,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -732,7 +732,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -754,7 +754,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -768,7 +768,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -782,7 +782,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -796,7 +796,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -810,7 +810,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />
@@ -824,7 +824,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   <div className="category-card__image-ibg">
                     <picture>
                       <source
-                        srcset="img/main-img/category.webp"
+                        srcSet="img/main-img/category.webp"
                         type="image/webp"
                       />
                       <img src="img/main-img/category.png" alt="" />

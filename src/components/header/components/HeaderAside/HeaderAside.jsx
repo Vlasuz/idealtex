@@ -19,7 +19,7 @@ export const HeaderAside = ({ onClose }) => {
       </button>
       <a href="" className="menu__logo">
         <picture>
-          <source srcset={logoBig} type="image/webp" />
+          <source srcSet={logoBig} type="image/webp" />
           <img src={logoBig2} alt="img" />
         </picture>
       </a>
