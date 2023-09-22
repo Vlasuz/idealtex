@@ -24,12 +24,6 @@ const Card = ({data}) => {
         big: data.productPackagesSizes.big,
     }
 
-    useEffect(() => {
-        console.log(productPackageInfoList)
-        console.log(productPackage)
-        console.log(productPackage.slice(0,productPackage.indexOf('|')))
-    }, [productPackage])
-
     const finaleAmount = productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]?.productCountInPackage * count
 
     return (
