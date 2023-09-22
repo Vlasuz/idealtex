@@ -44,11 +44,13 @@ const Login = () => {
         //
         //         let payloadObj = JSON.parse(decodedPayload);
         //
-        //         console.log(decodedPayload)
         //         console.log(payloadObj)
-        //         console.log(getApiLink(`v1/public/users/${payloadObj.nbf}`))
+        //         console.log(getApiLink(`v1/public/users/${payloadObj.uid}`))
         //
-        //         axios.get(getApiLink(`v1/public/users/${payloadObj.nbf}`)).then((res) => {
+        //         axios.defaults.headers.get['Authorization'] = `Bearer ${res.data.token}`
+        //         axios.get(getApiLink(`v1/public/users/${payloadObj.uid}`), {
+        //             userId: payloadObj.uid
+        //         }).then((res) => {
         //             console.log('user', res.data)
         //         })
         //
