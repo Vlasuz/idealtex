@@ -34,6 +34,21 @@ export const CardStyled = styled.div `
     position: relative;
   }
 
+  .quantity__input input {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 130%;
+    height: 100%;
+    color: var(--darkblue);
+    width: 100%;
+    text-align: center;
+    outline: none;
+  }
+  .quantity__input input::-webkit-outer-spin-button,
+  .quantity__input input::-webkit-inner-spin-button {
+    -webkit-appearance: none
+  }
+
   .product-card__sale {
     position: absolute;
     width: 55px;

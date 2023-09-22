@@ -1,7 +1,37 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {CardStyled} from "./Card.styled";
+import CardOption from "./components/cardOption";
+import CardOptionEmpty from "./components/cardOptionEmpty";
+import {getApiLink} from "../../hooks/getApiLink";
 
-const Card = () => {
+import discount from './../../assets/initial/img/icons/arrow-spoller.svg'
+import basketWhite from './../../assets/initial/img/icons/basket-white.svg'
+import plus from './../../assets/initial/img/icons/plus.svg'
+import minus from './../../assets/initial/img/icons/minus.svg'
+
+const Card = ({data}) => {
+
+    const [count, setCount] = useState(1)
+    const [productPackage, setProductPackage] = useState('')
+
+    const smallPackage = 'small|' + data?.productCode
+    const midPackage = 'mid|' + data?.productCode
+    const bigPackage = 'big|' + data?.productCode
+
+    const productPackageInfoList = {
+        small: data.productPackagesSizes.small,
+        mid: data.productPackagesSizes.mid,
+        big: data.productPackagesSizes.big,
+    }
+
+    useEffect(() => {
+        console.log(productPackageInfoList)
+        console.log(productPackage)
+        console.log(productPackage.slice(0,productPackage.indexOf('|')))
+    }, [productPackage])
+
+    const finaleAmount = productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]?.productCountInPackage * count
+
     return (
         <CardStyled className="product-card">
             <div className="product-card__top">
@@ -10,117 +40,110 @@ const Card = () => {
                 </div>
                 <a href="" className="product-card__image-ibg">
                     <picture>
-                        <source srcSet="img/main-img/product.webp" type="image/webp"/>
-                        <img src="img/main-img/product.png" alt=""/>
+                        <img src={getApiLink("v1/public/images/" + data?.imagesNames)} alt=""/>
                     </picture>
                 </a>
                 <div className="product-card__options options">
 
-                    <div className="options__item">
-                        <input hidden id="o_2" className="options__input" type="radio" value="2" name="option"/>
-                        <label htmlFor="o_2" className="options__label">
-                                <span className="options__info">уп <br/>
-												100 шт</span>
-                            <span className="options__price">
-												0,02 грн
-											</span>
-                        </label>
-                    </div>
-                    <div className="options__item">
-                        <input checked hidden id="o_22" className="options__input" type="radio" value="2"
-                               name="option"/>
-                        <label htmlFor="o_22" className="options__label">
-                                <span className="options__info">уп <br/>
-												50 шт</span>
-                            <span className="options__price">
-												0,02 грн
-											</span>
-                        </label>
-                    </div>
-                    <div className="options__item">
-                        <input hidden id="o_222" className="options__input" type="radio" value="2"
-                               name="option"/>
-                        <label htmlFor="o_222" className="options__label">
-                                <span className="options__info">уп <br/>
-												10 шт</span>
-                            <span className="options__price">
-												0,02 грн
-											</span>
-                        </label>
-                    </div>
+                    {data?.productPackagesSizes?.small ?
+                        <CardOption
+                            id={smallPackage}
+                            name={data?.productCode}
+                            setProductPackage={setProductPackage}
+                            metric={data?.productMetric}
+                            data={data?.productPackagesSizes?.small}/>
+                        :
+                        <CardOptionEmpty/>}
+                    {data?.productPackagesSizes?.mid ?
+                        <CardOption
+                            id={midPackage}
+                            name={data?.productCode}
+                            setProductPackage={setProductPackage}
+                            metric={data?.productMetric}
+                            data={data?.productPackagesSizes?.mid}/>
+                        :
+                        <CardOptionEmpty/>}
+                    {data?.productPackagesSizes?.big ?
+                        <CardOption
+                            id={bigPackage}
+                            name={data?.productCode}
+                            setProductPackage={setProductPackage}
+                            metric={data?.productMetric}
+                            data={data?.productPackagesSizes?.big}/>
+                        :
+                        <CardOptionEmpty/>}
+
                 </div>
                 <ul className="product-card__list">
-                    <li>
-                        код 0008+ 000B
-                    </li>
-                    <li>Країна: Польща</li>
+                    <li>Код: {data?.productCode}</li>
+                    <li>Країна: {data?.productCountry}</li>
                     <li>Залишок: 12</li>
                 </ul>
                 <h4 className="product-card__title">
                     <a href="">
-                        Lorem Ipsum - це текст-"риба", що використовується в друкарстві та дизайні. Lorem
-                        Ipsum
-                        є, фактично, стандартною "рибою" аж з XVI
+                        {data?.productName}
                     </a>
                 </h4>
                 <ul className="product-card__list-info">
                     <li>
-										<span className="product-card__label">
-											Одиниць в уп.
-										</span>
+                        <span className="product-card__label">
+                            Одиниць в уп.
+                        </span>
                         <span className="product-card__value blue">
-											100 шт
-										</span>
+                            {productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]?.productCountInPackage}
+                        </span>
                     </li>
                     <li>
                         <div className="product-card__procent">
                             18%
                         </div>
                         <span className="product-card__label">
-											Ціна за од.
-										</span>
+                            Ціна за од.
+                        </span>
                         <span className="product-card__value">
-											0,02 грн
-										</span>
+                            {productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]?.productPrice} грн
+                        </span>
                     </li>
                     <li>
                         <div className="product-card__procent">
                             18%
                         </div>
                         <span className="product-card__label">
-											Ціна за уп.
-										</span>
+                            Ціна за уп.
+                        </span>
                         <span className="product-card__value blue">
-											2 грн
-										</span>
+                            {productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]?.productPackagePrice} грн
+                        </span>
                     </li>
                 </ul>
                 <div className="product-card__price">
-                    Сума: <span>20 грн</span>
+                    Сума: <span>{finaleAmount} грн</span>
                 </div>
             </div>
             <div className="product-card__bottom">
                 <div className="product-card__row">
                     <div data-quantity className="quantity">
-                        <button data-quantity-minus type="button" className="quantity__button quantity__button_minus">
-                            <img src="img/icons/minus.svg" alt=""/>
+                        <button onClick={_ => setCount(prev => prev > 1 ? prev - 1 : prev)} data-quantity-minus
+                                type="button" className="quantity__button quantity__button_minus">
+                            <img src={minus} alt=""/>
                         </button>
                         <div className="quantity__input">
-                            <input data-quantity-value autoComplete="off" type="text" name="form[]" value="2"/>
+                            <input data-quantity-value autoComplete="off" type="number" name="form[]" value={count}
+                                   onChange={e => setCount(+e.target.value)}/>
                         </div>
-                        <button data-quantity-plus type="button"
+                        <button onClick={_ => setCount(prev => prev + 1)} data-quantity-plus type="button"
                                 className="quantity__button quantity__button_plus">
-                            <img src="img/icons/plus.svg" alt=""/>
+                            <img src={plus} alt=""/>
                         </button>
                     </div>
                     <button className="product-card__button button-icon">
-                        <img src="img/icons/basket-white.svg" alt=""/>
+                        <img src={basketWhite} alt=""/>
                     </button>
                 </div>
                 <div data-spollers className="product-card__spoller spoller-product">
                     <details className="spoller-product__item">
                         <summary data-spoller className="spoller-product__button">
-                            Знижки <img src="img/icons/arrow-spoller.svg" alt=""/>
+                            Знижки <img src={discount} alt=""/>
                         </summary>
                         <div className="spoller-product__body">
                             <div className="spoller-product__table-wrap">
