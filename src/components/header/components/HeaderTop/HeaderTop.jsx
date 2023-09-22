@@ -1,8 +1,15 @@
+import close from '../../../../assets/initial/img/icons/close.svg';
+import headerSource from '../../../../assets/initial/img/main-img/header01.webp';
+import headerSource2 from '../../../../assets/initial/img/main-img/header02.webp';
+import headerIc from '../../../../assets/initial/img/main-img/header01.png';
+import headerIc2 from '../../../../assets/initial/img/main-img/header02.png';
+import { HeaderTopStyle } from './HeaderTop.styled';
+
 export const HeaderTop = () => {
     return (
-        <div className="header__top top-header">
+        <HeaderTopStyle className="header__top top-header">
             <button data-close-banner className="top-header__close">
-                <img src="img/icons/close.svg" alt="icon"/>
+                <img src={close} alt="icon"/>
             </button>
             <div className="top-header__container">
                 <div className="top-header__title">
@@ -12,8 +19,8 @@ export const HeaderTop = () => {
                 <div className="top-header__row">
                     <div className="top-header__image">
                         <picture>
-                            <source srcSet="img/main-img/header01.webp" type="image/webp"/>
-                            <img src="img/main-img/header01.png" alt=""/>
+                            <source srcSet={headerSource} type="image/webp"/>
+                            <img src={headerIc} alt="img"/>
                         </picture>
                     </div>
                     <div className="top-header__text">
@@ -21,12 +28,12 @@ export const HeaderTop = () => {
                     </div>
                     <div className="top-header__image">
                         <picture>
-                            <source srcSet="img/main-img/header02.webp" type="image/webp"/>
-                            <img src="img/main-img/header02.png" alt=""/>
+                            <source srcSet={headerSource2} type="image/webp"/>
+                            <img src={headerIc2} alt="img"/>
                         </picture>
                     </div>
                 </div>
             </div>
-        </div>
+        </HeaderTopStyle>
     );
 };
