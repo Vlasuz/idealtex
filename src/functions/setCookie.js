@@ -1,7 +1,7 @@
-export default function setCookie(name, data) {
+export default function setCookie(name, data, expired) {
 
     const domain = window.location.hostname
-    const maxAge = 99999999
+    const maxAge = expired ?? 99999999
 
     document.cookie = `${name}=${data}; domain=${domain}; max-age=${maxAge}; secure;`
 }
