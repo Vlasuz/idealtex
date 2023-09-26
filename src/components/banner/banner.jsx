@@ -1,29 +1,44 @@
 import { useEffect } from "react";
+import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-import Swiper from "swiper";
-import "swiper/css";
+import banner from '../../assets/initial/img/main-img/banner.webp';
+import banner2 from '../../assets/initial/img/main-img/banner.png';
+import arrowLeft from '../../assets/initial/img/icons/arrow-left.svg'; 
+import arrowRight from '../../assets/initial/img/icons/arrow-left.svg'; 
 
-import banner from '../../assets/initial/img/main-img/banner.webp'
-import banner2 from '../../assets/initial/img/main-img/banner.png'
-import arrowLeft from '../../assets/initial/img/icons/arrow-left.svg' 
-import arrowRight from '../../assets/initial/img/icons/arrow-left.svg' 
 
 export const Banner = () => {
   useEffect(() => {
-      new Swiper(".swiper", {
-        slidesPerView: 1,
-        spaceBetween: 20,
-
-        navigation: {
-            nextEl: '.banner__arrow_next',
-            prevEl: '.banner__arrow_prev',
+    if (document.querySelector(".banner__slider")) new Swiper(".banner__slider", {
+      modules: [Navigation, Pagination],
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1,
+      loop: true,
+      spaceBetween: 100,
+      speed: 800,
+      pagination: {
+        el: ".banner__pagination",
+        clickable: true,
+      },
+      navigation: {
+        prevEl: ".banner__arrow_prev",
+        nextEl: ".banner__arrow_next",
+      },
+      breakpoints: {
+        320: {
+          spaceBetween: 10,
         },
-        pagination: {
-            el: '.banner__pagination',
-            clickable: true,
+        768: {
+          spaceBetween: 100,
         },
+      },
     });
-  });
+  }, []);
 
   return (
     <div className="banner">
@@ -64,9 +79,6 @@ export const Banner = () => {
             </div>
           </div>
           <div className="banner__pagination">
-            <span className="swiper-pagination-bullet"></span>
-            <span className="swiper-pagination-bullet"></span>
-            <span className="swiper-pagination-bullet"></span>
             <span className="swiper-pagination-bullet"></span>
           </div>
           <div className="banner__arrows">
