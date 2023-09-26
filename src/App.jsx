@@ -13,6 +13,8 @@ import { routes } from "./functions/routes";
 import { Links } from "./components/links/Links";
 import { Banner } from "./components/banner/banner";
 import { Categories } from "./components/categories/Categories";
+import { Sales } from "./components/sales/Sales";
+import { Text } from "./components/text/Text";
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -32,9 +34,15 @@ export const App = () => {
 
       <Categories />
 
-      {/* <Routes>
-                {routesList.map(route => <Route key={route.path} element={route.element} path={route.path} />)}
-            </Routes> */}
+      <Sales/>
+
+      <Banner />
+
+      <Text/>
+
+        {/* <Routes>
+            {routesList.map(route => <Route key={route.path} element={route.element} path={route.path} />)}
+        </Routes> */}
 
       <Footer />
     </div>
