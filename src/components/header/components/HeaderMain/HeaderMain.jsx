@@ -17,12 +17,16 @@ import logo2 from "../../../../assets/initial/img/main-img/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { HeaderMainStyled } from "./HeaderMain.styled";
 import { handleExit } from "../../../../functions/exitAccount";
+import axios from 'axios';
 
 export const HeaderMain = () => {
   const [asideOpen, setAsideOpen] = useState(false);
   const [catalogOpen, setCatalogOpen] = useState(false);
   const [phoneOpen, setPhoneOpen] = useState(false);
   const dispatch = useDispatch();
+
+  const [searchQuery, setSearchQuery] = useState('');
+
 
   const userInfo = useSelector((state) => state.toolkit.user);
 
@@ -49,6 +53,17 @@ export const HeaderMain = () => {
     const phoneBtn = document.querySelector("[data-phone]");
     phoneBtn.parentElement.classList.toggle("_active-phone");
     setPhoneOpen(true);
+  };
+
+  const dataSearch = (searchQuery) => {
+    axios.get(`http://api.idealtex.com.ua/v1/public/products?search=${searchQuery}`)
+      .then((response) => {
+        const searchResults = response.data;
+        console.log('А что тут у нас?):', searchResults);
+      })
+      .catch((error) => {
+        console.error('Ошибочка при поиске:', error);
+      });
   };
 
   return (
@@ -97,7 +112,10 @@ export const HeaderMain = () => {
           </div>
           <div className="main-header__right">
             <div className="main-header__search search-header">
-              <form action="#" className="search-header__form">
+              <form action="#" className="search-header__form" onSubmit={(evt) => {
+                evt.preventDefault();
+                dataSearch(searchQuery);
+                }}>
                 <div className="search-header__item">
                   <span className="search-header__icon">
                     <img src={search} alt="icon" />
@@ -106,6 +124,8 @@ export const HeaderMain = () => {
                     placeholder="Пошук"
                     type="text"
                     className="search-header__input input"
+                    value={searchQuery}
+                    onChange={(evt) => setSearchQuery(evt.target.value)}
                   />
                   <button className="search-header__button">Знайти</button>
                 </div>
