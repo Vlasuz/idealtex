@@ -8,6 +8,10 @@ import {getApiLink} from "../../hooks/getApiLink";
 import {LoginStyled} from "./Login.styled";
 import setCookie from "../../functions/setCookie";
 import GetUserInfo from "../../hooks/getUserInfo";
+import {login} from "../../api/login";
+import {useDispatch, useSelector} from "react-redux";
+import AlreadyAuth from "../alreadyAuth/AlreadyAuth";
+import getCookies from "../../functions/getCookies";
 
 const Login = () => {
 
@@ -18,49 +22,37 @@ const Login = () => {
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
+    const dispatch = useDispatch()
+
     const handleLogin = (e) => {
         e.preventDefault()
         setError('')
         setIsLoading(true)
 
-        // axios.post(getApiLink('v1/public/auth/login#basic'), {
-        //     email,
-        //     password,
-        //     rememberMe
-        // }).then((res) => {
-        //     if(res.status === 200) {
-        //         setEmail('')
-        //         setPassword('')
-        //         setIsLoading(false)
-        //
-        //         console.log(res.data)
-        //
-        //         // GetUserInfo(res.data.token)
-        //
-        //         let tokenParts = res.data.token.split('.');
-        //         let encodedPayload = tokenParts[1];
-        //
-        //         let decodedPayload = atob(encodedPayload);
-        //
-        //         let payloadObj = JSON.parse(decodedPayload);
-        //
-        //         console.log(payloadObj)
-        //         console.log(getApiLink(`v1/public/users/${payloadObj.uid}`))
-        //
-        //         axios.defaults.headers.get['Authorization'] = `Bearer ${res.data.token}`
-        //         axios.get(getApiLink(`v1/public/users/${payloadObj.uid}`), {
-        //             userId: payloadObj.uid
-        //         }).then((res) => {
-        //             console.log('user', res.data)
-        //         })
-        //
-        //         setCookie('token', res.data.token, res.data?.expiredAt)
-        //     }
-        // }).catch(er => {
-        //     console.log(er)
-        //     setIsLoading(false)
-        //     setError(er.response.data.message)
-        // })
+        axios.post(getApiLink('v1/public/auth/login#basic'), {
+            email,
+            password,
+            rememberMe
+        }).then((res) => {
+            if(res.status === 200) {
+                setEmail('')
+                setPassword('')
+                setIsLoading(false)
+
+                login(res.data, dispatch)
+                setCookie('token', res.data.token, res.data?.expiredAt)
+            }
+        }).catch(er => {
+            console.log(er)
+            setIsLoading(false)
+            setError(er.response.data.message)
+        })
+    }
+
+    const userInfo = useSelector(state => state.toolkit.user)
+    const isLogin = getCookies('token')
+    if(isLogin && userInfo) {
+        return <AlreadyAuth/>
     }
 
     return (
@@ -82,19 +74,17 @@ const Login = () => {
 
                             <div className="login__row">
                                 <div className="checkbox">
-                                    <input id="c_1" data-error="Ошибка" className="checkbox__input" type="checkbox"
-                                           name="form[]" checked={rememberMe}
+                                    <input id="c_1" data-error="Ошибка" className="checkbox__input" type="checkbox" checked={rememberMe}
                                            onChange={e => setRememberMe(e.target.checked)}/>
                                     <label htmlFor="c_1" className="checkbox__label"><span className="checkbox__text">Запом’ятати мене</span></label>
                                 </div>
-                                <a href="" className="login__link">
+                                <NavLink to={'/change-pass'} className="login__link">
                                     Забув пароль ?
-                                </a>
+                                </NavLink>
                             </div>
                         </div>
 
                         <div className="form-error">{error}</div>
-                        {/*<div className="form-success">{success}</div>*/}
 
                         <button disabled={isLoading ? "disable" : ""} className="button login__button button_violet button_fw">
                             Увійти

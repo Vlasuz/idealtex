@@ -1,32 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import getCookies from "../functions/getCookies";
 import {useDispatch} from "react-redux";
 import {setUser} from "../redux/toolkitSlice";
+import axios from "axios";
+import {getApiLink} from "./getApiLink";
 
-const GetUserInfo = (token) => {
+const getUserInfo = (token, dispatch) => {
 
-    const dispatch = useDispatch()
 
-    // if(getCookies("token")) {
+    if(getCookies("token")) {
 
         let tokenParts = token.split('.');
         let encodedPayload = tokenParts[1];
-
         let decodedPayload = atob(encodedPayload);
-
         let payloadObj = JSON.parse(decodedPayload);
 
-        console.log(payloadObj)
-
-        // let name = payloadObj.name;
-        // let wallet_address = payloadObj.wallet_address;
-        // let password = payloadObj.password;
-        // let email = payloadObj.email;
-        // let username = payloadObj.username;
-        // let phone = payloadObj.phone;
-
-        dispatch(setUser({}))
-    // }
+        axios.defaults.headers.get['Authorization'] = `Bearer ${token}`
+        axios.get(getApiLink(`v1/public/users/${payloadObj.uid}`), {
+            userId: payloadObj.uid
+        }).then((res) => {
+            dispatch(setUser(res.data))
+        })
+    }
 };
 
-export default GetUserInfo;
+export default getUserInfo;

@@ -5,30 +5,27 @@ import {Route, Routes} from "react-router-dom";
 import {Footer} from "./components/footer/Footer";
 import Login from "./pages/login/Login";
 import Registration from "./pages/registration/Registration";
+import getCookies from "./functions/getCookies";
+import {useEffect, useState} from "react";
+import getUserInfo from "./hooks/getUserInfo";
+import {useDispatch} from "react-redux";
+import {routes} from "./functions/routes";
 
 export const App = () => {
 
-    const routes = [
-        {
-            path: '/',
-            element: <Main/>
-        },
-        {
-            path: '/auth',
-            element: <Login/>
-        },
-        {
-            path: '/registration',
-            element: <Registration/>
-        },
-    ]
+    const dispatch = useDispatch()
+    const [routesList] = useState(routes())
+
+    useEffect(() => {
+        getUserInfo(getCookies('token'), dispatch)
+    }, [])
 
     return (
         <div className={"wrapper"}>
             <Header/>
 
             <Routes>
-                {routes.map(route => <Route key={route.path} element={route.element} path={route.path} />)}
+                {routesList.map(route => <Route key={route.path} element={route.element} path={route.path} />)}
             </Routes>
 
             <Footer/>

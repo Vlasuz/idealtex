@@ -7,6 +7,9 @@ import {RegistrationStyled} from "./Registration.styled";
 import {NavLink, useNavigate} from "react-router-dom";
 import {handleRegistration} from "../../api/registration";
 import Input from "../../components/input/Input";
+import getCookies from "../../functions/getCookies";
+import AlreadyAuth from "../alreadyAuth/AlreadyAuth";
+import {useSelector} from "react-redux";
 
 const Registration = () => {
 
@@ -22,6 +25,12 @@ const Registration = () => {
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+
+    const userInfo = useSelector(state => state.toolkit.user)
+    const isLogin = getCookies('token')
+    if(isLogin && userInfo) {
+        return <AlreadyAuth/>
+    }
 
     return (
         <RegistrationStyled className="login">
