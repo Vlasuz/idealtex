@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { routes } from "./functions/routes";
 import { Links } from "./components/links/Links";
 import { Banner } from "./components/banner/banner";
+import { Categories } from "./components/categories/Categories";
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,8 @@ export const App = () => {
       <Links />
 
       <Banner />
+
+      <Categories />
 
       {/* <Routes>
                 {routesList.map(route => <Route key={route.path} element={route.element} path={route.path} />)}
