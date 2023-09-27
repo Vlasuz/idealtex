@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { getAllProducts } from "../../../../api/categories";
-import { SalesHead } from "./components/SalesHead/SalesHead";
 import Card from "../../../../components/card/Card";
+import { SalesHead } from "./components/SalesHead/SalesHead";
 
 export const Sales = () => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    getAllProducts({limit: 4, type: 'discount'})
+    getAllProducts()
       .then(({products}) => {
         setProducts(products);
-        setLoading(false);
-        console.log('Получил продукты аукционные', products);
+        // setLoading(false);
+        console.log('Получил продукты', products);
       })
       .catch((error) => {
         console.error("Ошибка я не получил продукты:", error);
-        setLoading(false);
+        // setLoading(false);
       });
 }, []);
 
@@ -34,7 +33,7 @@ const productSales = products.map((product) => (
                 <SalesHead />
 
               <div className="sale__grid-layout">
-                {!loading ? productSales : <p>Загрузка...</p>}       
+                {productSales}       
             </div>
         </div>
     </div>
