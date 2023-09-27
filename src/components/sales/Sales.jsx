@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getAllProducts } from "../../../../api/categories";
-import Card from "../../../../components/card/Card";
+import { getAllProducts } from "../../api/categories";
+import Card from "../card/Card";
 import { SalesHead } from "./components/SalesHead/SalesHead";
 
 export const Sales = () => {

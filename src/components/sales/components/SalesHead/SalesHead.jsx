@@ -1,4 +1,4 @@
-import arrowLink from '../../../../../../assets/initial/img/icons/arrow-link.svg'
+import arrowLink from '../../../../assets/initial/img/icons/arrow-link.svg'
 
 export const SalesHead = () => {
   return (
@@ -6,7 +6,7 @@ export const SalesHead = () => {
         <h2 className="title sale__title">
             АКЦІЙНІ ПРОПОЗИЦІЇ
         </h2>
-        <a href="main/components/sales/components/SalesHead" className="link">
+        <a href="" className="link">
             Показати всі <img src={arrowLink} alt="icon" />
         </a>
     </div>

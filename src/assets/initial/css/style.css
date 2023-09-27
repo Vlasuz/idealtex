@@ -1562,9 +1562,9 @@ textarea.input_admin {
   position: fixed;
   right: 32px;
   bottom: 32px;
-  /*opacity: 0;*/
-  /*visibility: hidden;*/
-  /*pointer-events: none;*/
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 ._header-scroll .header__scroll-top {

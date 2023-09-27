@@ -1,30 +1,61 @@
 import Card from "../../components/card/Card";
-import {useEffect, useState} from "react";
-import {Links} from "./components/links/Links";
-import {Banner} from "../../components/banner/banner";
-import {Categories} from "./components/categories/Categories";
-import {Sales} from "./components/sales/Sales";
-import {Text} from "./components/text/Text";
-import {useParams} from "react-router-dom";
-import axios from "axios";
-import {getApiLink} from "../../hooks/getApiLink";
+import {useState} from "react";
 
 
 export const Main = () => {
 
+    const [cardsList] = useState([
+        {
+            productName: "Мотор швейн машини 100 ВАТТ черн уп.=10шт (Акція ціна без знижок)",
+            productCode: "0120-01",
+            productMetric: "шт.",
+            imagesNames: [
+                "58830740_-1747289364.jpg"
+            ],
+            productCountry: "Тайвань",
+            productPackagesSizes: {
+                big: {displayPackageCount: "> 1.0000",
+                    productPrice: 12.50000000,
+                    productCountInPackage: 15.0000,
+                    productPackagePrice: 125.000000000000,
+                    productAuction: true},
+                mid: {
+                    displayPackageCount: "> 1.0000",
+                    productPrice: 11.50000000,
+                    productCountInPackage: 13.0000,
+                    productPackagePrice: 115.000000000000,
+                    productAuction: true
+                },
+                small: null
+            }
+        },
+        {
+            productName: "Мотор швейн машини 100 ВАТТ черн уп.=10шт (Акція ціна без знижок)",
+            productCode: "01220-01",
+            productMetric: "шт.",
+            imagesNames: [
+                "58830740_-1747289364.jpg"
+            ],
+            productCountry: "Тайвань",
+            productPackagesSizes: {
+                big: null,
+                mid: {
+                    displayPackageCount: "> 1.0000",
+                    productPrice: 11.50000000,
+                    productCountInPackage: 10.0000,
+                    productPackagePrice: 115.000000000000,
+                    productAuction: true
+                },
+                small: null
+            }
+        },
+    ])
+
     return (
-        <main className={'page'}>
-            <Links/>
-
-            <Banner/>
-
-            <Categories/>
-
-            <Sales/>
-
-            <Banner/>
-
-            <Text/>
-        </main>
+        <>
+            {
+                cardsList.map(card => <Card key={card.productCode} data={card} />)
+            }
+        </>
     );
 }
