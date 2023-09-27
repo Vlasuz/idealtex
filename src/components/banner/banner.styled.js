@@ -4,6 +4,7 @@ export const BannerStyled = styled.div`
   .banner__slider.swiper {
     padding: 40px;
     /* margin: -40px; */
+    /* блабла */
   }
 
   .banner__image-ibg {
