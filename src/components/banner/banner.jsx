@@ -9,6 +9,7 @@ import banner from '../../assets/initial/img/main-img/banner.webp';
 import banner2 from '../../assets/initial/img/main-img/banner.png';
 import arrowLeft from '../../assets/initial/img/icons/arrow-left.svg'; 
 import arrowRight from '../../assets/initial/img/icons/arrow-left.svg'; 
+import { BannerStyled } from "./banner.styled";
 
 
 export const Banner = () => {
@@ -41,7 +42,7 @@ export const Banner = () => {
   }, []);
 
   return (
-    <div className="banner">
+    <BannerStyled>
       <div className="banner__container">
         <div className="banner__slider swiper">
           <div className="swiper-wrapper">
@@ -91,6 +92,6 @@ export const Banner = () => {
           </div>
         </div>
       </div>
-    </div>
+      </BannerStyled>
   );
 };

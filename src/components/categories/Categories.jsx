@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CategoriesHead } from "./components/CategoriesHead/CategoriesHead";
 import { CategoriesCard } from "./components/CategoriesCard/CategoriesCard";
 import { getAllCategories } from "../../api/categories";
+import CategoryCard from "../categoryCard/CategoryCard";
 
 export const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -9,10 +10,10 @@ export const Categories = () => {
 
 useEffect(() => {
     getAllCategories()
-      .then((data) => {
-        setCategories(data);
+      .then(({categories}) => {
+        setCategories(categories);
         setLoading(false);
-        console.log(data);
+        console.log('Получил категории', categories);
       })
       .catch((error) => {
         console.error("Ошибка я не получил категорий:", error);
@@ -20,16 +21,13 @@ useEffect(() => {
       });
 }, []);
 
-const categoryCards = Array.isArray(categories)
-    ? categories.map((category) => (
-        <CategoriesCard
+const categoryCards = categories.map((category) => (
+        <CategoryCard
         key={category.categoryAlias}
-        name={category.categoryName}
-        img={category.imageName}
-        //   children={hasChildren}
+        data={category}
+        type={"page-home"}
         />
-    ))
-    : [];
+    ));
 
   return (
     <div className="category">
@@ -37,7 +35,7 @@ const categoryCards = Array.isArray(categories)
         <CategoriesHead />
 
         <div className="category__grid-layout">
-            {!loading ? categoryCards : <p>Загрузка...</p>}
+            {!loading ? categoryCards : <p>Загрузка...</p>}            
         </div>
       </div>
     </div>

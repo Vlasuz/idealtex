@@ -1,12 +1,13 @@
 import axios from "axios";
 
-const BASE_URL = 'http://api.idealtex.com.ua/v1/public/';
+import { getApiLink } from "../hooks/getApiLink";
 
 export async function getAllCategories() {
-    try {
-        const response = await axios.get(`${BASE_URL}categories`);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
+    const response = await axios.get(getApiLink('v1/public/categories'));
+    return response.data;
+}
+
+export async function getAllProducts() {
+    const response = await axios.get(getApiLink('v1/public/products'));
+    return response.data;
 }
