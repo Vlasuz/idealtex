@@ -8,6 +8,7 @@ import discount from './../../assets/initial/img/icons/arrow-spoller.svg'
 import basketWhite from './../../assets/initial/img/icons/basket-white.svg'
 import plus from './../../assets/initial/img/icons/plus.svg'
 import minus from './../../assets/initial/img/icons/minus.svg'
+import {NavLink} from "react-router-dom";
 
 const Card = ({data}) => {
 
@@ -24,9 +25,9 @@ const Card = ({data}) => {
         big: data.productPackagesSizes.big,
     }
 
-    const finaleAmount = productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]?.productCountInPackage * count
+    console.log('Product data', data)
 
-    const indexToFirstImage = getApiLink("v1/public/images/" + data?.imagesNames).includes(',') && getApiLink("v1/public/images/" + data?.imagesNames).indexOf(',')
+    const finaleAmount = productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]?.productCountInPackage * count
 
     return (
         <CardStyled className="product-card">
@@ -34,11 +35,11 @@ const Card = ({data}) => {
                 <div className="product-card__sale">
                     %
                 </div>
-                <a href="" className="product-card__image-ibg">
-                    <picture>
-                        <img src={getApiLink("v1/public/images/" + data?.imagesNames).slice(0, indexToFirstImage)} alt=""/>
-                    </picture>
-                </a>
+                <NavLink to={'/product/'+data?.productCode} className="product-card__image-ibg">
+
+                    {<img src={getApiLink("v1/public/images/" + data?.imagesNames[0])} alt=""/>}
+
+                </NavLink>
                 <div className="product-card__options options">
 
                     {data?.productPackagesSizes?.small ?
@@ -118,16 +119,15 @@ const Card = ({data}) => {
             </div>
             <div className="product-card__bottom">
                 <div className="product-card__row">
-                    <div data-quantity className="quantity">
-                        <button onClick={_ => setCount(prev => prev > 1 ? prev - 1 : prev)} data-quantity-minus
+                    <div className="quantity">
+                        <button onClick={_ => setCount(prev => prev > 1 ? prev - 1 : prev)}
                                 type="button" className="quantity__button quantity__button_minus">
                             <img src={minus} alt=""/>
                         </button>
                         <div className="quantity__input">
-                            <input data-quantity-value autoComplete="off" type="number" name="form[]" value={count}
-                                   onChange={e => setCount(+e.target.value)}/>
+                            <input autoComplete="off" type="number" name="form[]" value={count} onChange={e => setCount(+e.target.value)}/>
                         </div>
-                        <button onClick={_ => setCount(prev => prev + 1)} data-quantity-plus type="button"
+                        <button onClick={_ => setCount(prev => prev + 1)} type="button"
                                 className="quantity__button quantity__button_plus">
                             <img src={plus} alt=""/>
                         </button>

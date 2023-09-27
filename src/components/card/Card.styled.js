@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import saleIcon from './../../assets/initial/img/svg/star.svg'
 
 export const CardStyled = styled.div `
   
@@ -62,7 +63,7 @@ export const CardStyled = styled.div `
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    background: url("../img/svg/star.svg") center/100% 100% no-repeat;
+    background: url(${saleIcon}) center/100% 100% no-repeat;
     top: -33px;
     right: -29px;
     color: #FFF;
