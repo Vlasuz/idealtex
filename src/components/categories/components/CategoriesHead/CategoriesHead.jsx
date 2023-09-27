@@ -1,4 +1,4 @@
-import arrowLink from '../../../../../../assets/initial/img/icons/arrow-link.svg'
+import arrowLink from '../../../../assets/initial/img/icons/arrow-link.svg'
 
 export const CategoriesHead = () => {
   return (

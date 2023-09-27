@@ -1,49 +1,47 @@
+import React from 'react'
 
-export const FooterCategory = () => {
+export const Links = () => {
   return (
-    <div class="footer__column">
-        <div class="footer__title">
-            Категорії
-        </div>
-        <nav class="footer__nav">
-            <ul class="footer__list">
+    <div class="links">
+        <div class="links__container">
+            <ul class="links__list">
                 <li>
                     <a href="">
-                        НОВИНКИ
+                        Все для Шиття
                     </a>
                 </li>
                 <li>
                     <a href="">
-                        АКЦІЯ, РОЗПРОДАЖ
+                        Тканини та Прикладні матеріали
                     </a>
                 </li>
                 <li>
                     <a href="">
-                        ВСЕ ДЛЯ ШИТТЯ
+                        Блискавка, Нитка, Ґудзик
                     </a>
                 </li>
                 <li>
                     <a href="">
-                        ТКАНИНИ і ПРИКЛАДНІ МАТЕРІАЛИ
+                        Рукоділля та Творчість
                     </a>
                 </li>
                 <li>
                     <a href="">
-                        БЛИСКАВКА,НИТКА,ҐУДЗИК
+                        Біжутерія та Ремені
                     </a>
                 </li>
                 <li>
                     <a href="">
-                        РУКОДІЛЛЯ І ТВОРЧІСТЬ
+                        Новинки
                     </a>
                 </li>
                 <li>
                     <a href="">
-                        БІЖУТЕРІЯ ТА РЕМЕНІ
+                        Акції та Розпродаж
                     </a>
                 </li>
             </ul>
-        </nav>
+        </div>
     </div>
   )
 }
