@@ -1,6 +1,13 @@
 import styled from "styled-components";
 
 export const BannerStyled = styled.div`
+
+  .banner__slider.swiper {
+    padding: 40px;
+    /* margin: -40px; */
+    /* блабла */
+  }
+
     .banner__pagination {
   position: absolute;
   bottom: 56px;
