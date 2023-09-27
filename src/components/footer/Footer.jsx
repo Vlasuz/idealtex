@@ -4,16 +4,16 @@ import { FooterInfo } from "./components/FooterInfo/FooterInfo";
 
  export const Footer = () => {
     return (
-        <footer class="footer">
-			<div class="footer__container">
-				<div class="footer__top">
+        <footer className="footer">
+			<div className="footer__container">
+				<div className="footer__top">
 					<FooterAboutUs/>
 
 					<FooterCategory/>
 
 					<FooterInfo/>
 				</div>
-				<div class="footer__copy">
+				<div className="footer__copy">
 					<p>© 2023 Idealtex - найкраща швейна фурнітура і тканини оптом All Right Reserved.</p>
 				</div>
 			</div>

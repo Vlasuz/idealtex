@@ -1,5 +1,5 @@
-import textImg from '../../assets/initial/img/main-img/text-img.webp'
-import textImg2 from '../../assets/initial/img/main-img/text-img.png'
+import textImg from '../../../../assets/initial/img/main-img/text-img.webp'
+import textImg2 from '../../../../assets/initial/img/main-img/text-img.png'
 
 export const Text = () => {
   return (
