@@ -1,6 +1,23 @@
 import styled from "styled-components";
 
 export const BannerStyled = styled.div`
+  .banner__slider.swiper {
+    padding: 40px;
+    /* margin: -40px; */
+  }
+
+  .banner__image-ibg {
+    border-radius: 8px;
+    overflow: hidden;
+    -webkit-box-shadow: 2px 2px 30px 0px rgba(0, 0, 0, 0.25);
+            box-shadow: 2px 2px 30px 0px rgba(0, 0, 0, 0.25);
+    padding-bottom: 36.036036036%;
+  }
+
+  .banner__slider.swiper .swiper-slide {
+    height: 100%;
+  }
+  
   .banner__pagination {
     position: absolute;
     bottom: 56px;
