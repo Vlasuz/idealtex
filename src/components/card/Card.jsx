@@ -26,6 +26,8 @@ const Card = ({data}) => {
 
     const finaleAmount = productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]?.productCountInPackage * count
 
+    const indexToFirstImage = getApiLink("v1/public/images/" + data?.imagesNames).includes(',') && getApiLink("v1/public/images/" + data?.imagesNames).indexOf(',')
+
     return (
         <CardStyled className="product-card">
             <div className="product-card__top">
@@ -34,7 +36,7 @@ const Card = ({data}) => {
                 </div>
                 <a href="" className="product-card__image-ibg">
                     <picture>
-                        <img src={getApiLink("v1/public/images/" + data?.imagesNames)} alt=""/>
+                        <img src={getApiLink("v1/public/images/" + data?.imagesNames).slice(0, indexToFirstImage)} alt=""/>
                     </picture>
                 </a>
                 <div className="product-card__options options">

@@ -4,6 +4,7 @@ import Registration from "../pages/registration/Registration";
 import getCookies from "./getCookies";
 import AlreadyAuth from "../pages/alreadyAuth/AlreadyAuth";
 import ChangePassword from "../pages/changePassword/ChangePassword";
+import Search from "../pages/search/Search";
 
 export const routes = () => {
 
@@ -23,6 +24,10 @@ export const routes = () => {
         {
             path: '/change-pass',
             element: <ChangePassword/>
+        },
+        {
+            path: '/products/:search',
+            element: <Search/>
         },
     ]
 }
