@@ -2375,7 +2375,7 @@ textarea.input_admin {
   padding-bottom: 36.036036036%;
 }
 
-.banner__pagination {
+/* .banner__pagination {
   position: absolute;
   bottom: 56px;
   left: 50%;
@@ -2405,7 +2405,7 @@ textarea.input_admin {
 
 .banner__pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
   opacity: 1;
-}
+} */
 
 .banner__arrows {
   padding: 0 24px;
