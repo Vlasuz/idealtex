@@ -5,6 +5,7 @@ import getCookies from "./getCookies";
 import AlreadyAuth from "../pages/alreadyAuth/AlreadyAuth";
 import ChangePassword from "../pages/changePassword/ChangePassword";
 import Search from "../pages/search/Search";
+import Product from "../pages/product/Product";
 
 export const routes = () => {
 
@@ -28,6 +29,10 @@ export const routes = () => {
         {
             path: '/products/:search',
             element: <Search/>
+        },
+        {
+            path: '/product/:productCode',
+            element: <Product/>
         },
     ]
 }
