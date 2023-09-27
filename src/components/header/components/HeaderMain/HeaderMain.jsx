@@ -18,30 +18,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { HeaderMainStyled } from "./HeaderMain.styled";
 import { handleExit } from "../../../../functions/exitAccount";
 import axios from 'axios';
+import {getApiLink} from "../../../../hooks/getApiLink";
+import {NavLink, useNavigate} from "react-router-dom";
 
 export const HeaderMain = () => {
   const [asideOpen, setAsideOpen] = useState(false);
   const [catalogOpen, setCatalogOpen] = useState(false);
   const [phoneOpen, setPhoneOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const [searchQuery, setSearchQuery] = useState('');
-
 
   const userInfo = useSelector((state) => state.toolkit.user);
 
   const handleOpenAside = () => {
     setAsideOpen(true);
-    document.documentElement.classList.add("menu-open");
+    setTimeout(() => {
+      document.documentElement.classList.add("menu-open");
+    }, 10)
   };
 
   const handleCloseAside = () => {
-    setAsideOpen(false);
     document.documentElement.classList.remove("menu-open");
-  };
-
-  const handleOpenCatalog = () => {
-    setCatalogOpen(true);
+    setTimeout(() => {
+      setAsideOpen(false);
+    }, 300)
   };
 
   const handleCloseCatalog = () => {
@@ -56,14 +58,7 @@ export const HeaderMain = () => {
   };
 
   const dataSearch = (searchQuery) => {
-    axios.get(`http://api.idealtex.com.ua/v1/public/products?search=${searchQuery}`)
-      .then((response) => {
-        const searchResults = response.data;
-        console.log('А что тут у нас?):', searchResults);
-      })
-      .catch((error) => {
-        console.error('Ошибочка при поиске:', error);
-      });
+    navigate('/products/' + searchQuery)
   };
 
   return (
@@ -85,15 +80,15 @@ export const HeaderMain = () => {
               <img src={menu} alt="icon" />
             </button>
 
-            <a href="#" className="main-header__logo">
+            <NavLink to={"/"} className="main-header__logo">
               <picture>
                 <source srcSet={logo} type="image/webp" />
                 <img src={logo2} alt="img" />
               </picture>
-            </a>
+            </NavLink>
             <button
               className="main-header__catalog-button"
-              onClick={handleOpenCatalog}
+              onClick={_ => setCatalogOpen(true)}
             >
               <img src={catalog} alt="icon" />
               <span>Каталог товарів</span>
