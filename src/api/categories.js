@@ -7,7 +7,15 @@ export async function getAllCategories() {
     return response.data;
 }
 
-export async function getAllProducts() {
-    const response = await axios.get(getApiLink('v1/public/products'));
-    return response.data;
+export async function getAllProducts(evt) {
+    const limit = evt.limit ? `limit=${evt.limit}` : '';
+    const type = evt.type ? `type=${evt.type}` : '';
+    
+    try {
+        const response = await axios.get(getApiLink(`v1/public/products?${limit}&${type}`));
+        return response.data;
+    } catch (error) {
+        console.log('помилка при отриманні продуктів з апі з лімітом', error);
+    }
+    
 }
