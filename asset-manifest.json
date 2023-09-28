@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/idealtex/static/css/main.fb2ebe2d.css",
-    "main.js": "/idealtex/static/js/main.8a8f6938.js",
+    "main.js": "/idealtex/static/js/main.89982649.js",
     "static/media/text-img.png": "/idealtex/static/media/text-img.6fb2e796eb7b96bef899.png",
     "static/media/Inter-Bold.woff": "/idealtex/static/media/Inter-Bold.23eedfa7d7d7b2baf345.woff",
     "static/media/Inter-SemiBold.woff": "/idealtex/static/media/Inter-SemiBold.4597ef96de6a83f8b322.woff",
@@ -60,10 +60,10 @@
     "static/media/scrolltop.svg": "/idealtex/static/media/scrolltop.d2792788bccb67e77855ecfdf976e7c7.svg",
     "static/media/arrow-spoller.svg": "/idealtex/static/media/arrow-spoller.2a4438b5d5f65d771452c01abd7c3844.svg",
     "main.fb2ebe2d.css.map": "/idealtex/static/css/main.fb2ebe2d.css.map",
-    "main.8a8f6938.js.map": "/idealtex/static/js/main.8a8f6938.js.map"
+    "main.89982649.js.map": "/idealtex/static/js/main.89982649.js.map"
   },
   "entrypoints": [
     "static/css/main.fb2ebe2d.css",
-    "static/js/main.8a8f6938.js"
+    "static/js/main.89982649.js"
   ]
 }
