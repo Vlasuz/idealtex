@@ -10,6 +10,7 @@ import arrNext from './../../assets/initial/img/icons/arrow-left.svg'
 import spoller from './../../assets/initial/img/icons/arrow-spoller.svg'
 import CardOption from "../../components/card/components/cardOption";
 import CardOptionEmpty from "../../components/card/components/cardOptionEmpty";
+import Translate from "../../components/translate/Translate";
 
 const Product = () => {
 
@@ -80,13 +81,13 @@ const Product = () => {
                             </div>
                         </div>
                         <div className="product__info">
-                            <span className="product__label">Код продукту: {product.productCode}</span>
-                            <span className="product__label">Країна: {product.productCountry}</span>
+                            <span className="product__label"><Translate>product_code</Translate>: {product.productCode}</span>
+                            <span className="product__label"><Translate>product_country</Translate>: {product.productCountry}</span>
                             {/*<span className="product__label  product__label_empty">*/}
                             {/*    Немає в наявності*/}
                             {/*</span>*/}
                             <span className="product__label  product__label_is">
-                                Залишок &gt; 100 шт
+                                <Translate>product_residue</Translate> &gt; 100 шт
                             </span>
                         </div>
                         <div className="product__descr">
