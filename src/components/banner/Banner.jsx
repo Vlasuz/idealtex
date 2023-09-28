@@ -3,7 +3,7 @@ import axios from "axios";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation, Pagination} from "swiper";
 import 'swiper/swiper-bundle.css';
-import {BannerStyled} from "./banner.styled";
+import {BannerStyled} from "./Banner.styled";
 import { getApiLink } from "../../hooks/getApiLink";
 import arrowLeft from '../../assets/initial/img/icons/arrow-left.svg';
 import arrowRight from '../../assets/initial/img/icons/arrow-left.svg';
