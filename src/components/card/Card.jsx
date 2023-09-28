@@ -35,7 +35,7 @@ const Card = ({data}) => {
                 <div className="product-card__sale">
                     %
                 </div>
-                <NavLink to={'/product/'+data?.productCode} className="product-card__image-ibg">
+                <NavLink to={'/products/'+data?.productCode} className="product-card__image-ibg">
 
                     {<img src={getApiLink("v1/public/images/" + data?.imagesNames[0])} alt=""/>}
 
