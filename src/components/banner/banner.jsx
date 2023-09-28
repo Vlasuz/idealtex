@@ -9,16 +9,17 @@ import arrowLeft from '../../assets/initial/img/icons/arrow-left.svg';
 import arrowRight from '../../assets/initial/img/icons/arrow-left.svg';
 
 
-export const Banner = () => {
+export const Banner = ({apiEndpoint, showNavigation}) => {
+    // 'v1/public/settings/homeFirstBannersAd'
 
     const [settingImage, setSettingImage] = useState([])
 
     useEffect(() =>{
-        axios.get(getApiLink('v1/public/settings/homeFirstBannersAd')).then(({data}) =>{
+        axios.get(getApiLink(apiEndpoint)).then(({data}) =>{
             setSettingImage(data.settings)
             console.log('images from swiper', data);
         })
-    }, [])
+    }, [apiEndpoint])
 
 
     return (
@@ -26,10 +27,10 @@ export const Banner = () => {
             <div className="banner__container">
                 <Swiper 
                     className="banner__slider" 
-                    navigation={{
+                    navigation={ showNavigation ? {
                         prevEl: ".banner__arrow_prev",
                         nextEl: ".banner__arrow_next",
-                    }}
+                    } : false}
                     modules={[Pagination, Navigation]}
                     pagination={{
                         el: ".banner__pagination",
@@ -49,14 +50,18 @@ export const Banner = () => {
                         )
                     }
                     <div className="banner__pagination"></div>
-                    <div className="banner__arrows">
-                        <button className="banner__arrow banner__arrow_prev">
-                            <img src={arrowLeft} alt="icon"/>
-                        </button>
-                        <button className="banner__arrow banner__arrow_next">
-                            <img src={arrowRight} alt="icon"/>
-                        </button>
-                    </div>
+                    {showNavigation 
+                        ?    <div className="banner__arrows">
+                                <button className="banner__arrow banner__arrow_prev">
+                                    <img src={arrowLeft} alt="icon"/>
+                                </button>
+                                <button className="banner__arrow banner__arrow_next">
+                                    <img src={arrowRight} alt="icon"/>
+                                </button>
+                            </div>
+                            
+                        : false
+                    }
                 </Swiper>
             </div>
         </BannerStyled>

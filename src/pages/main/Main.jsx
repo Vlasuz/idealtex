@@ -16,13 +16,13 @@ export const Main = () => {
         <main className={'page'}>
             <Links/>
 
-            <Banner/>
+            <Banner apiEndpoint={'v1/public/settings/homeFirstBannersAd'} showNavigation={true}/>
 
             <Categories/>
 
             <Sales/>
 
-            <Banner/>
+            <Banner apiEndpoint={'v1/public/settings/homeSecondBannersAd'} showNavigation={false}/>
 
             <Text/>
         </main>
