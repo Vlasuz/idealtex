@@ -7,6 +7,9 @@ import {ProductStyled} from "./Product.styled";
 import {Navigation, Pagination} from "swiper";
 
 import arrNext from './../../assets/initial/img/icons/arrow-left.svg'
+import spoller from './../../assets/initial/img/icons/arrow-spoller.svg'
+import CardOption from "../../components/card/components/cardOption";
+import CardOptionEmpty from "../../components/card/components/cardOptionEmpty";
 
 const Product = () => {
 
@@ -21,6 +24,22 @@ const Product = () => {
     }, [])
 
     console.log("Product single", product)
+
+    const [count, setCount] = useState(1)
+    const [productPackage, setProductPackage] = useState('')
+    const smallPackage = 'small|' + product?.productCode
+    const midPackage = 'mid|' + product?.productCode
+    const bigPackage = 'big|' + product?.productCode
+    const productPackageInfoList = {
+        small: product.productPackagesSizes?.small,
+        mid: product.productPackagesSizes?.mid,
+        big: product.productPackagesSizes?.big,
+    }
+    const finaleAmount = productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]?.productCountInPackage * count
+
+    const handleAddToCart = () => {
+        console.log('added to cart', product)
+    }
 
     return (
         <ProductStyled className="product">
@@ -37,6 +56,8 @@ const Product = () => {
                                 pagination={{
                                     el: '.product__pagination'
                                 }}
+                                slidesPerView={1}
+                                speed={700}
                             >
                                 {
                                     product.imagesNames?.map(image =>
@@ -59,55 +80,49 @@ const Product = () => {
                             </div>
                         </div>
                         <div className="product__info">
-                            <span className="product__label">Код продукту: 008+008</span>
-                            <span className="product__label">Країна: Тайвань</span>
-                            <span className="product__label  product__label_empty">
-									Немає в наявності
-								</span>
+                            <span className="product__label">Код продукту: {product.productCode}</span>
+                            <span className="product__label">Країна: {product.productCountry}</span>
+                            {/*<span className="product__label  product__label_empty">*/}
+                            {/*    Немає в наявності*/}
+                            {/*</span>*/}
+                            <span className="product__label  product__label_is">
+                                Залишок &gt; 100 шт
+                            </span>
                         </div>
                         <div className="product__descr">
-                            <p>Lorem Ipsum - це текст-"риба", що використовується в друкарстві та дизайні. Lorem
-                                Ipsum
-                                є, фактично, стандартною "рибою" аж з XVI сторіччя, коли невідомий друкар взяв
-                                шрифтову
-                                гранку та склав на ній підбірку зразків шрифтів.</p>
+                            <p>{product.productName}</p>
                         </div>
                     </div>
                     <div className="product__right">
                         <div className="product__options options options_2">
-                            <div className="options__item">
-                                <input hidden id="o_2" className="options__input" type="radio" value="2"
-                                       name="option"/>
-                                <label htmlFor="o_2" className="options__label"><span className="options__info">уп. 100 шт
-										</span>
-                                    <span className="options__price-pc">
-											Ціна за шт.
-										</span><span className="options__price">
-											0,02 грн
-										</span></label>
-                            </div>
-                            <div className="options__item">
-                                <input checked hidden id="o_22" className="options__input" type="radio" value="2"
-                                       name="option"/>
-                                <label htmlFor="o_22" className="options__label"><span
-                                    className="options__info">уп
-											50 шт</span><span className="options__price-pc">
-											Ціна за шт.
-										</span><span className="options__price">
-											0,02 грн
-										</span></label>
-                            </div>
-                            <div className="options__item">
-                                <input hidden id="o_222" className="options__input" type="radio" value="2"
-                                       name="option"/>
-                                <label htmlFor="o_222" className="options__label"><span
-                                    className="options__info">уп
-											10 шт</span><span className="options__price-pc">
-											Ціна за шт.
-										</span><span className="options__price">
-											0,02 грн
-										</span></label>
-                            </div>
+
+                            {product?.productPackagesSizes?.small ?
+                                <CardOption
+                                    id={smallPackage}
+                                    name={product?.productCode}
+                                    setProductPackage={setProductPackage}
+                                    metric={product?.productMetric}
+                                    data={product?.productPackagesSizes?.small}/>
+                                :
+                                <CardOptionEmpty/>}
+                            {product?.productPackagesSizes?.mid ?
+                                <CardOption
+                                    id={midPackage}
+                                    name={product?.productCode}
+                                    setProductPackage={setProductPackage}
+                                    metric={product?.productMetric}
+                                    data={product?.productPackagesSizes?.mid}/>
+                                :
+                                <CardOptionEmpty/>}
+                            {product?.productPackagesSizes?.big ?
+                                <CardOption
+                                    id={bigPackage}
+                                    name={product?.productCode}
+                                    setProductPackage={setProductPackage}
+                                    metric={product?.productMetric}
+                                    data={product?.productPackagesSizes?.big}/>
+                                :
+                                <CardOptionEmpty/>}
                         </div>
                         <ul className="product__list">
                             <li>
@@ -116,18 +131,19 @@ const Product = () => {
                                 </div>
                                 <div className="product__list-value">
                                     <div data-quantity className="quantity quantity_2">
-                                        <button data-quantity-minus type="button"
+                                        <button onClick={_ => setCount(prev => prev > 1 ? prev - 1 : prev)}
+                                                type="button"
                                                 className="quantity__button quantity__button_minus">
-                                            <img src="img/icons/arrow-left.svg" alt=""/>
+                                            <img src={arrNext} alt=""/>
                                         </button>
                                         <div className="quantity__input">
-                                            <input data-quantity-value autoComplete="off" type="text" name="form[]"
-                                                   value="1"/>
+                                            <input autoComplete="off" type="text" name="form[]"
+                                                   value={count} onChange={e => setCount(+e.target.value)}/>
                                             <span>уп.</span>
                                         </div>
-                                        <button data-quantity-plus type="button"
+                                        <button onClick={_ => setCount(prev => prev + 1)} type="button"
                                                 className="quantity__button quantity__button_plus"><img
-                                            src="img/icons/arrow-left.svg" alt=""/>
+                                            src={arrNext} alt=""/>
                                         </button>
 
                                     </div>
@@ -140,18 +156,21 @@ const Product = () => {
                                 </div>
                                 <div className="product__list-value">
                                     <div className="product__price">
-                                        500 грн
+                                        {finaleAmount} грн
                                     </div>
                                 </div>
                             </li>
                         </ul>
-                        <div className="product__empty">
-                            <span>Немає в наявності</span>
-                        </div>
+                        {/*<div className="product__empty">*/}
+                        {/*    <span>Немає в наявності</span>*/}
+                        {/*</div>*/}
+                        <button onClick={handleAddToCart} className="product__buy button button_green">
+                            Купити
+                        </button>
                         <div data-spollers className="product-card__spoller spoller-product">
                             <details className="spoller-product__item">
                                 <summary data-spoller className="spoller-product__button">
-                                    Знижки <img src="img/icons/arrow-spoller.svg" alt=""/>
+                                    Знижки <img src={spoller} alt=""/>
                                 </summary>
                                 <div className="spoller-product__body">
                                     <div className="spoller-product__table-wrap">
