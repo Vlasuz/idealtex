@@ -51,15 +51,16 @@ export const HeaderMain = () => {
   };
 
   const handleOpenPhone = (evt) => {
-    // evt.preventDefault();
     const phoneBtn = document.querySelector("[data-phone]");
     phoneBtn.parentElement.classList.toggle("_active-phone");
     setPhoneOpen(true);
   };
 
-  const dataSearch = (searchQuery) => {
-    navigate('/products/' + searchQuery)
-  };
+  const handleSearch = (evt) =>{
+    evt.preventDefault();
+    navigate('/search/' + searchQuery)
+    setSearchQuery('');
+  }
 
   return (
     <HeaderMainStyled className="header__main main-header">
@@ -107,10 +108,7 @@ export const HeaderMain = () => {
           </div>
           <div className="main-header__right">
             <div className="main-header__search search-header">
-              <form action="#" className="search-header__form" onSubmit={(evt) => {
-                evt.preventDefault();
-                dataSearch(searchQuery);
-                }}>
+              <form action="#" className="search-header__form" onSubmit={handleSearch}>
                 <div className="search-header__item">
                   <span className="search-header__icon">
                     <img src={search} alt="icon" />
@@ -120,7 +118,7 @@ export const HeaderMain = () => {
                     type="text"
                     className="search-header__input input"
                     value={searchQuery}
-                    onChange={(evt) => setSearchQuery(evt.target.value)}
+                    onChange={(evt) => setSearchQuery(evt.target.value.replace(/\s+/g, ' '))}
                   />
                   <button className="search-header__button">Знайти</button>
                 </div>

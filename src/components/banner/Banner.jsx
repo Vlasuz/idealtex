@@ -10,7 +10,6 @@ import arrowRight from '../../assets/initial/img/icons/arrow-left.svg';
 
 
 export const Banner = ({apiEndpoint, showNavigation}) => {
-    // 'v1/public/settings/homeFirstBannersAd'
 
     const [settingImage, setSettingImage] = useState([])
 
@@ -39,6 +38,7 @@ export const Banner = ({apiEndpoint, showNavigation}) => {
                     slidesPerView={1}
                     spaceBetween={100}
                     speed={700}
+                    loop={true}
                 >
                     {
                         settingImage.map(image =>

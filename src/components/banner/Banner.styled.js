@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const BannerStyled = styled.div`
   .banner__slider.swiper {
     padding: 40px;
-    /* margin: -40px; */
+    margin: 0 -40px;
   }
 
   .banner__image-ibg {
