@@ -21,6 +21,13 @@ export const CardStyled = styled.div `
   -webkit-transition: all 0.3s cubic-bezier(0.5, 0.02, 0.13, 0.5);
   transition: all 0.3s cubic-bezier(0.5, 0.02, 0.13, 0.5);
 
+  .options {
+    display: flex;
+    &__item {
+      width: 100%;
+    }
+  }
+  
   .product-card__not-count {
     padding: 14px;
     border-radius: 10px;
