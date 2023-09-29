@@ -13,10 +13,9 @@ import CardOptionEmpty from "../../components/card/components/cardOptionEmpty";
 import Translate from "../../components/translate/Translate";
 
 const Product = () => {
-
+    const {productCode} = useParams()
     const [product, setProduct] = useState({})
 
-    const {productCode} = useParams()
 
     useEffect(() => {
         axios.get(getApiLink(`v1/public/products/${productCode}`)).then(({data}) => {
@@ -24,22 +23,48 @@ const Product = () => {
         })
     }, [])
 
-    console.log("Product single", product)
+    const smallPackageId = 'small|' + product?.productCode
+    const midPackageId = 'mid|' + product?.productCode
+    const bigPackageId = 'big|' + product?.productCode
 
     const [count, setCount] = useState(1)
-    const [productPackage, setProductPackage] = useState('')
-    const smallPackage = 'small|' + product?.productCode
-    const midPackage = 'mid|' + product?.productCode
-    const bigPackage = 'big|' + product?.productCode
+    const [productPackage, setProductPackage] = useState(midPackageId ?? bigPackageId ?? smallPackageId)
+
     const productPackageInfoList = {
         small: product.productPackagesSizes?.small,
         mid: product.productPackagesSizes?.mid,
         big: product.productPackagesSizes?.big,
     }
-    const finaleAmount = productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]?.productCountInPackage * count
+
+    const ppil = productPackage && productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]
+
+    const isHaveSmallPackage = product?.productPackagesSizes?.small?.displayPackageCount
+    const isHaveMidPackage = product?.productPackagesSizes?.mid?.displayPackageCount && !isHaveSmallPackage
+    const isHaveBigPackage = product?.productPackagesSizes?.big?.displayPackageCount && !isHaveMidPackage
+
+    useEffect(() => {
+        setProductPackage((isHaveSmallPackage && smallPackageId) ?? (isHaveMidPackage && midPackageId) ?? (isHaveBigPackage && bigPackageId))
+    }, [product])
+
+    const finaleAmount =  ppil?.productPackagePrice * count
 
     const handleAddToCart = () => {
         console.log('added to cart', product)
+    }
+
+    if(!Object.keys(product).length) return '';
+
+    const cardOption = (type, isHave, typeId) => {
+        if (product?.productPackagesSizes[type] && product?.productPackagesSizes[type]?.displayPackageCount !== '0')
+            return (<CardOption
+                id={typeId}
+                name={product?.productCode}
+                setProductPackage={setProductPackage}
+                metric={product?.productMetric}
+                data={product?.productPackagesSizes[type]}
+                checked={productPackage}
+            />)
+        else return <CardOptionEmpty/>
     }
 
     return (
@@ -82,7 +107,8 @@ const Product = () => {
                         </div>
                         <div className="product__info">
                             <span className="product__label"><Translate>product_code</Translate>: {product.productCode}</span>
-                            <span className="product__label"><Translate>product_country</Translate>: {product.productCountry}</span>
+                            <span
+                                className="product__label"><Translate>product_country</Translate>: {product.productCountry}</span>
                             {/*<span className="product__label  product__label_empty">*/}
                             {/*    Немає в наявності*/}
                             {/*</span>*/}
@@ -97,33 +123,10 @@ const Product = () => {
                     <div className="product__right">
                         <div className="product__options options options_2">
 
-                            {product?.productPackagesSizes?.small ?
-                                <CardOption
-                                    id={smallPackage}
-                                    name={product?.productCode}
-                                    setProductPackage={setProductPackage}
-                                    metric={product?.productMetric}
-                                    data={product?.productPackagesSizes?.small}/>
-                                :
-                                <CardOptionEmpty/>}
-                            {product?.productPackagesSizes?.mid ?
-                                <CardOption
-                                    id={midPackage}
-                                    name={product?.productCode}
-                                    setProductPackage={setProductPackage}
-                                    metric={product?.productMetric}
-                                    data={product?.productPackagesSizes?.mid}/>
-                                :
-                                <CardOptionEmpty/>}
-                            {product?.productPackagesSizes?.big ?
-                                <CardOption
-                                    id={bigPackage}
-                                    name={product?.productCode}
-                                    setProductPackage={setProductPackage}
-                                    metric={product?.productMetric}
-                                    data={product?.productPackagesSizes?.big}/>
-                                :
-                                <CardOptionEmpty/>}
+                            {product?.productPackagesSizes?.small?.displayPackageCount && cardOption('small', isHaveSmallPackage, smallPackageId)}
+                            {product?.productPackagesSizes?.mid?.displayPackageCount && cardOption('mid', isHaveMidPackage, midPackageId)}
+                            {product?.productPackagesSizes?.big?.displayPackageCount && cardOption('big', isHaveBigPackage, bigPackageId)}
+
                         </div>
                         <ul className="product__list">
                             <li>

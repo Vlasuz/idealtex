@@ -12,22 +12,43 @@ import {NavLink} from "react-router-dom";
 
 const Card = ({data}) => {
 
-    const [count, setCount] = useState(1)
-    const [productPackage, setProductPackage] = useState('')
+    const smallPackageId = 'small|' + data?.productCode
+    const midPackageId = 'mid|' + data?.productCode
+    const bigPackageId = 'big|' + data?.productCode
 
-    const smallPackage = 'small|' + data?.productCode
-    const midPackage = 'mid|' + data?.productCode
-    const bigPackage = 'big|' + data?.productCode
+    const [count, setCount] = useState(1)
+    const [productPackage, setProductPackage] = useState(midPackageId ?? bigPackageId ?? smallPackageId)
 
     const productPackageInfoList = {
-        small: data.productPackagesSizes.small,
-        mid: data.productPackagesSizes.mid,
-        big: data.productPackagesSizes.big,
+        small: data.productPackagesSizes?.small,
+        mid: data.productPackagesSizes?.mid,
+        big: data.productPackagesSizes?.big,
     }
 
-    console.log('Product data', data)
+    const ppil = productPackage && productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]
 
-    const finaleAmount = productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]?.productCountInPackage * count
+    const isHaveSmallPackage = data?.productPackagesSizes?.small?.displayPackageCount
+    const isHaveMidPackage = data?.productPackagesSizes?.mid?.displayPackageCount && !isHaveSmallPackage
+    const isHaveBigPackage = data?.productPackagesSizes?.big?.displayPackageCount && !isHaveMidPackage
+
+    useEffect(() => {
+        setProductPackage((isHaveSmallPackage && smallPackageId) ?? (isHaveMidPackage && midPackageId) ?? (isHaveBigPackage && bigPackageId))
+    }, [data])
+
+    const finaleAmount =  ppil?.productPackagePrice * count
+
+    const cardOption = (type, isHave, typeId) => {
+        if (data?.productPackagesSizes[type]?.displayPackageCount !== '0')
+            return (<CardOption
+                id={typeId}
+                name={data?.productCode}
+                setProductPackage={setProductPackage}
+                metric={data?.productMetric}
+                data={data?.productPackagesSizes[type]}
+                checked={productPackage}
+            />)
+        else return <CardOptionEmpty/>
+    }
 
     return (
         <CardStyled className="product-card">
@@ -35,40 +56,16 @@ const Card = ({data}) => {
                 <div className="product-card__sale">
                     %
                 </div>
-                <NavLink to={'/products/'+data?.productCode} className="product-card__image-ibg">
+                <NavLink to={'/products/' + data?.productCode} className="product-card__image-ibg">
 
                     {<img src={getApiLink("v1/public/images/" + data?.imagesNames[0])} alt=""/>}
 
                 </NavLink>
                 <div className="product-card__options options">
 
-                    {data?.productPackagesSizes?.small ?
-                        <CardOption
-                            id={smallPackage}
-                            name={data?.productCode}
-                            setProductPackage={setProductPackage}
-                            metric={data?.productMetric}
-                            data={data?.productPackagesSizes?.small}/>
-                        :
-                        <CardOptionEmpty/>}
-                    {data?.productPackagesSizes?.mid ?
-                        <CardOption
-                            id={midPackage}
-                            name={data?.productCode}
-                            setProductPackage={setProductPackage}
-                            metric={data?.productMetric}
-                            data={data?.productPackagesSizes?.mid}/>
-                        :
-                        <CardOptionEmpty/>}
-                    {data?.productPackagesSizes?.big ?
-                        <CardOption
-                            id={bigPackage}
-                            name={data?.productCode}
-                            setProductPackage={setProductPackage}
-                            metric={data?.productMetric}
-                            data={data?.productPackagesSizes?.big}/>
-                        :
-                        <CardOptionEmpty/>}
+                    {data?.productPackagesSizes?.small?.displayPackageCount && cardOption('small', isHaveSmallPackage, smallPackageId)}
+                    {data?.productPackagesSizes?.mid?.displayPackageCount && cardOption('mid', isHaveMidPackage, midPackageId)}
+                    {data?.productPackagesSizes?.big?.displayPackageCount && cardOption('big', isHaveBigPackage, bigPackageId)}
 
                 </div>
                 <ul className="product-card__list">
@@ -87,7 +84,7 @@ const Card = ({data}) => {
                             Одиниць в уп.
                         </span>
                         <span className="product-card__value blue">
-                            {productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]?.productCountInPackage}
+                            {ppil?.productCountInPackage}
                         </span>
                     </li>
                     <li>
@@ -98,7 +95,7 @@ const Card = ({data}) => {
                             Ціна за од.
                         </span>
                         <span className="product-card__value">
-                            {productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]?.productPrice} грн
+                            {ppil?.productPrice} грн
                         </span>
                     </li>
                     <li>
@@ -109,7 +106,7 @@ const Card = ({data}) => {
                             Ціна за уп.
                         </span>
                         <span className="product-card__value blue">
-                            {productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]?.productPackagePrice} грн
+                            {ppil?.productPackagePrice} грн
                         </span>
                     </li>
                 </ul>
@@ -125,7 +122,8 @@ const Card = ({data}) => {
                             <img src={minus} alt=""/>
                         </button>
                         <div className="quantity__input">
-                            <input autoComplete="off" type="number" name="form[]" value={count} onChange={e => setCount(+e.target.value)}/>
+                            <input autoComplete="off" type="number" name="form[]" value={count}
+                                   onChange={e => setCount(+e.target.value)}/>
                         </div>
                         <button onClick={_ => setCount(prev => prev + 1)} type="button"
                                 className="quantity__button quantity__button_plus">
@@ -136,9 +134,9 @@ const Card = ({data}) => {
                         <img src={basketWhite} alt=""/>
                     </button>
                 </div>
-                <div data-spollers className="product-card__spoller spoller-product">
+                <div className="product-card__spoller spoller-product">
                     <details className="spoller-product__item">
-                        <summary data-spoller className="spoller-product__button">
+                        <summary className="spoller-product__button">
                             Знижки <img src={discount} alt=""/>
                         </summary>
                         <div className="spoller-product__body">

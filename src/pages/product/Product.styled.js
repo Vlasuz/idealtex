@@ -5,6 +5,14 @@ export const ProductStyled = styled.section`
     position: relative;
   }
 
+  .options {
+    display: flex;
+    &__item {
+      width: 100%;
+      min-height: 90px;
+    }
+  }
+  
   .product__pagination {
     position: absolute;
     display: flex;
