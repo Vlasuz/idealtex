@@ -5,6 +5,7 @@ import ChangePassword from "../pages/changePassword/ChangePassword";
 import Search from "../pages/search/Search";
 import Product from "../pages/product/Product";
 import PageNotFound from "../pages/pageNotFound/pageNotFound";
+import { Category } from "../pages/category/Category";
 
 export const routes = () => {
 
@@ -36,6 +37,10 @@ export const routes = () => {
         {
             path: '/products/:productCode',
             element: <Product/>
+        },
+        {
+            path: '/category/:categoryAlias',
+            element: <Category/>
         },
     ]
 }
