@@ -7,6 +7,7 @@ const toolkitSlice = createSlice({
         user: {},
         language: '',
         discounts: [],
+        basket: [],
     },
     reducers: {
         setUser(state, action) {
@@ -14,6 +15,13 @@ const toolkitSlice = createSlice({
         },
         removeUser(state) {
             state.user = {}
+        },
+
+        addBasketItem(state, action) {
+            state.basket = [...state.basket, action.payload]
+        },
+        removeBasketItem(state, action) {
+            state.basket = state.basket.filter(item => item.productCode !== action.productCode)
         },
 
         setDiscounts(state, action) {
@@ -33,5 +41,8 @@ export const {
     removeUser,
     setLanguage,
     setDiscounts,
+
+    addBasketItem,
+    removeBasketItem,
 
 } = toolkitSlice.actions;

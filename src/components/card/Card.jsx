@@ -9,9 +9,12 @@ import plus from './../../assets/initial/img/icons/plus.svg'
 import minus from './../../assets/initial/img/icons/minus.svg'
 import {NavLink} from "react-router-dom";
 import CardDiscounts from "./components/cardDiscounts";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {addBasketItem} from "../../redux/toolkitSlice";
 
 const Card = ({data}) => {
+
+    const dispatch = useDispatch()
 
     const smallPackageId = 'small|' + data?.productCode
     const midPackageId = 'mid|' + data?.productCode
@@ -72,8 +75,32 @@ const Card = ({data}) => {
         })
     }, [cartPriceAmount])
 
-    const handleAddToBasket = () => {
-        console.log('add to basket', data)
+    const handleAddToCart = () => {
+
+        console.log(productPackage.slice(0, productPackage.indexOf('|')))
+
+        const size = {
+            'big': {
+                big: {
+                    "productAmount": count
+                },
+            },
+            'mid': {
+                mid: {
+                    "productAmount": count
+                },
+            },
+            'small': {
+                small: {
+                    "productAmount": count
+                },
+            },
+        }
+
+        dispatch(addBasketItem({
+            "productCode": data.productCode,
+            "productPackagesSizes": size[productPackage.slice(0, productPackage.indexOf('|'))]
+        }))
     }
 
     return (
@@ -160,7 +187,7 @@ const Card = ({data}) => {
                                 <img src={plus} alt=""/>
                             </button>
                         </div>
-                        <button onClick={handleAddToBasket} className="product-card__button button-icon">
+                        <button onClick={handleAddToCart} className="product-card__button button-icon">
                             <img src={basketWhite} alt=""/>
                         </button>
                     </div>}

@@ -12,10 +12,13 @@ import CardOption from "../../components/card/components/cardOption";
 import CardOptionEmpty from "../../components/card/components/cardOptionEmpty";
 import Translate from "../../components/translate/Translate";
 import CardDiscounts from "../../components/card/components/cardDiscounts";
+import {useDispatch} from "react-redux";
+import {addBasketItem} from "../../redux/toolkitSlice";
 
 const Product = () => {
     const {productCode} = useParams()
     const [product, setProduct] = useState({})
+    const dispatch = useDispatch()
 
 
     useEffect(() => {
@@ -50,20 +53,31 @@ const Product = () => {
     const finaleAmount = ppil?.productPackagePrice * count
 
     const handleAddToCart = () => {
-        console.log('added to cart', {
-            "productCode": "0000-000C",
-            "productPackagesSizes": {
-                "big": {
-                    "productAmount": 0
+
+        console.log(productPackage.slice(0, productPackage.indexOf('|')))
+
+        const size = {
+            'big': {
+                big: {
+                    "productAmount": count
                 },
-                "mid": {
-                    "productAmount": 0
+            },
+            'mid': {
+                mid: {
+                    "productAmount": count
                 },
-                "small": {
-                    "productAmount": 0
-                }
-            }
-        })
+            },
+            'small': {
+                small: {
+                    "productAmount": count
+                },
+            },
+        }
+
+        dispatch(addBasketItem({
+            "productCode": product.productCode,
+            "productPackagesSizes": size[productPackage.slice(0, productPackage.indexOf('|'))]
+        }))
     }
 
     if (!Object.keys(product).length) return '';
