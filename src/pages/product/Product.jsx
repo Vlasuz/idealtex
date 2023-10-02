@@ -12,12 +12,13 @@ import CardOption from "../../components/card/components/cardOption";
 import CardOptionEmpty from "../../components/card/components/cardOptionEmpty";
 import Translate from "../../components/translate/Translate";
 import CardDiscounts from "../../components/card/components/cardDiscounts";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addBasketItem} from "../../redux/toolkitSlice";
 
 const Product = () => {
     const {productCode} = useParams()
     const [product, setProduct] = useState({})
+    const [productDiscount, setProductDiscount] = useState(0)
     const dispatch = useDispatch()
 
 
@@ -52,32 +53,45 @@ const Product = () => {
 
     const finaleAmount = ppil?.productPackagePrice * count
 
+    const basket = useSelector(state => state.toolkit.basket)
+    const [basketAmount, setBasketAmount] = useState(0)
+    const discounts = useSelector(state => state.toolkit.discounts)
+
+    useEffect(() => {
+        setBasketAmount(0)
+        basket.map(item => setBasketAmount(prev => prev + item.price))
+    }, [basket])
+    useEffect(() => {
+        discounts.map(item => {
+            if (basketAmount >= item.price) {
+                setProductDiscount(item.discount)
+            }
+        })
+    }, [basketAmount])
+
     const handleAddToCart = () => {
 
-        console.log(productPackage.slice(0, productPackage.indexOf('|')))
-
         const size = {
-            'big': {
-                big: {
-                    "productAmount": count
-                },
+            big: {
+                "productAmount": 0
             },
-            'mid': {
-                mid: {
-                    "productAmount": count
-                },
+            mid: {
+                "productAmount": 0
             },
-            'small': {
-                small: {
-                    "productAmount": count
-                },
+            small: {
+                "productAmount": 0
             },
         }
 
-        dispatch(addBasketItem({
+        size[productPackage.slice(0, productPackage.indexOf('|'))].productAmount = count
+
+        const dataItemToCart = {
             "productCode": product.productCode,
-            "productPackagesSizes": size[productPackage.slice(0, productPackage.indexOf('|'))]
-        }))
+            "productPackagesSizes": size,
+            "price": finaleAmount
+        }
+
+        dispatch(addBasketItem(dataItemToCart))
     }
 
     if (!Object.keys(product).length) return '';
@@ -189,7 +203,7 @@ const Product = () => {
                                 </div>
                                 <div className="product__list-value">
                                     <div className="product__price">
-                                        {finaleAmount} грн
+                                        {finaleAmount.toFixed(2)} грн
                                     </div>
                                 </div>
                             </li>

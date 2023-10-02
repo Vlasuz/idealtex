@@ -131,9 +131,9 @@ export const HeaderMain = () => {
               <img src={search2} alt="icon" />
             </button>
             <div className="header__user">
-              <a href="" className="main-header__button button-icon">
+              <NavLink to={!!Object.keys(userInfo).length ? '/profile' : '/auth'} className="main-header__button button-icon">
                 <img src={user} alt="icon" />
-              </a>
+              </NavLink>
               {!!Object.keys(userInfo).length && (
                 <p>
                   <span>{userInfo.firstName}</span>
@@ -142,9 +142,10 @@ export const HeaderMain = () => {
                 </p>
               )}
             </div>
-            <a href="" className="main-header__button button-icon">
+            {/*<NavLink to={"/cart"} className="main-header__button button-icon">*/}
+            <NavLink to={"/checkout"} className="main-header__button button-icon">
               <img src={basket} alt="icon" />
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>
