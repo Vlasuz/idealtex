@@ -11,6 +11,7 @@ import spoller from './../../assets/initial/img/icons/arrow-spoller.svg'
 import CardOption from "../../components/card/components/cardOption";
 import CardOptionEmpty from "../../components/card/components/cardOptionEmpty";
 import Translate from "../../components/translate/Translate";
+import CardDiscounts from "../../components/card/components/cardDiscounts";
 
 const Product = () => {
     const {productCode} = useParams()
@@ -46,13 +47,26 @@ const Product = () => {
         setProductPackage((isHaveSmallPackage && smallPackageId) ?? (isHaveMidPackage && midPackageId) ?? (isHaveBigPackage && bigPackageId))
     }, [product])
 
-    const finaleAmount =  ppil?.productPackagePrice * count
+    const finaleAmount = ppil?.productPackagePrice * count
 
     const handleAddToCart = () => {
-        console.log('added to cart', product)
+        console.log('added to cart', {
+            "productCode": "0000-000C",
+            "productPackagesSizes": {
+                "big": {
+                    "productAmount": 0
+                },
+                "mid": {
+                    "productAmount": 0
+                },
+                "small": {
+                    "productAmount": 0
+                }
+            }
+        })
     }
 
-    if(!Object.keys(product).length) return '';
+    if (!Object.keys(product).length) return '';
 
     const cardOption = (type, isHave, typeId) => {
         if (product?.productPackagesSizes[type] && product?.productPackagesSizes[type]?.displayPackageCount !== '0')
@@ -109,12 +123,13 @@ const Product = () => {
                             <span className="product__label"><Translate>product_code</Translate>: {product.productCode}</span>
                             <span
                                 className="product__label"><Translate>product_country</Translate>: {product.productCountry}</span>
-                            {/*<span className="product__label  product__label_empty">*/}
-                            {/*    Немає в наявності*/}
-                            {/*</span>*/}
-                            <span className="product__label  product__label_is">
-                                <Translate>product_residue</Translate> &gt; 100 шт
-                            </span>
+                            {+ppil?.displayPackageCount === 0 ?
+                                <span className="product__label  product__label_empty">
+                                    Немає в наявності
+                                </span> :
+                                <span className="product__label  product__label_is">
+                                    <Translate>product_residue</Translate> &gt; 100 шт
+                                </span>}
                         </div>
                         <div className="product__descr">
                             <p>{product.productName}</p>
@@ -165,65 +180,14 @@ const Product = () => {
                                 </div>
                             </li>
                         </ul>
-                        {/*<div className="product__empty">*/}
-                        {/*    <span>Немає в наявності</span>*/}
-                        {/*</div>*/}
-                        <button onClick={handleAddToCart} className="product__buy button button_green">
-                            Купити
-                        </button>
-                        <div data-spollers className="product-card__spoller spoller-product">
-                            <details className="spoller-product__item">
-                                <summary data-spoller className="spoller-product__button">
-                                    Знижки <img src={spoller} alt=""/>
-                                </summary>
-                                <div className="spoller-product__body">
-                                    <div className="spoller-product__table-wrap">
-                                        <table className="spoller-product__table">
-                                            <thead className="spoller-product__thead">
-                                            <tr>
-                                                <th className="spoller-product__th">
-                                                    Кількість одиниць в упаковці
-                                                </th>
-                                                <th className="spoller-product__th">
-                                                    Ціна за одиницю
-                                                </th>
-                                                <th className="spoller-product__th">
-                                                    Ціна за упаковку
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>25 шт</td>
-                                                <td>5.2</td>
-                                                <td>130</td>
-                                            </tr>
-                                            <tr>
-                                                <td>15% знижка</td>
-                                                <td>4.72</td>
-                                                <td>125</td>
-                                            </tr>
-                                            <tr>
-                                                <td>10% знижка</td>
-                                                <td>4.68</td>
-                                                <td>117</td>
-                                            </tr>
-                                            <tr>
-                                                <td>15% знижка</td>
-                                                <td>4.42</td>
-                                                <td>110.5</td>
-                                            </tr>
-                                            <tr>
-                                                <td>18% знижка</td>
-                                                <td>4.264</td>
-                                                <td>106.6</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </details>
-                        </div>
+                        {+ppil?.displayPackageCount === 0 ?
+                            <div className="product__empty">
+                                <span>Немає в наявності</span>
+                            </div> :
+                            <button onClick={handleAddToCart} className="product__buy button button_green">
+                                Купити
+                            </button>}
+                        <CardDiscounts data={ppil}/>
                     </div>
                 </div>
             </div>

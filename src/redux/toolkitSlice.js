@@ -6,6 +6,7 @@ const toolkitSlice = createSlice({
     initialState: {
         user: {},
         language: '',
+        discounts: [],
     },
     reducers: {
         setUser(state, action) {
@@ -13,6 +14,10 @@ const toolkitSlice = createSlice({
         },
         removeUser(state) {
             state.user = {}
+        },
+
+        setDiscounts(state, action) {
+            state.discounts = action.payload
         },
 
         setLanguage(state, action) {
@@ -27,5 +32,6 @@ export const {
     setUser,
     removeUser,
     setLanguage,
+    setDiscounts,
 
 } = toolkitSlice.actions;
