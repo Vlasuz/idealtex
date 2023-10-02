@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef} from 'react';
 
 const CardOption = ({data, metric, id, setProductPackage, name, checked}) => {
 

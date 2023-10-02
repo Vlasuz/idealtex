@@ -26,6 +26,9 @@ export const CardStyled = styled.div `
     &__item {
       width: 100%;
     }
+    &__label {
+      min-height: 80px;
+    }
   }
   
   .product-card__not-count {

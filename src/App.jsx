@@ -7,12 +7,14 @@ import {useEffect, useState} from "react";
 import getUserInfo from "./hooks/getUserInfo";
 import {useDispatch} from "react-redux";
 import {routes} from "./functions/routes";
+import {discounts} from "./api/discounts";
 
 export const App = () => {
     const dispatch = useDispatch();
     const [routesList] = useState(routes());
 
     useEffect(() => {
+        discounts({dispatch})
         getUserInfo(getCookies("token"), dispatch);
     }, []);
 
