@@ -6,6 +6,9 @@ import Search from "../pages/search/Search";
 import Product from "../pages/product/Product";
 import PageNotFound from "../pages/pageNotFound/pageNotFound";
 import { Category } from "../pages/category/Category";
+import Profile from "../pages/profile/Profile";
+import ProfileOrder from "../pages/profileOrder/ProfileOrder";
+import Checkout from "../pages/checkout/Checkout";
 
 export const routes = () => {
 
@@ -41,6 +44,18 @@ export const routes = () => {
         {
             path: '/category/:categoryAlias',
             element: <Category/>
+        },
+        {
+            path: '/profile',
+            element: <Profile/>
+        },
+        {
+            path: '/profile/orders/:orderNumber',
+            element: <ProfileOrder/>
+        },
+        {
+            path: '/checkout',
+            element: <Checkout/>
         },
     ]
 }

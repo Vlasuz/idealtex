@@ -20,8 +20,6 @@ const Card = ({data}) => {
     const midPackageId = 'mid|' + data?.productCode
     const bigPackageId = 'big|' + data?.productCode
 
-    console.log(data)
-
     const [count, setCount] = useState(1)
     const [productPackage, setProductPackage] = useState(midPackageId ?? bigPackageId ?? smallPackageId)
     const [isPackageAuction, setIsPackageAuction] = useState(false)
@@ -64,43 +62,45 @@ const Card = ({data}) => {
     }
 
 
-    const cartPriceAmount = 150;
-
+    const basket = useSelector(state => state.toolkit.basket)
+    const [basketAmount, setBasketAmount] = useState(0)
     const discounts = useSelector(state => state.toolkit.discounts)
+
+    useEffect(() => {
+        setBasketAmount(0)
+        basket.map(item => setBasketAmount(prev => prev + item.price))
+    }, [basket])
     useEffect(() => {
         discounts.map(item => {
-            if (cartPriceAmount >= item.price) {
+            if (basketAmount >= item.price) {
                 setProductDiscount(item.discount)
             }
         })
-    }, [cartPriceAmount])
+    }, [basketAmount])
 
     const handleAddToCart = () => {
 
-        console.log(productPackage.slice(0, productPackage.indexOf('|')))
-
         const size = {
-            'big': {
-                big: {
-                    "productAmount": count
-                },
+            big: {
+                "productAmount": !productPackageInfoList["big"] ? 'null' : data?.productPackagesSizes?.big?.displayPackageCount === "0" ? 'EMPTY' : 0
             },
-            'mid': {
-                mid: {
-                    "productAmount": count
-                },
+            mid: {
+                "productAmount": !productPackageInfoList["mid"] ? 'null' : data?.productPackagesSizes?.mid?.displayPackageCount === "0" ? 'EMPTY' : 0
             },
-            'small': {
-                small: {
-                    "productAmount": count
-                },
+            small: {
+                "productAmount": !productPackageInfoList["small"] ? 'null' : data?.productPackagesSizes?.small?.displayPackageCount === "0" ? 'EMPTY' : 0
             },
         }
 
-        dispatch(addBasketItem({
+        size[productPackage.slice(0, productPackage.indexOf('|'))].productAmount = count
+
+        const dataItemToCart = {
             "productCode": data.productCode,
-            "productPackagesSizes": size[productPackage.slice(0, productPackage.indexOf('|'))]
-        }))
+            "productPackagesSizes": size,
+            "price": finaleAmount
+        }
+
+        dispatch(addBasketItem(dataItemToCart))
     }
 
     return (
