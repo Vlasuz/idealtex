@@ -1,49 +1,37 @@
+import { useEffect, useState } from "react";
+import { getAllCategories } from "../../../../api/categories";
+import { NavLink } from "react-router-dom";
 
 export const FooterCategory = () => {
-  return (
-      <div className="footer__column">
-          <div className="footer__title">
-              Категорії
-          </div>
-          <nav className="footer__nav">
-              <ul className="footer__list">
-                  <li>
-                      <a href="">
-                          НОВИНКИ
-                      </a>
-                  </li>
-                  <li>
-                      <a href="">
-                          АКЦІЯ, РОЗПРОДАЖ
-                      </a>
-                  </li>
-                  <li>
-                      <a href="">
-                          ВСЕ ДЛЯ ШИТТЯ
-                      </a>
-                  </li>
-                  <li>
-                      <a href="">
-                          ТКАНИНИ і ПРИКЛАДНІ МАТЕРІАЛИ
-                      </a>
-                  </li>
-                  <li>
-                      <a href="">
-                          БЛИСКАВКА,НИТКА,ҐУДЗИК
-                      </a>
-                  </li>
-                  <li>
-                      <a href="">
-                          РУКОДІЛЛЯ І ТВОРЧІСТЬ
-                      </a>
-                  </li>
-                  <li>
-                      <a href="">
-                          БІЖУТЕРІЯ ТА РЕМЕНІ
-                      </a>
-                  </li>
-              </ul>
-          </nav>
-      </div>
-  )
+
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() =>{
+        getAllCategories()
+            .then(({categories}) =>{
+                setCategories(categories);
+            })
+            .catch((error) => {
+                console.error("Ошибка я не получил категорий:", error);
+            });
+    }, [])
+
+    return (
+        <div className="footer__column">
+            <div className="footer__title">
+                Категорії
+            </div>
+            <nav className="footer__nav">
+                <ul className="footer__list">
+                    {categories.map((category) =>(
+                        <li key={category.categoryAlias}>
+                            <NavLink to={`/category/${category.categoryAlias}`}>
+                                {category.categoryName}
+                            </NavLink>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+        </div>
+    )
 }

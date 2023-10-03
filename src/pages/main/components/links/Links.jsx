@@ -4,17 +4,17 @@ import { NavLink } from "react-router-dom";
 
 export const Links = () => {
 
-    const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
 
-    useEffect(() =>{
-        getAllCategories()
-            .then(({categories}) =>{
-                setCategories(categories);
-            })
-            .catch((error) => {
-                console.error("Ошибка я не получил категорий:", error);
-            });
-    }, [])
+  useEffect(() =>{
+      getAllCategories()
+          .then(({categories}) =>{
+              setCategories(categories);
+          })
+          .catch((error) => {
+              console.error("Ошибка я не получил категорий:", error);
+          });
+  }, [])
 
   return (
     <div className="links">

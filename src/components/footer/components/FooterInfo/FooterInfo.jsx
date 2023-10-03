@@ -9,22 +9,22 @@ export const FooterInfo = () => {
           <nav className="footer__nav">
               <ul className="footer__list">
                   <li>
-                      <a href="">
+                      <a href="#">
                           Про нас
                       </a>
                   </li>
                   <li>
-                      <a href="">
+                      <a href="#">
                           Умови роботи
                       </a>
                   </li>
                   <li>
-                      <a href="">
+                      <a href="#">
                           Знижки
                       </a>
                   </li>
                   <li>
-                      <a href="">
+                      <a href="#">
                           Навігація
                       </a>
                   </li>
