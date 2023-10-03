@@ -141,7 +141,7 @@ const Card = ({data}) => {
                         </span>
                     </li>
                     <li>
-                        {productDiscount > 0 && <div className="product-card__procent">
+                        {!isPackageAuction && productDiscount > 0 && <div className="product-card__procent">
                             {productDiscount}%
                         </div>}
                         <span className="product-card__label">
@@ -152,7 +152,7 @@ const Card = ({data}) => {
                         </span>
                     </li>
                     <li>
-                        {productDiscount > 0 && <div className="product-card__procent">
+                        {!isPackageAuction && productDiscount > 0 && <div className="product-card__procent">
                             {productDiscount}%
                         </div>}
                         <span className="product-card__label">
