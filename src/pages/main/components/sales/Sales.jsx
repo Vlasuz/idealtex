@@ -22,21 +22,20 @@ export const Sales = () => {
 
 const productSales = products.map((product) => (
   <Card 
-  key={product.productCode}
-  data={product}
+    key={product.productCode}
+    data={product}
   />
 ));
 
-    return (
-      <div className="sale">
-            <div className="sale__container">
-              
-                <SalesHead />
+  return (
+    <div className="sale">
+        <div className="sale__container">          
+            <SalesHead />
 
-              <div className="sale__grid-layout">
-                {!loading ? productSales : <p>Загрузка...</p>}       
-            </div>
-        </div>
+          <div className="sale__grid-layout">
+            {!loading ? productSales : <p>Загрузка...</p>}       
+          </div>
+      </div>
     </div>
   );
 };

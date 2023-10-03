@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { getAllCategories } from "../../api/categories";
 import CategoryCard from "../../components/categoryCard/CategoryCard";
-import { CategoriesHead } from "../main/components/categories/components/CategoriesHead/CategoriesHead";
 import { BreadCrumbs } from "./components/breadCrumbs/BreadCrumbs";
 
 export const AllCategories = () => {
