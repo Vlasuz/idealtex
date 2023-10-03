@@ -9,6 +9,8 @@ import { Category } from "../pages/category/Category";
 import Profile from "../pages/profile/Profile";
 import ProfileOrder from "../pages/profileOrder/ProfileOrder";
 import Checkout from "../pages/checkout/Checkout";
+import { AllCategories } from "../pages/allCategories/AllCategories";
+import { AllDiscount } from "../pages/allDiscount/AllDiscount";
 
 export const routes = () => {
 
@@ -42,8 +44,16 @@ export const routes = () => {
             element: <Product/>
         },
         {
-            path: '/category/:categoryAlias',
+            path: '/products',
+            element: <AllDiscount/>
+        },
+        {
+            path: '/categories/:categoryAlias',
             element: <Category/>
+        },
+        {
+            path: '/categories',
+            element: <AllCategories/>
         },
         {
             path: '/profile',

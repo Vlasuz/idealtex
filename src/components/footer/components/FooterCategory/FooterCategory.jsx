@@ -25,7 +25,7 @@ export const FooterCategory = () => {
                 <ul className="footer__list">
                     {categories.map((category) =>(
                         <li key={category.categoryAlias}>
-                            <NavLink to={`/category/${category.categoryAlias}`}>
+                            <NavLink to={`/categories/${category.categoryAlias}`}>
                                 {category.categoryName}
                             </NavLink>
                         </li>

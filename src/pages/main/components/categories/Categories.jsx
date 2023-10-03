@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { CategoriesHead } from "./components/CategoriesHead/CategoriesHead";
 import { getAllCategories } from "../../../../api/categories";
 import CategoryCard from "../../../../components/categoryCard/CategoryCard";
-import { NavLink } from "react-router-dom";
 
 export const Categories = () => {
   const [categories, setCategories] = useState([]);

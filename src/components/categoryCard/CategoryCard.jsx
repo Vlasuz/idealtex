@@ -12,7 +12,7 @@ const CategoryCard = ({ data, type }) => {
 
   return (
     <NavLink
-      to={"/category/" + data?.categoryAlias}
+      to={"/categories/" + data?.categoryAlias}
       className={isHomePageClass("category-card", "category2__item")}
     >
       <div
