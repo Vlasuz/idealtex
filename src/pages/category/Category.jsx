@@ -36,9 +36,10 @@ export const Category = () => {
       });
   }, [categoryAlias]);
 
-  const categoryProducts = products?.map((product) => (
-    <Card data={product} key={product.productCode} />
-  )) ?? <PageNotFound />;
+  const categoryProducts = products.length > 0 
+    ? products.map((product) => (
+      <Card data={product} key={product.productCode} />))
+    : <PageNotFound />;
 
   return (
     <div className="products">
