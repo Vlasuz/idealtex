@@ -1,76 +1,91 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavLink} from "react-router-dom";
+import axios from "axios";
+import {getApiLink} from "../../../hooks/getApiLink";
+import {useSelector} from "react-redux";
 
 const ProfileOrders = () => {
 
+    const userInfo = useSelector(state => state.toolkit.user)
+
     const orders = [
-        {
-            "orderNumber": 0,
-            "orderProducts": [
-                {
-                    "productName": "string",
-                    "productCode": "0000-000",
-                    "productMetric": "string",
-                    "imageNames": [
-                        "string"
-                    ],
-                    "productCountry": "string",
-                    "productPackagesSizes": {
-                        "big": {
-                            "productAmount": 0,
-                            "productPackagePrice": 0,
-                            "productAuction": true
-                        },
-                        "mid": {
-                            "productAmount": 0,
-                            "productPackagePrice": 0,
-                            "productAuction": true
-                        },
-                        "small": {
-                            "productAmount": 0,
-                            "productPackagePrice": 0,
-                            "productAuction": true
-                        }
-                    }
-                }
-            ],
-            "totalSumOfProducts": 0,
-            "discount": 0
-        },
-        {
-            "orderNumber": 1,
-            "orderProducts": [
-                {
-                    "productName": "string",
-                    "productCode": "0000-000",
-                    "productMetric": "string",
-                    "imageNames": [
-                        "string"
-                    ],
-                    "productCountry": "string",
-                    "productPackagesSizes": {
-                        "big": {
-                            "productAmount": 0,
-                            "productPackagePrice": 0,
-                            "productAuction": true
-                        },
-                        "mid": {
-                            "productAmount": 0,
-                            "productPackagePrice": 0,
-                            "productAuction": true
-                        },
-                        "small": {
-                            "productAmount": 0,
-                            "productPackagePrice": 0,
-                            "productAuction": true
-                        }
-                    }
-                }
-            ],
-            "totalSumOfProducts": 0,
-            "discount": 0
-        }
+        // {
+        //     "orderNumber": 0,
+        //     "orderProducts": [
+        //         {
+        //             "productName": "string",
+        //             "productCode": "0000-000",
+        //             "productMetric": "string",
+        //             "imageNames": [
+        //                 "string"
+        //             ],
+        //             "productCountry": "string",
+        //             "productPackagesSizes": {
+        //                 "big": {
+        //                     "productAmount": 0,
+        //                     "productPackagePrice": 0,
+        //                     "productAuction": true
+        //                 },
+        //                 "mid": {
+        //                     "productAmount": 0,
+        //                     "productPackagePrice": 0,
+        //                     "productAuction": true
+        //                 },
+        //                 "small": {
+        //                     "productAmount": 0,
+        //                     "productPackagePrice": 0,
+        //                     "productAuction": true
+        //                 }
+        //             }
+        //         }
+        //     ],
+        //     "totalSumOfProducts": 0,
+        //     "discount": 0
+        // },
+        // {
+        //     "orderNumber": 1,
+        //     "orderProducts": [
+        //         {
+        //             "productName": "string",
+        //             "productCode": "0000-000",
+        //             "productMetric": "string",
+        //             "imageNames": [
+        //                 "string"
+        //             ],
+        //             "productCountry": "string",
+        //             "productPackagesSizes": {
+        //                 "big": {
+        //                     "productAmount": 0,
+        //                     "productPackagePrice": 0,
+        //                     "productAuction": true
+        //                 },
+        //                 "mid": {
+        //                     "productAmount": 0,
+        //                     "productPackagePrice": 0,
+        //                     "productAuction": true
+        //                 },
+        //                 "small": {
+        //                     "productAmount": 0,
+        //                     "productPackagePrice": 0,
+        //                     "productAuction": true
+        //                 }
+        //             }
+        //         }
+        //     ],
+        //     "totalSumOfProducts": 0,
+        //     "discount": 0
+        // }
     ]
+
+    console.log(userInfo)
+
+    useEffect(() => {
+        axios.get(getApiLink(`v1/public/users/${userInfo?.userId}/orders?offset=0&limit=50`)).then(({data}) => {
+            console.log(data)
+        }).catch(er => {
+            console.log(er)
+        })
+    }, [])
 
     return (
         <ul className="orders__list">

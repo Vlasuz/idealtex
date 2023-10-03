@@ -156,7 +156,7 @@ const Product = () => {
                                     Немає в наявності
                                 </span> :
                                 <span className="product__label  product__label_is">
-                                    <Translate>product_residue</Translate> &gt; 100 шт
+                                    <Translate>product_residue</Translate> {ppil?.displayPackageCount}
                                 </span>}
                         </div>
                         <div className="product__descr">
@@ -177,7 +177,7 @@ const Product = () => {
                                     Кількість
                                 </div>
                                 <div className="product__list-value">
-                                    <div data-quantity className="quantity quantity_2">
+                                    <div className="quantity quantity_2">
                                         <button onClick={_ => setCount(prev => prev > 1 ? prev - 1 : prev)}
                                                 type="button"
                                                 className="quantity__button quantity__button_minus">

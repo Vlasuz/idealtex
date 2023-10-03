@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {CheckoutStyled} from "./Checkout.styled";
 import Input from "../../components/input/Input";
 import {useSelector} from "react-redux";
@@ -30,8 +30,31 @@ const Checkout = () => {
 
     const basket = useSelector(state => state.toolkit.basket)
 
+    const [reqComm, setReqComm] = useState([])
+    const [reqBank, setReqBank] = useState([])
+
+    useEffect(() => {
+        axios.get(getApiLink("v1/public/settings/communicationMethods")).then(({data}) => {
+            setReqComm(data.communicationMethods)
+        })
+        // axios.get(getApiLink("v1/public/settings/paymentMethods")).then(({data}) => {
+        //     setReqBank(data.paymentMethods)
+        // })
+    }, [])
+
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        const random_uuid = uuidv4();
+
+        function uuidv4() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+                .replace(/[xy]/g, function (c) {
+                    const r = Math.random() * 16 | 0,
+                        v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+        }
 
         console.log(basket)
         console.log('FORM SUBMIT')
@@ -45,23 +68,22 @@ const Checkout = () => {
                 "office": postNumber
             },
             "customer": {
-                "phone": firstName,
-                "email": lastName,
-                "firstName": email,
-                "secondName": phone
+                "phone": phone,
+                "email": email,
+                "firstName": firstName,
+                "secondName": lastName
             },
             "recipient": {
-                "phone": firstNameOther,
-                "firstName": lastNameOther,
-                "secondName": phoneOther
+                "phone": phoneOther,
+                "firstName": firstNameOther,
+                "secondName": lastNameOther
             },
             "communicationMethod": communicate,
             "paymentMethod": bank,
-            "cartId": '12312',
+            "cartId": random_uuid,
             "customerMessage": comment
         }
 
-        axios.defaults.headers.post['Authorization'] = `Bearer ${getCookies('token')}`
         axios.post(getApiLink('v1/public/orders'), bodyOfOrder).then(({data}) => {
             console.log(data)
         }).catch(er => {
@@ -69,6 +91,22 @@ const Checkout = () => {
         })
 
     }
+
+    const [productDiscount, setProductDiscount] = useState(0)
+    const [basketAmount, setBasketAmount] = useState(0)
+    const discounts = useSelector(state => state.toolkit.discounts)
+
+    useEffect(() => {
+        setBasketAmount(0)
+        basket.map(item => setBasketAmount(prev => prev + item.price))
+    }, [basket])
+    useEffect(() => {
+        discounts.map(item => {
+            if (basketAmount >= item.price) {
+                setProductDiscount(item.discount)
+            }
+        })
+    }, [basketAmount])
 
     return (
         <CheckoutStyled className="user">
@@ -83,13 +121,15 @@ const Checkout = () => {
 									<span className="input-item__title">
 										Призвіще
 									</span>
-                                <input required name="form" onChange={e => setFirstName(e.target.value)} value={firstName} type="text" placeholder="" className="input"/>
+                                <input required name="form" onChange={e => setFirstName(e.target.value)}
+                                       value={firstName} type="text" placeholder="" className="input"/>
                             </label>
                             <label className="input-item ">
 									<span className="input-item__title">
 										Ім'я
 									</span>
-                                <input required name="form" onChange={e => setLastName(e.target.value)} value={lastName} type="text" placeholder="" className="input"/>
+                                <input required name="form" onChange={e => setLastName(e.target.value)} value={lastName}
+                                       type="text" placeholder="" className="input"/>
                             </label>
                             <label className="input-item w-100">
 									<span className="input-item__title">
@@ -97,13 +137,15 @@ const Checkout = () => {
 											(Не обов'язкове)
 										</span>
 									</span>
-                                <input name="form" onChange={e => setEmail(e.target.value)} value={email} type="text" placeholder="" className="input"/>
+                                <input name="form" onChange={e => setEmail(e.target.value)} value={email} type="text"
+                                       placeholder="" className="input"/>
                             </label>
                             <label className="input-item w-100">
 									<span className="input-item__title">
 										Телефон
 									</span>
-                                <input required name="form" onChange={e => setPhone(e.target.value)} value={phone} type="text" placeholder="" className="input"/>
+                                <input required name="form" onChange={e => setPhone(e.target.value)} value={phone}
+                                       type="text" placeholder="" className="input"/>
                             </label>
                         </div>
                     </div>
@@ -119,19 +161,22 @@ const Checkout = () => {
 									<span className="input-item__title">
 										Призвіще <span>(Не обов'язкове)</span>
 									</span>
-                                <input name="form" onChange={e => setFirstNameOther(e.target.value)} value={firstNameOther} type="text" placeholder="" className="input"/>
+                                <input name="form" onChange={e => setFirstNameOther(e.target.value)}
+                                       value={firstNameOther} type="text" placeholder="" className="input"/>
                             </label>
                             <label className="input-item ">
 									<span className="input-item__title">
 										Ім'я <span>(Не обов'язкове)</span>
 									</span>
-                                <input name="form" onChange={e => setLastNameOther(e.target.value)} value={lastNameOther} type="text" placeholder="" className="input"/>
+                                <input name="form" onChange={e => setLastNameOther(e.target.value)}
+                                       value={lastNameOther} type="text" placeholder="" className="input"/>
                             </label>
                             <label className="input-item w-100">
 									<span className="input-item__title">
 										Телефон <span>(Не обов'язкове)</span>
 									</span>
-                                <input name="form" onChange={e => setPhoneOther(e.target.value)} value={phoneOther} type="text" placeholder="" className="input"/>
+                                <input name="form" onChange={e => setPhoneOther(e.target.value)} value={phoneOther}
+                                       type="text" placeholder="" className="input"/>
                             </label>
                         </div>
                     </div>
@@ -144,25 +189,29 @@ const Checkout = () => {
 									<span className="input-item__title">
 										Назва пошти
 									</span>
-                                <input required name="form" onChange={e => setPost(e.target.value)} value={post} type="text" placeholder="" className="input"/>
+                                <input required name="form" onChange={e => setPost(e.target.value)} value={post}
+                                       type="text" placeholder="" className="input"/>
                             </label>
                             <label className="input-item w-100">
 									<span className="input-item__title">
 										Область
 									</span>
-                                <input required name="form" onChange={e => setRegion(e.target.value)} value={region} type="text" placeholder="" className="input"/>
+                                <input required name="form" onChange={e => setRegion(e.target.value)} value={region}
+                                       type="text" placeholder="" className="input"/>
                             </label>
                             <label className="input-item w-100">
 									<span className="input-item__title">
 										Місто
 									</span>
-                                <input required name="form" onChange={e => setTown(e.target.value)} value={town} type="text" placeholder="" className="input"/>
+                                <input required name="form" onChange={e => setTown(e.target.value)} value={town}
+                                       type="text" placeholder="" className="input"/>
                             </label>
                             <label className="input-item w-100">
 									<span className="input-item__title">
 										Відділення
 									</span>
-                                <input required name="form" onChange={e => setPostNumber(e.target.value)} value={postNumber} type="text" placeholder="" className="input"/>
+                                <input required name="form" onChange={e => setPostNumber(e.target.value)}
+                                       value={postNumber} type="text" placeholder="" className="input"/>
                             </label>
                         </div>
                     </div>
@@ -176,10 +225,9 @@ const Checkout = () => {
 										Як з вами можна зв'язатися
 									</span>
                                 <select name="form[]" onChange={e => setCommunicate(e.target.value)} className="form">
-                                    <option value=""></option>
-                                    <option value="Telegram">Telegram</option>
-                                    <option value="Viber">Viber</option>
-                                    <option value="Немає нічого">Немає нічого</option>
+                                    {
+                                        reqComm.map(option => <option key={option} value={option}>{option}</option>)
+                                    }
                                 </select>
 
                             </label>
@@ -199,7 +247,8 @@ const Checkout = () => {
 									<span className="input-item__title">
 										Примітка <span>(Не обов'язкове)</span>
 									</span>
-                                <textarea name="form" onChange={e => setComment(e.target.value)} value={comment} placeholder="" className="input"/>
+                                <textarea name="form" onChange={e => setComment(e.target.value)} value={comment}
+                                          placeholder="" className="input"/>
                             </label>
                         </div>
                     </div>
@@ -218,7 +267,7 @@ const Checkout = () => {
                                     </td>
                                     <td>
                                         <div className="user__table-value">
-                                            ₴16
+                                            ₴{basketAmount.toFixed(2)}
                                         </div>
                                     </td>
                                 </tr>
@@ -230,7 +279,7 @@ const Checkout = () => {
                                     </td>
                                     <td>
                                         <div className="user__table-value">
-                                            0%
+                                            {productDiscount}%
                                         </div>
                                     </td>
                                 </tr>
@@ -242,7 +291,7 @@ const Checkout = () => {
                                     </td>
                                     <td>
                                         <div className="user__table-value">
-                                            ₴16
+                                            ₴{(basketAmount - basketAmount * (productDiscount / 100)).toFixed(2)}
                                         </div>
                                     </td>
                                 </tr>
