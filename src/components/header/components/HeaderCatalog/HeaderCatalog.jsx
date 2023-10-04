@@ -1,4 +1,6 @@
 import "../../../../assets/initial/css/style.css";
+import { CatalogBody } from "../CatalogBody/CatalogBody";
+import { CatalogTitles } from "../CatalogTitles/CatalogTitles";
 
 export const HeaderCatalog = ({ onClose }) => {
   return (
@@ -14,92 +16,9 @@ export const HeaderCatalog = ({ onClose }) => {
           </button>
         </div>
         <div data-tabs className="header-catalog__tabs">
-          <div data-tabs-titles className="header-catalog__titles ">
-            <button className="header-catalog__title _tab-active">
-              <span> Новинки </span>
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M6.75 4.5L11.25 9L6.75 13.5" stroke-width="2" />
-              </svg>
-            </button>
-            <button className="header-catalog__title ">
-              <span> Акція, Розпродаж </span>
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M6.75 4.5L11.25 9L6.75 13.5" stroke-width="2" />
-              </svg>
-            </button>
-            <button className="header-catalog__title ">
-              <span> Все для шиття </span>
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M6.75 4.5L11.25 9L6.75 13.5" stroke-width="2" />
-              </svg>
-            </button>
-            <button className="header-catalog__title ">
-              <span> Тканини і прикладні матеріали</span>
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M6.75 4.5L11.25 9L6.75 13.5" stroke-width="2" />
-              </svg>
-            </button>
-            <button className="header-catalog__title ">
-              <span>Блискавка, Нитка, Ґудзик</span>
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M6.75 4.5L11.25 9L6.75 13.5" stroke-width="2" />
-              </svg>
-            </button>
-            <button className="header-catalog__title ">
-              <span> Ругоділля і Творчість</span>
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M6.75 4.5L11.25 9L6.75 13.5" stroke-width="2" />
-              </svg>
-            </button>
-            <button className="header-catalog__title ">
-              <span>Біжутерія та ремені</span>
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M6.75 4.5L11.25 9L6.75 13.5" stroke-width="2" />
-              </svg>
-            </button>
-          </div>
+
+          <CatalogTitles />
+          
           <div className="catalog-mob">
             <div className="catalog-mob__nav">
               <div className="category-card">
@@ -195,98 +114,9 @@ export const HeaderCatalog = ({ onClose }) => {
             </div>
           </div>
           <div data-tabs-body className="header-catalog__content">
-            <div className="header-catalog__body">
-              <button className="header-catalog__back">
-                <img src="img/icons/arrow-back.svg" alt="" /> Новинки
-              </button>
-              <div className="header-catalog__grid-layout">
-                <a href="" className="category-card">
-                  <div className="category-card__image-ibg">
-                    <picture>
-                      <source
-                        srcSet="img/main-img/category.webp"
-                        type="image/webp"
-                      />
-                      <img src="img/main-img/category.png" alt="" />
-                    </picture>
-                  </div>
-                  <h4 className="category-card__title">
-                    2023.04 НОВИНКИ Переможного 2023 року
-                  </h4>
-                </a>
-                <a href="" className="category-card">
-                  <div className="category-card__image-ibg">
-                    <picture>
-                      <source
-                        srcSet="img/main-img/category.webp"
-                        type="image/webp"
-                      />
-                      <img src="img/main-img/category.png" alt="" />
-                    </picture>
-                  </div>
-                  <h4 className="category-card__title">
-                    2023.04 НОВИНКИ Переможного 2023 року
-                  </h4>
-                </a>
-                <a href="" className="category-card">
-                  <div className="category-card__image-ibg">
-                    <picture>
-                      <source
-                        srcSet="img/main-img/category.webp"
-                        type="image/webp"
-                      />
-                      <img src="img/main-img/category.png" alt="" />
-                    </picture>
-                  </div>
-                  <h4 className="category-card__title">
-                    2023.04 НОВИНКИ Переможного 2023 року
-                  </h4>
-                </a>
-                <a href="" className="category-card">
-                  <div className="category-card__image-ibg">
-                    <picture>
-                      <source
-                        srcSet="img/main-img/category.webp"
-                        type="image/webp"
-                      />
-                      <img src="img/main-img/category.png" alt="" />
-                    </picture>
-                  </div>
-                  <h4 className="category-card__title">
-                    2023.04 НОВИНКИ Переможного 2023 року
-                  </h4>
-                </a>
-                <a href="" className="category-card">
-                  <div className="category-card__image-ibg">
-                    <picture>
-                      <source
-                        srcSet="img/main-img/category.webp"
-                        type="image/webp"
-                      />
-                      <img src="img/main-img/category.png" alt="" />
-                    </picture>
-                  </div>
-                  <h4 className="category-card__title">
-                    2023.04 НОВИНКИ Переможного 2023 року
-                  </h4>
-                </a>
-                <a href="" className="category-card">
-                  <div className="category-card__image-ibg">
-                    <picture>
-                      <source
-                        srcSet="img/main-img/category.webp"
-                        type="image/webp"
-                      />
-                      <img src="img/main-img/category.png" alt="" />
-                    </picture>
-                  </div>
-                  <h4 className="category-card__title">
-                    2023.04 НОВИНКИ Переможного 2023 року
-                  </h4>
-                </a>
-              </div>
-            </div>
-            <div className="header-catalog__body">
+
+            <CatalogBody/>
+            {/* <div className="header-catalog__body">
               <button className="header-catalog__back">
                 <img src="img/icons/arrow-back.svg" alt="" /> Акція, Розпродаж
               </button>
@@ -835,7 +665,7 @@ export const HeaderCatalog = ({ onClose }) => {
                   </h4>
                 </a>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

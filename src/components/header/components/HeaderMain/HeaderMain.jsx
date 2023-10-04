@@ -43,6 +43,11 @@ export const HeaderMain = () => {
     }, 300)
   };
 
+  const handleOpenCatalog = () => {
+    document.documentElement.classList.toggle("open-catalog");
+    setCatalogOpen(true);
+  }
+
   const handleCloseCatalog = () => {
     setCatalogOpen(false);
   };
@@ -86,7 +91,7 @@ export const HeaderMain = () => {
             </NavLink>
             <button
               className="main-header__catalog-button"
-              onClick={_ => setCatalogOpen(true)}
+              onClick={handleOpenCatalog} //_ => setCatalogOpen(true)
             >
               <img src={catalog} alt="icon" />
               <span>Каталог товарів</span>
