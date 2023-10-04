@@ -28,8 +28,8 @@ export const HeaderPhone = () => {
   axios
     .get(getApiLink('v1/public/settings/companyPhoneKyivstar'))
     .then(({data}) =>{
-      const kyivstarPhone = data.companyPhoneKyivstar;
-      setKyivstar(kyivstarPhone);
+      const phoneKyivstar = data.companyPhoneKyivstrar;
+      setKyivstar(phoneKyivstar);
     })
     .catch((error) => {
       console.log(error);
@@ -38,8 +38,8 @@ export const HeaderPhone = () => {
   axios
     .get(getApiLink('v1/public/settings/companyPhoneLifecell'))
     .then(({data}) =>{
-      const lifecellPhone = data.companyPhoneLifecell;
-      setLifecell(lifecellPhone);
+      const phoneLifecell = data.companyPhoneLifecell;
+      setLifecell(phoneLifecell);
     })
     .catch((error) => {
       console.log(error);
@@ -59,10 +59,10 @@ export const HeaderPhone = () => {
             {vodafonePhone}
           </a>
           <div className="phone-header__socials">
-            <a href="">
+            <a href={`viber://chat/?number=%2B${vodafonePhone}`}>
               <img src={viber} alt="icon" />
             </a>
-            <a href="">
+            <a href={`tg://resolve?domain=${vodafonePhone}`}>
               <img src={telegram} alt="icon" />
             </a>
           </div>
@@ -75,13 +75,13 @@ export const HeaderPhone = () => {
             </picture>
           </div>
           <a href={`tel:${kyivstarPhone}`} className="phone-header__link">
-            {kyivstarPhone}
+            {kyivstarPhone}            
           </a>
           <div className="phone-header__socials">
-            <a href="">
+            <a href={`viber://chat/?number=%2B${kyivstarPhone}`}>
               <img src={viber} alt="icon" />
             </a>
-            <a href="">
+            <a href={`tg://resolve?domain=${kyivstarPhone}`}>
               <img src={telegram} alt="icon" />
             </a>
           </div>

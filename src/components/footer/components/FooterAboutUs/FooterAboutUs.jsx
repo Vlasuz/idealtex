@@ -33,14 +33,14 @@ export const FooterAboutUs = () => {
     axios
         .get(getApiLink('v1/public/settings/companyPhoneKyivstar'))
         .then(({data}) =>{
-            const phoneKyivstar = data.companyPhoneVodafone;
+            const phoneKyivstar = data.companyPhoneKyivstrar;
             setPhoneKyivstar(phoneKyivstar)
         })
 
     axios
         .get(getApiLink('v1/public/settings/companyPhoneLifecell'))
         .then(({data}) =>{
-            const phoneLifecell = data.companyPhoneVodafone;
+            const phoneLifecell = data.companyPhoneLifecell;
             setPhoneLifecell(phoneLifecell)
         })
 
