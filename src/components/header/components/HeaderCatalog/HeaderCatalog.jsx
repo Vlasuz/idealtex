@@ -1,8 +1,27 @@
+import { useEffect, useState } from "react";
 import "../../../../assets/initial/css/style.css";
 import { CatalogBody } from "../CatalogBody/CatalogBody";
 import { CatalogTitles } from "../CatalogTitles/CatalogTitles";
+import { getAllCategories } from "../../../../api/categories";
 
 export const HeaderCatalog = ({ onClose }) => {
+  const [categories, setCategories] = useState([]);
+  const [alias, setAlias] = useState('');
+  console.log('sds', categories[0]?.categoryAlias);
+  console.log('salias', alias);
+
+  useEffect(() =>{
+    getAllCategories()
+      .then(({categories}) =>{
+          setCategories(categories)
+          setAlias(categories ? categories[0]?.categoryAlias : '')
+          // setLoading(false);
+      })
+      .catch((error) => {
+          console.error('я не получил категории', error);
+      })
+  }, []);
+
   return (
     <div className="header-catalog">
       <div className="header-catalog__wrap">
@@ -17,7 +36,7 @@ export const HeaderCatalog = ({ onClose }) => {
         </div>
         <div data-tabs className="header-catalog__tabs">
 
-          <CatalogTitles />
+          <CatalogTitles setAlias={setAlias} allCategories={categories}/>
           
           <div className="catalog-mob">
             <div className="catalog-mob__nav">
@@ -115,7 +134,7 @@ export const HeaderCatalog = ({ onClose }) => {
           </div>
           <div data-tabs-body className="header-catalog__content">
 
-            <CatalogBody/>
+            <CatalogBody alias={alias}/>
             {/* <div className="header-catalog__body">
               <button className="header-catalog__back">
                 <img src="img/icons/arrow-back.svg" alt="" /> Акція, Розпродаж
