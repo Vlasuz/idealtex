@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { getAllCategories } from "../../../../api/categories";
 
 export const CatalogTitles = ({setAlias, allCategories}) => {
+    const [loading, setLoading] = useState(true);
     
     const categoryTitles = allCategories.map((category) =>(
             // _tab-active класс для активной рубрики
@@ -13,9 +14,13 @@ export const CatalogTitles = ({setAlias, allCategories}) => {
         </button>
     ))
 
+    useEffect(() => {
+        setLoading(false);
+    }, []);
+
     return (
         <div data-tabs-titles className="header-catalog__titles">
-            {categoryTitles}
+            {!loading ? categoryTitles : <p>Загрузка...</p>}
         </div>
     )
 }

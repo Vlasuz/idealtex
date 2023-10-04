@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import { getApiLink } from "../../../../hooks/getApiLink";
+import { NavLink } from "react-router-dom";
+import defaultImage from '../../../../assets/initial/img/defaultImage.jpg'
 
 export const CatalogBody = ({alias}) => {
     const [loading, setLoading] = useState(true);
@@ -20,17 +22,17 @@ export const CatalogBody = ({alias}) => {
     }, [alias])
 
     const categoriesChildrenCard = categoriesChildren.map((category) => (
-        <a href="" className="category-card" key={category.categoryAlias}>
+        <NavLink to={`/categories/${category.categoryAlias}`} className="category-card" key={category.categoryAlias}>
             <div className="category-card__image-ibg">
             <picture>
-                <source srcSet="img/main-img/category.webp" type="image/webp" />
-                <img src="img/main-img/category.png" alt="" />
+                <source srcSet={defaultImage} type="image/webp" />
+                <img src={defaultImage} alt="photo" />
             </picture>
             </div>
             <h4 className="category-card__title">
                 {category.categoryName}
             </h4>
-        </a>
+        </NavLink>
     ))
 
     return (

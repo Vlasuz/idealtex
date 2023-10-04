@@ -11,6 +11,7 @@ import ProfileOrder from "../pages/profileOrder/ProfileOrder";
 import Checkout from "../pages/checkout/Checkout";
 import { AllCategories } from "../pages/allCategories/AllCategories";
 import { AllDiscount } from "../pages/allDiscount/AllDiscount";
+import { CatalogPage } from "../pages/catalog/CatalogPage";
 
 export const routes = () => {
 
