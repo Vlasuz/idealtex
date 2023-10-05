@@ -24,8 +24,8 @@ const toolkitSlice = createSlice({
             if (!getCookies('basket')) return;
 
             // CALCULATE GENERAL AMOUNT
-            const productsCount = JSON.parse(getCookies('basket')).map(item => item.package).map(item => item.count)
-            const productsPrice = JSON.parse(getCookies('basket')).map(item => item.package).map(item => item.data).map(item => item.productPackagePrice)
+            const productsCount = JSON.parse(getCookies('basket')).map(item => item.package).map(item => item?.count)
+            const productsPrice = JSON.parse(getCookies('basket')).map(item => item.package).map(item => item?.data).map(item => item?.productPackagePrice)
             const arrayOfPrices = productsPrice.map((item, index) => item * productsCount[index])
             const finalAmount = arrayOfPrices.reduce((acc, num) => acc + num, 0);
             // CALCULATE GENERAL AMOUNT
