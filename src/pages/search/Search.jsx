@@ -5,6 +5,7 @@ import { getApiLink } from "../../hooks/getApiLink";
 import { BreadCrumbs } from "../../components/breadCrumbs/BreadCrumbs";
 import { ProductsNotFound } from "../productsNotFound/ProductsNotFound";
 import Card from "../../components/card/Card";
+import { Loader } from "../../components/loader/Loader";
 
 const Search = () => {
   const { search } = useParams();
@@ -44,7 +45,7 @@ const Search = () => {
           <div className="products__grid-layout">
             {!loading 
               ? searchResults.map((searchResult) => <Card data={searchResult} key={searchResult.productCode} />)
-              : <p>Загрузка...</p>
+              : <Loader/>
             }
           </div>
         </div>
