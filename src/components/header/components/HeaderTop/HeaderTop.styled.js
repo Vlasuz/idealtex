@@ -2,16 +2,16 @@ import styled from "styled-components";
 import '../../../../assets/initial/css/style.css'
 
 export const HeaderTopStyle = styled.div`
-    background: var(--darkblue);
+    /* background: var(--darkblue);
     color: var(--white);
     overflow: hidden;
     position: relative;
     -webkit-transition: all 0.2s cubic-bezier(0.5, 0.02, 0.13, 0.5);
     transition: all 0.2s cubic-bezier(0.5, 0.02, 0.13, 0.5);
-    max-height: 200px;
+    max-height: 200px; */
    
 
-    .top-header.close {
+    /* .top-header.close {
         opacity: 0;
         overflow: hidden;
         visibility: hidden;
@@ -24,13 +24,13 @@ export const HeaderTopStyle = styled.div`
         height: 0;
     }
 
-    /* ._header-scroll .top-header {
+    .top-header._header-scroll {
         max-height: 0px;
         opacity: 0;
         -webkit-transform: translateY(-100%);
         -ms-transform: translateY(-100%);
         transform: translateY(-100%);
-    } */
+    }
 
     .top-header__close {
         position: absolute;
@@ -89,6 +89,6 @@ export const HeaderTopStyle = styled.div`
             height: 30px;
             margin-bottom: -10px;
         }
-    }
+    } */
 
 `

@@ -1599,7 +1599,7 @@ textarea.input_admin {
   pointer-events: all;
 }
 
-/* .top-header {
+.top-header {
   background: var(--darkblue);
   color: var(--white);
   overflow: hidden;
@@ -1674,7 +1674,7 @@ textarea.input_admin {
 
 .top-header__text span {
   color: var(--blue);
-} */
+}
 
 .main-header {
   padding: var(--header-gap) 0px;
