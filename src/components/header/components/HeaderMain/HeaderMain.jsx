@@ -2,6 +2,10 @@ import { useState } from "react";
 import { HeaderAside } from "../HeaderAside/HeaderAside";
 import { HeaderCatalog } from "../HeaderCatalog/HeaderCatalog";
 import { HeaderPhone } from "../HeaderPhone/HeaderPhone";
+import { useDispatch, useSelector } from "react-redux";
+import { HeaderMainStyled } from "./HeaderMain.styled";
+import { handleExit } from "../../../../functions/exitAccount";
+import {NavLink, useNavigate} from "react-router-dom";
 
 import menu from "../../../../assets/initial/img/icons/menu.svg";
 import catalog from "../../../../assets/initial/img/icons/catalog.svg";
@@ -11,15 +15,8 @@ import search2 from "../../../../assets/initial/img/icons/search2.svg";
 import user from "../../../../assets/initial/img/icons/user.svg";
 import basket from "../../../../assets/initial/img/icons/basket.svg";
 import closeBlue from "../../../../assets/initial/img/icons/close-blue.svg";
-
 import logo from "../../../../assets/initial/img/main-img/logo.webp";
 import logo2 from "../../../../assets/initial/img/main-img/logo.png";
-import { useDispatch, useSelector } from "react-redux";
-import { HeaderMainStyled } from "./HeaderMain.styled";
-import { handleExit } from "../../../../functions/exitAccount";
-import axios from 'axios';
-import {getApiLink} from "../../../../hooks/getApiLink";
-import {NavLink, useNavigate} from "react-router-dom";
 
 export const HeaderMain = () => {
   const [asideOpen, setAsideOpen] = useState(false);
@@ -45,6 +42,11 @@ export const HeaderMain = () => {
       setAsideOpen(false);
     }, 300)
   };
+
+  const handleOpenCatalog = () => {
+    document.documentElement.classList.toggle("open-catalog");
+    setCatalogOpen(true);
+  }
 
   const handleCloseCatalog = () => {
     setCatalogOpen(false);
@@ -89,7 +91,7 @@ export const HeaderMain = () => {
             </NavLink>
             <button
               className="main-header__catalog-button"
-              onClick={_ => setCatalogOpen(true)}
+              onClick={handleOpenCatalog} //_ => setCatalogOpen(true)
             >
               <img src={catalog} alt="icon" />
               <span>Каталог товарів</span>

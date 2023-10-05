@@ -20,7 +20,6 @@ export const Category = () => {
         console.log("отримана категорія на ст.", data);
       })
       .catch((error) => {
-        setLoading(false);
         console.log("Помилка при завантаженні категорії:", error);
       });
 
@@ -31,7 +30,6 @@ export const Category = () => {
         setLoading(false);
       })
       .catch((error) => {
-        setLoading(false);
         console.log("Помилка при завантаженні категорії:", error);
       });
   }, [categoryAlias]);
@@ -39,7 +37,7 @@ export const Category = () => {
   const categoryProducts = products.length > 0 
     ? products.map((product) => (
       <Card data={product} key={product.productCode} />))
-    : <PageNotFound />;
+    : null;
 
   return (
     <div className="products">
@@ -47,6 +45,9 @@ export const Category = () => {
         <h2 class="title products__title">
           Категорія: {category.categoryName}
         </h2>
+
+        {products.length === 0 && <PageNotFound />}
+
         <div className="products__grid-layout">
           {!loading ? categoryProducts : <p>Загрузка...</p>}
         </div>

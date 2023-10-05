@@ -23,7 +23,6 @@ const Search = () => {
         console.log("А что тут у нас? search):", searchResults);
       })
       .catch((error) => {
-        setLoading(false);
         console.error("Ошибочка при поиске на странице search:", error);
       });
   };
@@ -32,14 +31,12 @@ const Search = () => {
     fetchData();
   }, [search]);
 
-  const searchCard =
-    searchResults.length > 0 ? (
+  const searchCard = searchResults.length > 0 
+    ? (
       searchResults.map((searchResult) => (
         <Card data={searchResult} key={searchResult.productCode} />
       ))
-    ) : (
-      <PageNotFound />
-    );
+    ) : null;
 
   return (
     <>
@@ -48,6 +45,9 @@ const Search = () => {
       <div className="products">
         <div className="products__container">
           <h2 class="title products__title">Пошук за значенням: {search}</h2>
+
+          {searchResults.length === 0 && <PageNotFound />}
+
           <div className="products__grid-layout">
             {!loading ? searchCard : <p>Загрузка...</p>}
           </div>

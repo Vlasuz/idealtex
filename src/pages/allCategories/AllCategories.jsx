@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { getAllCategories } from "../../api/categories";
 import CategoryCard from "../../components/categoryCard/CategoryCard";
 import { BreadCrumbs } from "./components/breadCrumbs/BreadCrumbs";
+import PageNotFound from "../pageNotFound/pageNotFound";
 
 export const AllCategories = () => {
 
@@ -21,13 +22,16 @@ export const AllCategories = () => {
           });
   }, []);
 
-  const allCategoryCard = allCategories.map((category) =>(
-    <CategoryCard
-      key={category.categoryAlias}
-      data={category}
-      type={"page-categories"}
-    />
-  ))
+  const allCategoryCard = allCategories.length > 0
+    ? (
+      allCategories.map((category) =>(
+        <CategoryCard
+          key={category.categoryAlias}
+          data={category}
+          type={"page-categories"}
+        />
+      ))
+    ) : null;
 
   return (
     <>
@@ -37,6 +41,8 @@ export const AllCategories = () => {
           <h2 class="category2__title title">
               КАТЕГОРІЇ
           </h2>
+
+          {allCategories.length === 0 && <PageNotFound/>}
 
           <div className="category2__grid-layout">
             {!loading ? allCategoryCard : <p>Загрузка...</p>}
