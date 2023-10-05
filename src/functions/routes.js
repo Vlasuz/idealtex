@@ -11,7 +11,8 @@ import ProfileOrder from "../pages/profileOrder/ProfileOrder";
 import Checkout from "../pages/checkout/Checkout";
 import { AllCategories } from "../pages/allCategories/AllCategories";
 import { AllDiscount } from "../pages/allDiscount/AllDiscount";
-import { CatalogPage } from "../pages/catalog/CatalogPage";
+import ThankYou from "../pages/thankYou/ThankYou";
+import Basket from "../pages/basket/Basket";
 
 export const routes = () => {
 
@@ -65,8 +66,16 @@ export const routes = () => {
             element: <ProfileOrder/>
         },
         {
+            path: '/basket',
+            element: <Basket/>
+        },
+        {
             path: '/checkout',
             element: <Checkout/>
+        },
+        {
+            path: '/thx',
+            element: <ThankYou/>
         },
     ]
 }

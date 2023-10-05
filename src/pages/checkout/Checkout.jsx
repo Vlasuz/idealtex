@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {CheckoutStyled} from "./Checkout.styled";
 import Input from "../../components/input/Input";
 import {useSelector} from "react-redux";
 import axios from "axios";
 import {getApiLink} from "../../hooks/getApiLink";
 import getCookies from "../../functions/getCookies";
+import {useRandomUUID4} from "../../hooks/randomUUID4";
+import {useNavigate} from "react-router-dom";
 
 const Checkout = () => {
 
@@ -29,12 +31,29 @@ const Checkout = () => {
     const [comment, setComment] = useState('')
 
     const basket = useSelector(state => state.toolkit.basket)
+    const basketPrice = useSelector(state => state.toolkit.basketPrice)
+
+    const [reqComm, setReqComm] = useState([])
+    const [reqBank, setReqBank] = useState([])
+
+    const {uuid} = useRandomUUID4()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        axios.get(getApiLink("v1/public/settings/communicationMethods")).then(({data}) => {
+            setReqComm(data.communicationMethods)
+        })
+        axios.get(getApiLink("v1/public/settings/paymentMethods")).then(({data}) => {
+            setReqBank(data.paymentMethods)
+        })
+    }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        console.log(basket)
-        console.log('FORM SUBMIT')
+
+
+
 
         const bodyOfOrder = {
             "orderProducts": basket,
@@ -45,30 +64,45 @@ const Checkout = () => {
                 "office": postNumber
             },
             "customer": {
-                "phone": firstName,
-                "email": lastName,
-                "firstName": email,
-                "secondName": phone
+                "phone": phone,
+                "email": email,
+                "firstName": firstName,
+                "secondName": lastName
             },
             "recipient": {
-                "phone": firstNameOther,
-                "firstName": lastNameOther,
-                "secondName": phoneOther
+                "phone": phoneOther,
+                "firstName": firstNameOther,
+                "secondName": lastNameOther
             },
             "communicationMethod": communicate,
             "paymentMethod": bank,
-            "cartId": '12312',
+            "cartId": uuid,
             "customerMessage": comment
         }
 
-        axios.defaults.headers.post['Authorization'] = `Bearer ${getCookies('token')}`
         axios.post(getApiLink('v1/public/orders'), bodyOfOrder).then(({data}) => {
             console.log(data)
+            navigate('/thx')
         }).catch(er => {
             console.log(er)
         })
 
     }
+
+    const [productDiscount, setProductDiscount] = useState(0)
+    const [basketAmount, setBasketAmount] = useState(0)
+    const discounts = useSelector(state => state.toolkit.discounts)
+
+    useEffect(() => {
+        setBasketAmount(basketPrice)
+    }, [basketPrice])
+    useEffect(() => {
+        discounts.map(item => {
+            if (basketAmount >= basketPrice) {
+                setProductDiscount(item.discount)
+            }
+        })
+    }, [basketAmount, basketPrice, discounts])
 
     return (
         <CheckoutStyled className="user">
@@ -83,13 +117,15 @@ const Checkout = () => {
 									<span className="input-item__title">
 										Призвіще
 									</span>
-                                <input required name="form" onChange={e => setFirstName(e.target.value)} value={firstName} type="text" placeholder="" className="input"/>
+                                <input required name="form" onChange={e => setFirstName(e.target.value)}
+                                       value={firstName} type="text" placeholder="" className="input"/>
                             </label>
                             <label className="input-item ">
 									<span className="input-item__title">
 										Ім'я
 									</span>
-                                <input required name="form" onChange={e => setLastName(e.target.value)} value={lastName} type="text" placeholder="" className="input"/>
+                                <input required name="form" onChange={e => setLastName(e.target.value)} value={lastName}
+                                       type="text" placeholder="" className="input"/>
                             </label>
                             <label className="input-item w-100">
 									<span className="input-item__title">
@@ -97,13 +133,15 @@ const Checkout = () => {
 											(Не обов'язкове)
 										</span>
 									</span>
-                                <input name="form" onChange={e => setEmail(e.target.value)} value={email} type="text" placeholder="" className="input"/>
+                                <input name="form" onChange={e => setEmail(e.target.value)} value={email} type="text"
+                                       placeholder="" className="input"/>
                             </label>
                             <label className="input-item w-100">
 									<span className="input-item__title">
 										Телефон
 									</span>
-                                <input required name="form" onChange={e => setPhone(e.target.value)} value={phone} type="text" placeholder="" className="input"/>
+                                <input required name="form" onChange={e => setPhone(e.target.value)} value={phone}
+                                       type="text" placeholder="" className="input"/>
                             </label>
                         </div>
                     </div>
@@ -119,19 +157,22 @@ const Checkout = () => {
 									<span className="input-item__title">
 										Призвіще <span>(Не обов'язкове)</span>
 									</span>
-                                <input name="form" onChange={e => setFirstNameOther(e.target.value)} value={firstNameOther} type="text" placeholder="" className="input"/>
+                                <input name="form" onChange={e => setFirstNameOther(e.target.value)}
+                                       value={firstNameOther} type="text" placeholder="" className="input"/>
                             </label>
                             <label className="input-item ">
 									<span className="input-item__title">
 										Ім'я <span>(Не обов'язкове)</span>
 									</span>
-                                <input name="form" onChange={e => setLastNameOther(e.target.value)} value={lastNameOther} type="text" placeholder="" className="input"/>
+                                <input name="form" onChange={e => setLastNameOther(e.target.value)}
+                                       value={lastNameOther} type="text" placeholder="" className="input"/>
                             </label>
                             <label className="input-item w-100">
 									<span className="input-item__title">
 										Телефон <span>(Не обов'язкове)</span>
 									</span>
-                                <input name="form" onChange={e => setPhoneOther(e.target.value)} value={phoneOther} type="text" placeholder="" className="input"/>
+                                <input name="form" onChange={e => setPhoneOther(e.target.value)} value={phoneOther}
+                                       type="text" placeholder="" className="input"/>
                             </label>
                         </div>
                     </div>
@@ -144,25 +185,29 @@ const Checkout = () => {
 									<span className="input-item__title">
 										Назва пошти
 									</span>
-                                <input required name="form" onChange={e => setPost(e.target.value)} value={post} type="text" placeholder="" className="input"/>
+                                <input required name="form" onChange={e => setPost(e.target.value)} value={post}
+                                       type="text" placeholder="" className="input"/>
                             </label>
                             <label className="input-item w-100">
 									<span className="input-item__title">
 										Область
 									</span>
-                                <input required name="form" onChange={e => setRegion(e.target.value)} value={region} type="text" placeholder="" className="input"/>
+                                <input required name="form" onChange={e => setRegion(e.target.value)} value={region}
+                                       type="text" placeholder="" className="input"/>
                             </label>
                             <label className="input-item w-100">
 									<span className="input-item__title">
 										Місто
 									</span>
-                                <input required name="form" onChange={e => setTown(e.target.value)} value={town} type="text" placeholder="" className="input"/>
+                                <input required name="form" onChange={e => setTown(e.target.value)} value={town}
+                                       type="text" placeholder="" className="input"/>
                             </label>
                             <label className="input-item w-100">
 									<span className="input-item__title">
 										Відділення
 									</span>
-                                <input required name="form" onChange={e => setPostNumber(e.target.value)} value={postNumber} type="text" placeholder="" className="input"/>
+                                <input required name="form" onChange={e => setPostNumber(e.target.value)}
+                                       value={postNumber} type="text" placeholder="" className="input"/>
                             </label>
                         </div>
                     </div>
@@ -176,10 +221,9 @@ const Checkout = () => {
 										Як з вами можна зв'язатися
 									</span>
                                 <select name="form[]" onChange={e => setCommunicate(e.target.value)} className="form">
-                                    <option value=""></option>
-                                    <option value="Telegram">Telegram</option>
-                                    <option value="Viber">Viber</option>
-                                    <option value="Немає нічого">Немає нічого</option>
+                                    {
+                                        reqComm.map(option => <option key={option} value={option}>{option}</option>)
+                                    }
                                 </select>
 
                             </label>
@@ -188,10 +232,7 @@ const Checkout = () => {
 										Який банк вам зручніше
 									</span>
                                 <select name="form[]" onChange={e => setBank(e.target.value)} className="form">
-                                    <option value=""></option>
-                                    <option value="Monobank">Monobank</option>
-                                    <option value="Private24">Private24</option>
-
+                                    {reqBank.map(option => <option key={option} value={option}>{option}</option>)}
                                 </select>
 
                             </label>
@@ -199,7 +240,8 @@ const Checkout = () => {
 									<span className="input-item__title">
 										Примітка <span>(Не обов'язкове)</span>
 									</span>
-                                <textarea name="form" onChange={e => setComment(e.target.value)} value={comment} placeholder="" className="input"/>
+                                <textarea name="form" onChange={e => setComment(e.target.value)} value={comment}
+                                          placeholder="" className="input"/>
                             </label>
                         </div>
                     </div>
@@ -218,7 +260,7 @@ const Checkout = () => {
                                     </td>
                                     <td>
                                         <div className="user__table-value">
-                                            ₴16
+                                            ₴{basketAmount?.toFixed(2)}
                                         </div>
                                     </td>
                                 </tr>
@@ -230,7 +272,7 @@ const Checkout = () => {
                                     </td>
                                     <td>
                                         <div className="user__table-value">
-                                            0%
+                                            {productDiscount}%
                                         </div>
                                     </td>
                                 </tr>
@@ -242,7 +284,7 @@ const Checkout = () => {
                                     </td>
                                     <td>
                                         <div className="user__table-value">
-                                            ₴16
+                                            ₴{(basketAmount - basketAmount * (productDiscount / 100)).toFixed(2)}
                                         </div>
                                     </td>
                                 </tr>
