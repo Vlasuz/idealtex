@@ -16,7 +16,7 @@ export const PageNotFoundStyle = styled.div`
         font-weight: 700;
         letter-spacing: 8px;
         color: var(--darkblue);
-        margin-bottom: 10px;        
+        margin-bottom: 10px; 
     }
 
     p{

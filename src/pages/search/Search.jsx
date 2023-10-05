@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getApiLink } from "../../hooks/getApiLink";
-import Card from "../../components/card/Card";
-import PageNotFound from "../../pages/pageNotFound/pageNotFound";
 import { BreadCrumbs } from "../../components/breadCrumbs/BreadCrumbs";
+import { ProductsNotFound } from "../productsNotFound/ProductsNotFound";
+import Card from "../../components/card/Card";
 
 const Search = () => {
   const { search } = useParams();
@@ -31,13 +31,6 @@ const Search = () => {
     fetchData();
   }, [search]);
 
-  const searchCard = searchResults.length > 0 
-    ? (
-      searchResults.map((searchResult) => (
-        <Card data={searchResult} key={searchResult.productCode} />
-      ))
-    ) : null;
-
   return (
     <>
       <BreadCrumbs />
@@ -46,10 +39,13 @@ const Search = () => {
         <div className="products__container">
           <h2 class="title products__title">Пошук за значенням: {search}</h2>
 
-          {searchResults.length === 0 && <PageNotFound />}
+          {!loading && searchResults.length === 0 && <ProductsNotFound/>}
 
           <div className="products__grid-layout">
-            {!loading ? searchCard : <p>Загрузка...</p>}
+            {!loading 
+              ? searchResults.map((searchResult) => <Card data={searchResult} key={searchResult.productCode} />)
+              : <p>Загрузка...</p>
+            }
           </div>
         </div>
       </div>
