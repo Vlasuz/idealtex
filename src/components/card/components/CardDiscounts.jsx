@@ -1,24 +1,21 @@
 import React from 'react';
-import discount from './../../../assets/initial/img/icons/arrow-spoller.svg'
+import discountIcon from './../../../assets/initial/img/icons/arrow-spoller.svg'
+import {useSelector} from "react-redux";
+import {calculatePriceWithDiscount} from "../../../functions/calculatePriceWithDiscount";
 
-const CardDiscounts = ({data}) => {
+const CardDiscounts = ({data, isProductAuction}) => {
 
     const packagePrice = data?.productPackagePrice
     const packagePriceOne = data?.productPrice
     const countInPackage = data?.productCountInPackage
 
-    const discountCalcPriceOne = (prc) => {
-        return (packagePriceOne - packagePriceOne * (prc / 100)).toFixed(2)
-    }
-    const discountCalcPrice = (prc) => {
-        return (packagePrice - packagePrice * (prc / 100)).toFixed(2)
-    }
+    const discount = useSelector(state => state.toolkit.discounts)
 
     return (
         <div className="product-card__spoller spoller-product">
             <details className="spoller-product__item">
                 <summary className="spoller-product__button">
-                    Знижки <img src={discount} alt=""/>
+                    Знижки <img src={discountIcon} alt=""/>
                 </summary>
                 <div className="spoller-product__body">
                     <div className="spoller-product__table-wrap">
@@ -39,24 +36,20 @@ const CardDiscounts = ({data}) => {
                             <tbody>
                             <tr>
                                 <td>{countInPackage} шт</td>
-                                <td>{packagePriceOne}</td>
-                                <td>{packagePrice}</td>
+                                <td>{packagePriceOne?.toFixed(2)}</td>
+                                <td>{packagePrice?.toFixed(2)}</td>
                             </tr>
-                            <tr>
-                                <td>10%</td>
-                                <td>{discountCalcPriceOne(10)}</td>
-                                <td>{discountCalcPrice(10)}</td>
-                            </tr>
-                            <tr>
-                                <td>20%</td>
-                                <td>{discountCalcPriceOne(20)}</td>
-                                <td>{discountCalcPrice(20)}</td>
-                            </tr>
-                            <tr>
-                                <td>30%</td>
-                                <td>{discountCalcPriceOne(30)}</td>
-                                <td>{discountCalcPrice(30)}</td>
-                            </tr>
+
+                            {
+                                discount?.map(item =>
+                                    <tr key={item.price}>
+                                        <td>{item.discount}%</td>
+                                        <td>{calculatePriceWithDiscount(packagePriceOne, (!isProductAuction ? item.discount : 0))}</td>
+                                        <td>{calculatePriceWithDiscount(packagePrice, (!isProductAuction ? item.discount : 0))}</td>
+                                    </tr>
+                                )
+                            }
+
                             </tbody>
                         </table>
                     </div>

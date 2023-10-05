@@ -5,6 +5,8 @@ import {useSelector} from "react-redux";
 import axios from "axios";
 import {getApiLink} from "../../hooks/getApiLink";
 import getCookies from "../../functions/getCookies";
+import {useRandomUUID4} from "../../hooks/randomUUID4";
+import {useNavigate} from "react-router-dom";
 
 const Checkout = () => {
 
@@ -29,35 +31,29 @@ const Checkout = () => {
     const [comment, setComment] = useState('')
 
     const basket = useSelector(state => state.toolkit.basket)
+    const basketPrice = useSelector(state => state.toolkit.basketPrice)
 
     const [reqComm, setReqComm] = useState([])
     const [reqBank, setReqBank] = useState([])
+
+    const {uuid} = useRandomUUID4()
+    const navigate = useNavigate()
 
     useEffect(() => {
         axios.get(getApiLink("v1/public/settings/communicationMethods")).then(({data}) => {
             setReqComm(data.communicationMethods)
         })
-        // axios.get(getApiLink("v1/public/settings/paymentMethods")).then(({data}) => {
-        //     setReqBank(data.paymentMethods)
-        // })
+        axios.get(getApiLink("v1/public/settings/paymentMethods")).then(({data}) => {
+            setReqBank(data.paymentMethods)
+        })
     }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const random_uuid = uuidv4();
 
-        function uuidv4() {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
-                .replace(/[xy]/g, function (c) {
-                    const r = Math.random() * 16 | 0,
-                        v = c == 'x' ? r : (r & 0x3 | 0x8);
-                    return v.toString(16);
-                });
-        }
 
-        console.log(basket)
-        console.log('FORM SUBMIT')
+
 
         const bodyOfOrder = {
             "orderProducts": basket,
@@ -80,12 +76,13 @@ const Checkout = () => {
             },
             "communicationMethod": communicate,
             "paymentMethod": bank,
-            "cartId": random_uuid,
+            "cartId": uuid,
             "customerMessage": comment
         }
 
         axios.post(getApiLink('v1/public/orders'), bodyOfOrder).then(({data}) => {
             console.log(data)
+            navigate('/thx')
         }).catch(er => {
             console.log(er)
         })
@@ -97,16 +94,15 @@ const Checkout = () => {
     const discounts = useSelector(state => state.toolkit.discounts)
 
     useEffect(() => {
-        setBasketAmount(0)
-        basket.map(item => setBasketAmount(prev => prev + item.price))
-    }, [basket])
+        setBasketAmount(basketPrice)
+    }, [basketPrice])
     useEffect(() => {
         discounts.map(item => {
-            if (basketAmount >= item.price) {
+            if (basketAmount >= basketPrice) {
                 setProductDiscount(item.discount)
             }
         })
-    }, [basketAmount])
+    }, [basketAmount, basketPrice, discounts])
 
     return (
         <CheckoutStyled className="user">
@@ -236,10 +232,7 @@ const Checkout = () => {
 										Який банк вам зручніше
 									</span>
                                 <select name="form[]" onChange={e => setBank(e.target.value)} className="form">
-                                    <option value=""></option>
-                                    <option value="Monobank">Monobank</option>
-                                    <option value="Private24">Private24</option>
-
+                                    {reqBank.map(option => <option key={option} value={option}>{option}</option>)}
                                 </select>
 
                             </label>
@@ -267,7 +260,7 @@ const Checkout = () => {
                                     </td>
                                     <td>
                                         <div className="user__table-value">
-                                            ₴{basketAmount.toFixed(2)}
+                                            ₴{basketAmount?.toFixed(2)}
                                         </div>
                                     </td>
                                 </tr>

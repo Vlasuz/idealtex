@@ -8,10 +8,10 @@ import {Navigation, Pagination} from "swiper";
 
 import arrNext from './../../assets/initial/img/icons/arrow-left.svg'
 import spoller from './../../assets/initial/img/icons/arrow-spoller.svg'
-import CardOption from "../../components/card/components/cardOption";
-import CardOptionEmpty from "../../components/card/components/cardOptionEmpty";
+import CardOption from "../../components/card/components/CardOption";
+import CardOptionEmpty from "../../components/card/components/CardOptionEmpty";
 import Translate from "../../components/translate/Translate";
-import CardDiscounts from "../../components/card/components/cardDiscounts";
+import CardDiscounts from "../../components/card/components/CardDiscounts";
 import {useDispatch, useSelector} from "react-redux";
 import {addBasketItem} from "../../redux/toolkitSlice";
 
