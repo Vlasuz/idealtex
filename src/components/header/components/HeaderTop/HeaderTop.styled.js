@@ -24,13 +24,13 @@ export const HeaderTopStyle = styled.div`
         height: 0;
     }
 
-    ._header-scroll .top-header {
+    /* ._header-scroll .top-header {
         max-height: 0px;
         opacity: 0;
         -webkit-transform: translateY(-100%);
         -ms-transform: translateY(-100%);
         transform: translateY(-100%);
-    }
+    } */
 
     .top-header__close {
         position: absolute;
