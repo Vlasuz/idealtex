@@ -4,7 +4,7 @@ import { getApiLink } from "../../../../hooks/getApiLink";
 import { NavLink } from "react-router-dom";
 import defaultImage from '../../../../assets/initial/img/defaultImage.jpg'
 
-export const CatalogBody = ({alias}) => {
+export const CatalogBody = ({alias, onClose}) => {
     const [loading, setLoading] = useState(true);
     const [categoriesChildren, setCategoriesChildren] = useState([]);
 
@@ -22,7 +22,11 @@ export const CatalogBody = ({alias}) => {
     }, [alias])
 
     const categoriesChildrenCard = categoriesChildren.map((category) => (
-        <NavLink to={`/categories/${category.categoryAlias}`} className="category-card" key={category.categoryAlias}>
+        <NavLink to={`/categories/${category.categoryAlias}`} 
+            className="category-card" 
+            key={category.categoryAlias} 
+            onClick={onClose}
+        >
             <div className="category-card__image-ibg">
             <picture>
                 <source srcSet={defaultImage} type="image/webp" />
