@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { getAllProducts } from "../../api/categories";
 import { BreadCrumbs } from "./components/BreadCrumbs/BreadCrumbs";
@@ -7,39 +7,56 @@ import { Loader } from "../../components/loader/Loader";
 import Card from "../../components/card/Card";
 
 export const AllDiscount = () => {
+  const [discountProducts, setDiscountProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
+  const [offset, setOffset] = useState(0);
 
-    const [discountProducts, setDiscountProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const loadMore = () => {
+    getAllProducts({ type: "discount", limit: 12, offset: offset })
+      .then(({ products }) => {
+        if (products.length === 0) {
+          setHasMore(false);
+        } else {
+          setDiscountProducts((prevProducts) => [...prevProducts, ...products]);
+          setOffset(offset + 12);
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Помилка при завантаженні додаткових продуктів: ", error);
+      });
+  };
 
-    useEffect(() =>{
-        getAllProducts({type: 'discount', limit: 12} )
-            .then(({products}) =>{
-                setDiscountProducts(products);
-                setLoading(false);
-            })
-            .catch((error) =>{
-                console.error("Ошибка я не получил продукты for next st:", error);
-                setLoading(false);    
-            })
-    }, [])
+  useEffect(() => {
+    loadMore();
+  }, []);
 
   return (
     <>
-        <BreadCrumbs />
-        <div className="products">
-            <div className="sale__container">
-                <h2 class="category2__title title">
-                    АКЦІЙНІ ПРОПОЗИЦІЇ
-                </h2>
+      <BreadCrumbs />
+      <div className="products">
+        <div className="sale__container">
+          <h2 className="category2__title title">АКЦІЙНІ ПРОПОЗИЦІЇ</h2>
 
-                {!loading && discountProducts.length === 0 && <ProductsNotFound/>}
-                {loading && <Loader/>}
+          {!loading && discountProducts.length === 0 && <ProductsNotFound />}
+          {loading && <Loader />}
 
-                <div className="sale__grid-layout">
-                    {!loading && discountProducts.map((product) => <Card key={product.productCode} data={product}/>)}       
-                </div>
+          <InfiniteScroll
+            dataLength={discountProducts.length}
+            next={loadMore}
+            hasMore={hasMore}
+            loader={!loading && <Loader />}
+            style={{ overflow: 'unset' }}
+          >
+            <div className="sale__grid-layout">
+              {discountProducts.map((product) => (
+                <Card key={product.productCode} data={product} />
+              ))}
             </div>
+          </InfiniteScroll>
         </div>
+      </div>
     </>
-  )
-}
+  );
+};
