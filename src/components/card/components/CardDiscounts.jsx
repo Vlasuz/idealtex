@@ -9,7 +9,7 @@ const CardDiscounts = ({data, isProductAuction}) => {
     const packagePriceOne = data?.productPrice
     const countInPackage = data?.productCountInPackage
 
-    const discount = useSelector(state => state.toolkit.discounts)
+    const discounts = useSelector(state => state.toolkit.discounts)
 
     return (
         <div className="product-card__spoller spoller-product">
@@ -41,7 +41,7 @@ const CardDiscounts = ({data, isProductAuction}) => {
                             </tr>
 
                             {
-                                discount?.map(item =>
+                                discounts?.map(item =>
                                     <tr key={item.price}>
                                         <td>{item.discount}%</td>
                                         <td>{calculatePriceWithDiscount(packagePriceOne, (!isProductAuction ? item.discount : 0))}</td>

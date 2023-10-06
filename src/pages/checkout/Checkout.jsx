@@ -7,6 +7,7 @@ import {getApiLink} from "../../hooks/getApiLink";
 import getCookies from "../../functions/getCookies";
 import {useRandomUUID4} from "../../hooks/randomUUID4";
 import {useNavigate} from "react-router-dom";
+import {useGetGeneralDiscount} from "../../hooks/getGeneralDiscount";
 
 const Checkout = () => {
 
@@ -30,8 +31,10 @@ const Checkout = () => {
     const [bank, setBank] = useState('')
     const [comment, setComment] = useState('')
 
-    const basket = useSelector(state => state.toolkit.basket)
+    const {discount} = useGetGeneralDiscount()
+    const basket = useSelector(state => state.toolkit.basketCheckout)
     const basketPrice = useSelector(state => state.toolkit.basketPrice)
+    const basketPriceDiscount = useSelector(state => state.toolkit.basketPriceDiscount)
 
     const [reqComm, setReqComm] = useState([])
     const [reqBank, setReqBank] = useState([])
@@ -50,10 +53,6 @@ const Checkout = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
-
-
-
 
         const bodyOfOrder = {
             "orderProducts": basket,
@@ -88,21 +87,6 @@ const Checkout = () => {
         })
 
     }
-
-    const [productDiscount, setProductDiscount] = useState(0)
-    const [basketAmount, setBasketAmount] = useState(0)
-    const discounts = useSelector(state => state.toolkit.discounts)
-
-    useEffect(() => {
-        setBasketAmount(basketPrice)
-    }, [basketPrice])
-    useEffect(() => {
-        discounts.map(item => {
-            if (basketAmount >= basketPrice) {
-                setProductDiscount(item.discount)
-            }
-        })
-    }, [basketAmount, basketPrice, discounts])
 
     return (
         <CheckoutStyled className="user">
@@ -260,7 +244,7 @@ const Checkout = () => {
                                     </td>
                                     <td>
                                         <div className="user__table-value">
-                                            ₴{basketAmount?.toFixed(2)}
+                                            ₴{basketPrice?.toFixed(2)}
                                         </div>
                                     </td>
                                 </tr>
@@ -272,7 +256,7 @@ const Checkout = () => {
                                     </td>
                                     <td>
                                         <div className="user__table-value">
-                                            {productDiscount}%
+                                            {discount}%
                                         </div>
                                     </td>
                                 </tr>
@@ -284,7 +268,7 @@ const Checkout = () => {
                                     </td>
                                     <td>
                                         <div className="user__table-value">
-                                            ₴{(basketAmount - basketAmount * (productDiscount / 100)).toFixed(2)}
+                                            ₴{basketPriceDiscount.toFixed(2)}
                                         </div>
                                     </td>
                                 </tr>

@@ -12,6 +12,7 @@ const toolkitSlice = createSlice({
         basket: [],
         basketCheckout: [],
         basketPrice: 0,
+        basketPriceDiscount: 0,
     },
     reducers: {
         setUser(state, action) {
@@ -42,12 +43,14 @@ const toolkitSlice = createSlice({
 
             setCookie('basket', JSON.stringify(state.basket))
         },
-        setBasketCheckout(state, action) {
-            // state.basket.filter(item => item.product.productCode === action.payload.product.productCode)[0].package = action.payload.package
-            // setCookie('basket', JSON.stringify(state.basket))
-
+        removeBasketAndPrices(state) {
+            state.basket = []
             state.basketCheckout = []
-
+            state.basketPrice = 0
+            state.basketPriceDiscount = 0
+        },
+        setBasketCheckout(state, action) {
+            state.basketCheckout = action.payload
         },
         removeBasketItem(state, action) {
             state.basket = state.basket.filter(item => item.product.productCode !== action.payload.productCode)
@@ -63,6 +66,9 @@ const toolkitSlice = createSlice({
             state.basketPrice = finalAmount
         },
 
+        setBasketPriceDiscount(state, action) {
+            state.basketPriceDiscount = action.payload
+        },
         addBasketPrice(state, action) {
             state.basketPrice = state.basketPrice + action.payload
         },
@@ -89,7 +95,9 @@ export const {
     setBasketCheckout,
     addBasketItem,
     removeBasketItem,
+    removeBasketAndPrices,
 
     addBasketPrice,
+    setBasketPriceDiscount,
 
 } = toolkitSlice.actions;

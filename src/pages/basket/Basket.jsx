@@ -1,32 +1,49 @@
-import React from 'react';
+import React, {createContext, useContext, useEffect, useState} from 'react';
 import BasketCard from "../../components/basketCard/BasketCard";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import BasketBottom from "./components/BasketBottom";
+import {setBasketCheckout, setBasketPriceDiscount} from "../../redux/toolkitSlice";
+
+export const AllAmountContext = createContext(null);
 
 const Basket = () => {
 
     const basket = useSelector(state => state.toolkit.basket)
+    const dispatch = useDispatch()
+    const [allAmountPrice, setAllAmountPrice] = useState(0)
+    const [productsToCheckout, setProductsToCheckout] = useState([])
 
+    useEffect(() => {
+        dispatch(setBasketCheckout(productsToCheckout))
+    }, [productsToCheckout])
 
-    console.log(basket)
+    useEffect(() => {
+        dispatch(setBasketPriceDiscount(allAmountPrice))
+    }, [allAmountPrice])
+
     return (
-        <section className="basket">
-            <div className="basket__top">
-                <div className="basket__container">
-                    <h2 className="title basket__title">
-                        КОШИК
-                    </h2>
-                    <div className="basket__grid-layout">
+        <AllAmountContext.Provider value={setAllAmountPrice}>
+            <section className="basket">
+                <div className="basket__top">
+                    <div className="basket__container">
+                        <h2 className="title basket__title">
+                            КОШИК
+                        </h2>
+                        <div className="basket__grid-layout">
 
-                        {
-                            basket.length ? basket.map(item => <BasketCard data={item.product} selectedPackage={item.package}/>) : "Нічого немає =("
-                        }
+                            {
+                                basket.length ? basket.map(item => <BasketCard data={item.product}
+                                                                               productsToCheckout={productsToCheckout}
+                                                                               setProductsToCheckout={setProductsToCheckout}
+                                                                               selectedPackage={item.package}/>) : "Нічого немає =("
+                            }
 
+                        </div>
                     </div>
                 </div>
-            </div>
-            <BasketBottom/>
-        </section>
+                <BasketBottom/>
+            </section>
+        </AllAmountContext.Provider>
     );
 };
 
