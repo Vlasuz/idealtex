@@ -50,6 +50,7 @@ export const HeaderMain = () => {
 
   const handleCloseCatalog = () => {
     setCatalogOpen(false);
+    document.documentElement.classList.remove('open-catalog')
   };
 
   const handleOpenPhone = (evt) => {
@@ -144,8 +145,7 @@ export const HeaderMain = () => {
                 </p>
               )}
             </div>
-            {/*<NavLink to={"/cart"} className="main-header__button button-icon">*/}
-            <NavLink to={"/checkout"} className="main-header__button button-icon">
+            <NavLink to={"/basket"} className="main-header__button button-icon">
               <img src={basket} alt="icon" />
             </NavLink>
           </div>

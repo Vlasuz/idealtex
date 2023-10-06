@@ -1562,12 +1562,12 @@ textarea.input_admin {
   position: fixed;
   right: 32px;
   bottom: 32px;
-  /*opacity: 0;*/
-  /*visibility: hidden;*/
-  /*pointer-events: none;*/
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
-._header-scroll .header__scroll-top {
+.header__scroll-top._header-scroll  {
   opacity: 1;
   visibility: visible;
   pointer-events: all;
@@ -1599,7 +1599,7 @@ textarea.input_admin {
   pointer-events: all;
 }
 
-/* .top-header {
+.top-header {
   background: var(--darkblue);
   color: var(--white);
   overflow: hidden;
@@ -1622,7 +1622,7 @@ textarea.input_admin {
   height: 0;
 }
 
-._header-scroll .top-header {
+.top-header._header-scroll {
   max-height: 0px;
   opacity: 0;
   -webkit-transform: translateY(-100%);
@@ -1674,7 +1674,7 @@ textarea.input_admin {
 
 .top-header__text span {
   color: var(--blue);
-} */
+}
 
 .main-header {
   padding: var(--header-gap) 0px;

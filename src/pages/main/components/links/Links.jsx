@@ -22,7 +22,7 @@ export const Links = () => {
         <ul className="links__list">
             {categories.map((category) =>(
                 <li key={category.categoryAlias}>
-                    <NavLink to={`/category/${category.categoryAlias}`}>
+                    <NavLink to={`/categories/${category.categoryAlias}`}>
                         {category.categoryName}
                     </NavLink>
                 </li>

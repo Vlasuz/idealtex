@@ -28,7 +28,7 @@ export const HeaderPhone = () => {
   axios
     .get(getApiLink('v1/public/settings/companyPhoneKyivstar'))
     .then(({data}) =>{
-      const phoneKyivstar = data.companyPhoneKyivstrar;
+      const phoneKyivstar = data.companyPhoneKyivstar;
       setKyivstar(phoneKyivstar);
     })
     .catch((error) => {

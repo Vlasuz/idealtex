@@ -1,5 +1,5 @@
 import { HeaderTopStyle } from "./HeaderTop.styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import close from "../../../../assets/initial/img/icons/close.svg";
 import headerSource from "../../../../assets/initial/img/main-img/header01.webp";
@@ -14,12 +14,28 @@ export const HeaderTop = () => {
     setIsVisible(false);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.pageYOffset > 200) {
+        setIsVisible(false);
+      } else{
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   if (!isVisible) {
     return null;
   }
 
   return (
-    <HeaderTopStyle className="header__top top-header">
+    <HeaderTopStyle className={isVisible ? 'top-header' : '_header-scroll close'}>
       <button
         data-close-banner
         className="top-header__close"

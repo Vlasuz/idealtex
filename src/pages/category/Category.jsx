@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {getApiLink} from "../../hooks/getApiLink";
 import {useParams} from "react-router-dom";
 import Card from "../../components/card/Card";
+import { ProductsNotFound } from "../productsNotFound/ProductsNotFound";
 
 export const Category = () => {
     const {categoryAlias} = useParams();
@@ -39,7 +40,7 @@ export const Category = () => {
                     Категорія: {category.categoryName}
                 </h2>
 
-                {!loading && products.length === 0 && "Товаров не найдено"}
+                {!loading && products.length === 0 && <ProductsNotFound/>}
 
                 <div className="products__grid-layout">
                     {

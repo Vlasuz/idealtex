@@ -33,7 +33,7 @@ export const FooterAboutUs = () => {
     axios
         .get(getApiLink('v1/public/settings/companyPhoneKyivstar'))
         .then(({data}) =>{
-            const phoneKyivstar = data.companyPhoneKyivstrar;
+            const phoneKyivstar = data.companyPhoneKyivstar;
             setPhoneKyivstar(phoneKyivstar)
         })
 
