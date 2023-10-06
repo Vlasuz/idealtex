@@ -1599,6 +1599,14 @@ textarea.input_admin {
   pointer-events: all;
 }
 
+/*._header-scroll .top-header {*/
+/*  max-height: 0;*/
+/*  opacity: 0;*/
+/*  -webkit-transform: translateY(-100%);*/
+/*  -ms-transform: translateY(-100%);*/
+/*  transform: translateY(-100%);*/
+/*}*/
+
 .top-header {
   background: var(--darkblue);
   color: var(--white);
@@ -1622,7 +1630,7 @@ textarea.input_admin {
   height: 0;
 }
 
-.top-header._header-scroll {
+._header-scroll .top-header {
   max-height: 0px;
   opacity: 0;
   -webkit-transform: translateY(-100%);

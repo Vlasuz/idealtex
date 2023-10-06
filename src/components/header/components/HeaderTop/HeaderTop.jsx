@@ -7,7 +7,7 @@ import headerSource2 from "../../../../assets/initial/img/main-img/header02.webp
 import headerIc from "../../../../assets/initial/img/main-img/header01.png";
 import headerIc2 from "../../../../assets/initial/img/main-img/header02.png";
 
-export const HeaderTop = () => {
+export const HeaderTop = ({setIsHeaderScroll}) => {
   const [isVisible, setIsVisible] = useState(true);
 
   const handleClose = () => {
@@ -16,10 +16,12 @@ export const HeaderTop = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.pageYOffset > 200) {
-        setIsVisible(false);
-      } else{
-        setIsVisible(true);
+      if (window.pageYOffset > 100) {
+        // setIsVisible(false);
+        setIsHeaderScroll(true)
+      } else if(window.pageYOffset > -100 && window.pageYOffset < 10) {
+        setIsHeaderScroll(false)
+        // setIsVisible(true);
       }
     };
 
@@ -30,9 +32,9 @@ export const HeaderTop = () => {
     };
   }, []);
 
-  if (!isVisible) {
-    return null;
-  }
+  // if (!isVisible) {
+  //   return null;
+  // }
 
   return (
     <HeaderTopStyle className={isVisible ? 'top-header' : '_header-scroll close'}>

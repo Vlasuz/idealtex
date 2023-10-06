@@ -33,24 +33,24 @@ const Search = () => {
   }, [search]);
 
   return (
-    <>
-      <BreadCrumbs />
+      <>
+          <BreadCrumbs />
 
-      <div className="products">
-        <div className="products__container">
-          <h2 class="title products__title">Пошук за значенням: {search}</h2>
+          <div className="products">
+              <div className="products__container">
+                  <h2 className="title products__title">Пошук за значенням: {search}</h2>
 
-          {!loading && searchResults.length === 0 && <ProductsNotFound/>}
+                  {!loading && searchResults.length === 0 && <ProductsNotFound/>}
 
-          <div className="products__grid-layout">
-            {!loading 
-              ? searchResults.map((searchResult) => <Card data={searchResult} key={searchResult.productCode} />)
-              : <Loader/>
-            }
+                  {loading && <Loader/>}
+
+                  <div className="products__grid-layout">
+                      {!loading && searchResults.map((searchResult) => <Card data={searchResult} key={searchResult.productCode} />)
+                      }
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
-    </>
+      </>
   );
 };
 
