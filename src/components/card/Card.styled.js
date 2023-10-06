@@ -185,6 +185,7 @@ export const CardStyled = styled.div `
     line-height: 15px;
     padding: 1px 4px;
     color: #fff;
+    z-index: 2;
   }
 
   .product-card__price {

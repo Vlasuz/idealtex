@@ -7,168 +7,65 @@ import {ProductStyled} from "./Product.styled";
 import {Navigation, Pagination} from "swiper";
 
 import arrNext from './../../assets/initial/img/icons/arrow-left.svg'
-import spoller from './../../assets/initial/img/icons/arrow-spoller.svg'
 import CardOption from "../../components/card/components/CardOption";
 import CardOptionEmpty from "../../components/card/components/CardOptionEmpty";
 import Translate from "../../components/translate/Translate";
 import CardDiscounts from "../../components/card/components/CardDiscounts";
 import {useDispatch, useSelector} from "react-redux";
 import {addBasketItem} from "../../redux/toolkitSlice";
+import ProductSlider from "./components/ProductSlider";
+import ProductInfo from "./components/ProductInfo";
+import CardQuantity from "../../components/card/components/CardQuantity";
+import ProductQuantity from "./components/ProductQuantity";
+import {useChooseProductPackage} from "../../hooks/chooseProductPackage";
 
 const Product = () => {
+
     const {productCode} = useParams()
     const [product, setProduct] = useState({})
-    const [productDiscount, setProductDiscount] = useState(0)
+    const [countOfProduct, setCountOfProduct] = useState(0)
     const dispatch = useDispatch()
-
 
     useEffect(() => {
         axios.get(getApiLink(`v1/public/products/${productCode}`)).then(({data}) => {
             setProduct(data)
+            setIsProductAuction(Object.values(data.productPackagesSizes).map(item => item !== null && item).filter(item => item)[0].productAuction)
         })
     }, [])
 
-    const smallPackageId = 'small|' + product?.productCode
-    const midPackageId = 'mid|' + product?.productCode
-    const bigPackageId = 'big|' + product?.productCode
+    const [isProductAuction, setIsProductAuction] = useState([])
 
-    const [count, setCount] = useState(1)
-    const [productPackage, setProductPackage] = useState(midPackageId ?? bigPackageId ?? smallPackageId)
-
-    const productPackageInfoList = {
-        small: product.productPackagesSizes?.small,
-        mid: product.productPackagesSizes?.mid,
-        big: product.productPackagesSizes?.big,
-    }
-
-    const ppil = productPackage && productPackageInfoList[productPackage.slice(0, productPackage.indexOf('|'))]
-
-    const isHaveSmallPackage = product?.productPackagesSizes?.small?.displayPackageCount
-    const isHaveMidPackage = product?.productPackagesSizes?.mid?.displayPackageCount && !isHaveSmallPackage
-    const isHaveBigPackage = product?.productPackagesSizes?.big?.displayPackageCount && !isHaveMidPackage
-
-    useEffect(() => {
-        setProductPackage((isHaveSmallPackage && smallPackageId) ?? (isHaveMidPackage && midPackageId) ?? (isHaveBigPackage && bigPackageId))
-    }, [product])
-
-    const finaleAmount = ppil?.productPackagePrice * count
-
-    const basket = useSelector(state => state.toolkit.basket)
-    const [basketAmount, setBasketAmount] = useState(0)
-    const discounts = useSelector(state => state.toolkit.discounts)
-
-    useEffect(() => {
-        setBasketAmount(0)
-        basket.map(item => setBasketAmount(prev => prev + item.price))
-    }, [basket])
-    useEffect(() => {
-        discounts.map(item => {
-            if (basketAmount >= item.price) {
-                setProductDiscount(item.discount)
-            }
-        })
-    }, [basketAmount])
+    const {cardOption, activePackage} = useChooseProductPackage({data: product})
 
     const handleAddToCart = () => {
-
-        const size = {
-            big: {
-                "productAmount": 0
-            },
-            mid: {
-                "productAmount": 0
-            },
-            small: {
-                "productAmount": 0
-            },
-        }
-
-        size[productPackage.slice(0, productPackage.indexOf('|'))].productAmount = count
-
         const dataItemToCart = {
-            "productCode": product.productCode,
-            "productPackagesSizes": size,
-            "price": finaleAmount
+            "product": product,
+            "isAuction": isProductAuction,
+            "package": {
+                "data": activePackage.package,
+                "size": activePackage.id,
+                "count": countOfProduct,
+            },
         }
 
         dispatch(addBasketItem(dataItemToCart))
     }
 
-    if (!Object.keys(product).length) return '';
-
-    const cardOption = (type, isHave, typeId) => {
-        if (product?.productPackagesSizes[type] && product?.productPackagesSizes[type]?.displayPackageCount !== '0')
-            return (<CardOption
-                id={typeId}
-                name={product?.productCode}
-                setProductPackage={setProductPackage}
-                metric={product?.productMetric}
-                data={product?.productPackagesSizes[type]}
-                checked={productPackage}
-            />)
-        else return <CardOptionEmpty/>
-    }
 
     return (
         <ProductStyled className="product">
             <div className="product__container">
                 <div className="product__row">
                     <div className="product__left">
-                        <div className="product__slider">
-                            <Swiper
-                                navigation={{
-                                    prevEl: ".product__arrow_prev",
-                                    nextEl: ".product__arrow_next"
-                                }}
-                                modules={[Pagination, Navigation]}
-                                pagination={{
-                                    el: '.product__pagination'
-                                }}
-                                slidesPerView={1}
-                                speed={700}
-                            >
-                                {
-                                    product.imagesNames?.map(image =>
-                                        <SwiperSlide key={image}>
-                                            <div className="product__image-ibg">
-                                                <img src={getApiLink("v1/public/images/" + image)} alt=""/>
-                                            </div>
-                                        </SwiperSlide>
-                                    )
-                                }
-                            </Swiper>
-                            <div className="banner__pagination product__pagination"></div>
-                            <div className="banner__arrows">
-                                <button className="banner__arrow banner__arrow_prev product__arrow_prev">
-                                    <img src={arrNext} alt=""/>
-                                </button>
-                                <button className="banner__arrow banner__arrow_next product__arrow_next">
-                                    <img src={arrNext} alt=""/>
-                                </button>
-                            </div>
-                        </div>
-                        <div className="product__info">
-                            <span className="product__label"><Translate>product_code</Translate>: {product.productCode}</span>
-                            <span
-                                className="product__label"><Translate>product_country</Translate>: {product.productCountry}</span>
-                            {+ppil?.displayPackageCount === 0 ?
-                                <span className="product__label  product__label_empty">
-                                    Немає в наявності
-                                </span> :
-                                <span className="product__label  product__label_is">
-                                    <Translate>product_residue</Translate> {ppil?.displayPackageCount}
-                                </span>}
-                        </div>
-                        <div className="product__descr">
-                            <p>{product.productName}</p>
-                        </div>
+                        <ProductSlider product={product} />
+                        <ProductInfo product={product}/>
                     </div>
                     <div className="product__right">
                         <div className="product__options options options_2">
 
-                            {product?.productPackagesSizes?.small?.displayPackageCount && cardOption('small', isHaveSmallPackage, smallPackageId)}
-                            {product?.productPackagesSizes?.mid?.displayPackageCount && cardOption('mid', isHaveMidPackage, midPackageId)}
-                            {product?.productPackagesSizes?.big?.displayPackageCount && cardOption('big', isHaveBigPackage, bigPackageId)}
+                            {product?.productPackagesSizes?.small?.displayPackageCount && cardOption('small')}
+                            {product?.productPackagesSizes?.mid?.displayPackageCount && cardOption('mid')}
+                            {product?.productPackagesSizes?.big?.displayPackageCount && cardOption('big')}
 
                         </div>
                         <ul className="product__list">
@@ -177,23 +74,7 @@ const Product = () => {
                                     Кількість
                                 </div>
                                 <div className="product__list-value">
-                                    <div className="quantity quantity_2">
-                                        <button onClick={_ => setCount(prev => prev > 1 ? prev - 1 : prev)}
-                                                type="button"
-                                                className="quantity__button quantity__button_minus">
-                                            <img src={arrNext} alt=""/>
-                                        </button>
-                                        <div className="quantity__input">
-                                            <input autoComplete="off" type="text" name="form[]"
-                                                   value={count} onChange={e => setCount(+e.target.value)}/>
-                                            <span>уп.</span>
-                                        </div>
-                                        <button onClick={_ => setCount(prev => prev + 1)} type="button"
-                                                className="quantity__button quantity__button_plus"><img
-                                            src={arrNext} alt=""/>
-                                        </button>
-
-                                    </div>
+                                    <ProductQuantity setCountOfProduct={setCountOfProduct} />
                                 </div>
 
                             </li>
@@ -203,19 +84,20 @@ const Product = () => {
                                 </div>
                                 <div className="product__list-value">
                                     <div className="product__price">
-                                        {finaleAmount.toFixed(2)} грн
+                                        {(activePackage?.package?.productPackagePrice * countOfProduct).toFixed(2)} грн
                                     </div>
                                 </div>
                             </li>
                         </ul>
-                        {+ppil?.displayPackageCount === 0 ?
+                        {+activePackage?.package?.displayPackageCount === 0 ?
                             <div className="product__empty">
                                 <span>Немає в наявності</span>
                             </div> :
                             <button onClick={handleAddToCart} className="product__buy button button_green">
                                 Купити
-                            </button>}
-                        <CardDiscounts data={ppil}/>
+                            </button>
+                        }
+                        <CardDiscounts isProductAuction={isProductAuction} data={activePackage?.package}/>
                     </div>
                 </div>
             </div>

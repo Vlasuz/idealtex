@@ -28,7 +28,7 @@ export const useChooseProductPackage = ({data}) => {
         setProductPackage(checkPackage({data}))
     }, [data])
     useEffect(() => {
-        setActivePackage(packages[productPackage.slice(0, productPackage.indexOf('|'))]?.package)
+        setActivePackage(packages[productPackage?.slice(0, productPackage.indexOf('|'))]?.package)
     }, [productPackage])
 
     const cardOption = (type) => {
@@ -43,22 +43,8 @@ export const useChooseProductPackage = ({data}) => {
         else return <CardOptionEmpty/>
     }
 
-
-    // const [productDiscount, setProductDiscount] = useState(0)
-    // const [maxProductDiscount, setMaxProductDiscount] = useState(0)
-    // const basket = useSelector(state => state.toolkit.basket)
-    // const basketPrice = useSelector(state => state.toolkit.basketPrice)
-    // const discounts = useSelector(state => state.toolkit.discounts)
-    // useEffect(() => {
-    //     setProductDiscount(discounts.filter(item => basketPrice >= item.price).map(item => item.discount).sort((a, b) => b - a)[0] ?? 0)
-    // }, [basket])
-    //
-    // useEffect(() => {
-    //     setMaxProductDiscount(discounts.map(item => item.discount).sort((a, b) => b - a)[0])
-    // }, [discounts])
-
     return {
         cardOption,
-        activePackage
+        activePackage: packages[productPackage?.slice(0, productPackage.indexOf('|'))],
     }
 }
