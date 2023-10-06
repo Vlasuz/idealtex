@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getAllProducts } from "../../../../api/categories";
 import { SalesHead } from "./components/SalesHead/SalesHead";
 import Card from "../../../../components/card/Card";
+import { Loader } from "../../../../components/loader/Loader";
 
 export const Sales = () => {
   const [products, setProducts] = useState([]);
@@ -12,7 +13,6 @@ export const Sales = () => {
       .then(({products}) => {
         setProducts(products);
         setLoading(false);
-        console.log('Получил продукты аукционные', products);
       })
       .catch((error) => {
         console.error("Ошибка я не получил продукты:", error);
@@ -20,21 +20,19 @@ export const Sales = () => {
       });
 }, []);
 
-const productSales = products.map((product) => (
-  <Card 
-    key={product.productCode}
-    data={product}
-  />
-));
-
   return (
     <div className="sale">
         <div className="sale__container">          
-            <SalesHead />
-
-          <div className="sale__grid-layout">
-            {!loading ? productSales : <p>Загрузка...</p>}       
-          </div>
+          {loading ? (
+            <Loader/>
+          ) : products.length > 0 ? (
+            <>
+              <SalesHead />
+              <div className="sale__grid-layout">
+                {products.map((product) => <Card data={product} key={product.productCode} />)}       
+              </div>
+            </>
+          ) : null}
       </div>
     </div>
   );

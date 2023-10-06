@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { getApiLink } from "../../hooks/getApiLink";
 import Card from "../../components/card/Card";
+import { Loader } from "../../components/loader/Loader";
+import { ProductsNotFound } from "../productsNotFound/ProductsNotFound";
 
 export const CatalogPage = () => {
     const {categoriesAlias} = useParams();
     const [products, setProducts] = useState([]);
-    const [category, setCategory] = useState([]);
+    // const [category, setCategory] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() =>{
@@ -32,20 +34,18 @@ export const CatalogPage = () => {
             });
     }, []);
 
-
-    const catalogProduct = products.map((product) => (
-        <Card data={product} key={product.productCode} />
-    ))
-
   return (
     <div className="products">
       <div className="products__container">
         <h2 class="title products__title">
           Категорія: {category.categoryName}
         </h2>
+
+        {!loading && products.length === 0 && <ProductsNotFound/>}
+        {loading && <Loader/>}
+
         <div className="products__grid-layout">
-          {/* {!loading ? catalogProduct : <p>Загрузка...</p>} */}
-            {catalogProduct}
+          {!loading && products.map((product) => <Card data={product} key={product.productCode} />)}
         </div>
       </div>
     </div>

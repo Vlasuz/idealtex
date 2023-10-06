@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 
 export const CatalogTitles = ({setAlias, allCategories,}) => {
-    const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('')
     
     const categoryTitles = allCategories.map((category) =>(
@@ -21,17 +20,14 @@ export const CatalogTitles = ({setAlias, allCategories,}) => {
     ))
 
     useEffect(() => {
-
         if (allCategories && allCategories.length > 0) {
             setActiveTab(allCategories[0].categoryAlias);
         }
-
-        setLoading(false);
     }, [allCategories]);
 
     return (
         <div data-tabs-titles className="header-catalog__titles">
-            {!loading ? categoryTitles : <p>Загрузка...</p>}
+            { categoryTitles}
         </div>
     )
 }

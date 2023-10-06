@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { getApiLink } from "../../../../hooks/getApiLink";
 import { NavLink } from "react-router-dom";
+import { Loader } from "../../../loader/Loader";
+import { ProductsNotFound } from "../../../../pages/productsNotFound/ProductsNotFound";
 import defaultImage from '../../../../assets/initial/img/defaultImage.jpg'
 
 export const CatalogBody = ({alias, onClose}) => {
@@ -21,28 +23,32 @@ export const CatalogBody = ({alias, onClose}) => {
             });
     }, [alias])
 
-    const categoriesChildrenCard = categoriesChildren.map((category) => (
-        <NavLink to={`/categories/${category.categoryAlias}`} 
-            className="category-card" 
-            key={category.categoryAlias} 
-            onClick={onClose}
-        >
-            <div className="category-card__image-ibg">
-            <picture>
-                <source srcSet={defaultImage} type="image/webp" />
-                <img src={defaultImage} alt="photo" />
-            </picture>
-            </div>
-            <h4 className="category-card__title">
-                {category.categoryName}
-            </h4>
-        </NavLink>
-    ))
-
     return (
         <div className="header-catalog__body">
+
+            {!loading && categoriesChildren.length === 0 && <ProductsNotFound/>}
+            {loading && <Loader/>}
+
             <div className="header-catalog__grid-layout">
-                {!loading ? categoriesChildrenCard : <p>Загрузка...</p>}
+                {!loading && 
+                    categoriesChildren.map((category) => (
+                        <NavLink to={`/categories/${category.categoryAlias}`} 
+                            className="category-card" 
+                            key={category.categoryAlias} 
+                            onClick={onClose}
+                        >
+                            <div className="category-card__image-ibg">
+                            <picture>
+                                <source srcSet={defaultImage} type="image/webp" />
+                                <img src={defaultImage} alt="photo" />
+                            </picture>
+                            </div>
+                            <h4 className="category-card__title">
+                                {category.categoryName}
+                            </h4>
+                        </NavLink>
+                    ))
+                }
             </div>
         </div>
     )

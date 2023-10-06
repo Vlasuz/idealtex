@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { getAllCategories } from "../../api/categories";
 import CategoryCard from "../../components/categoryCard/CategoryCard";
 import { BreadCrumbs } from "./components/breadCrumbs/BreadCrumbs";
-import PageNotFound from "../pageNotFound/pageNotFound";
+import { ProductsNotFound } from "../productsNotFound/ProductsNotFound";
+import { Loader } from "../../components/loader/Loader";
 
 export const AllCategories = () => {
 
@@ -12,40 +13,28 @@ export const AllCategories = () => {
   useEffect(() =>{
       getAllCategories()
           .then(({categories}) =>{
-            console.log('все категории для ст', categories);
               setAllCategories(categories);
               setLoading(false);
           })
           .catch((error) => {
               console.error("Ошибка я не получил все категории для ст:", error);
-              setLoading(false);
           });
   }, []);
-
-  const allCategoryCard = allCategories.length > 0
-    ? (
-      allCategories.map((category) =>(
-        <CategoryCard
-          key={category.categoryAlias}
-          data={category}
-          type={"page-categories"}
-        />
-      ))
-    ) : null;
 
   return (
     <>
       <BreadCrumbs/>
       <div className="category2">
         <div className="category2__container">
-          <h2 class="category2__title title">
+          <h2 className="category2__title title">
               КАТЕГОРІЇ
           </h2>
 
-          {allCategories.length === 0 && <PageNotFound/>}
+          {!loading && allCategories.length === 0 && <ProductsNotFound/>}
+          {loading && <Loader/>}
 
           <div className="category2__grid-layout">
-            {!loading ? allCategoryCard : <p>Загрузка...</p>}
+            {!loading && allCategories.map((category) => <CategoryCard key={category.categoryAlias} data={category} type={"page-categories"} />)}
           </div>
         </div>
       </div>

@@ -17,11 +17,9 @@ export const HeaderTop = ({setIsHeaderScroll}) => {
   useEffect(() => {
     const handleScroll = () => {
       if (window.pageYOffset > 100) {
-        // setIsVisible(false);
         setIsHeaderScroll(true)
       } else if(window.pageYOffset > -100 && window.pageYOffset < 10) {
         setIsHeaderScroll(false)
-        // setIsVisible(true);
       }
     };
 
@@ -32,15 +30,15 @@ export const HeaderTop = ({setIsHeaderScroll}) => {
     };
   }, []);
 
-  // if (!isVisible) {
-  //   return null;
-  // }
+  if (!isVisible) {
+    return null;
+  }
 
   return (
-    <HeaderTopStyle className={isVisible ? 'top-header' : '_header-scroll close'}>
+    <HeaderTopStyle className={'top-header'}>
       <button
         data-close-banner
-        className="top-header__close"
+        className={`top-header__close ${isVisible ? '' : 'close'}`}
         onClick={handleClose}
       >
         <img src={close} alt="icon" />

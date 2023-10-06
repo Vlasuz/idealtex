@@ -6091,10 +6091,10 @@ span.flatpickr-weekday {
     --header-gap: 10px;
   }
 
-  /* .top-header__close {
+  .top-header__close {
     right: 10px;
     top: 10px;
-  } */
+  }
 
   .search-header {
     position: fixed;
