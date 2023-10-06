@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const HeaderStyle = styled.header`
+export const HeaderStyle = styled.div`
     position: sticky;
     z-index: 3;
     top: 0;

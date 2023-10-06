@@ -35,7 +35,7 @@ export const HeaderTop = () => {
   }
 
   return (
-    <HeaderTopStyle className={isVisible ? 'top-header' : '_header-scroll'}>
+    <HeaderTopStyle className={isVisible ? 'top-header' : '_header-scroll close'}>
       <button
         data-close-banner
         className="top-header__close"

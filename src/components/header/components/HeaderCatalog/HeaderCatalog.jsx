@@ -36,7 +36,7 @@ export const HeaderCatalog = ({ onClose }) => {
 
           <CatalogTitles setAlias={setAlias} allCategories={categories}/>
           
-          {/* <div className="catalog-mob">
+          <div className="catalog-mob">
             <div className="catalog-mob__nav">
               <div className="category-card">
                 <div className="category-card__image-ibg">
@@ -129,7 +129,7 @@ export const HeaderCatalog = ({ onClose }) => {
                 <div className="category-card__title">Біжутерія та ремені</div>
               </div>
             </div>
-          </div> */}
+          </div>
           <div data-tabs-body className="header-catalog__content">
 
             <CatalogBody alias={alias} onClose={onClose}/>
