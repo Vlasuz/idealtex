@@ -1988,6 +1988,7 @@ textarea.input_admin {
   border-bottom: 1px solid var(--grey);
 }
 
+.menu__main-list li button,
 .menu__main-list li a {
   font-weight: 500;
   line-height: 110.8%;
@@ -6588,6 +6589,7 @@ span.flatpickr-weekday {
     color: var(--blue);
   }
 
+  .menu__main-list li button:hover,
   .menu__main-list li a:hover {
     color: var(--blue);
   }

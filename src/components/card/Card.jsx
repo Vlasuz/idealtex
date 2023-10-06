@@ -73,7 +73,7 @@ const Card = ({data}) => {
                             <img src={basketWhite} alt=""/>
                         </button>
                     </div>}
-                <CardDiscounts isProductAuction={isProductAuction} data={activePackage}/>
+                <CardDiscounts isProductAuction={isProductAuction} data={activePackage?.package}/>
             </div>
         </CardStyled>
     );

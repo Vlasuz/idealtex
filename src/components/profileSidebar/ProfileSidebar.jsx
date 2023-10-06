@@ -6,7 +6,7 @@ import orderIcon from '../../assets/initial/img/icons/order.svg'
 import {useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
 
-const ProfileSidebar = () => {
+const ProfileSidebar = ({setOrderItems}) => {
 
     const userInfo = useSelector(state => state.toolkit.user)
 
@@ -28,12 +28,12 @@ const ProfileSidebar = () => {
             <div className="orders__aside-menu">
                 <ul className="menu__main-list">
                     <li>
-                        <NavLink to={'/profile'}>
+                        <button onClick={_ => setOrderItems([])}>
                             <span className="menu__icon button-icon">
                                 <img src={orderIcon} alt=""/>
                             </span>
                             Замовлення
-                        </NavLink>
+                        </button>
                     </li>
                     <li>
                         <a href="https://admin.idealtex.com.ua" target={'_blank'}>

@@ -1,32 +1,32 @@
 import React from 'react';
+import {CardStyled} from "../../../components/card/Card.styled";
+import {getApiLink} from "../../../hooks/getApiLink";
+import {NavLink} from "react-router-dom";
 
-const OrderItem = () => {
+const OrderItem = ({data}) => {
+
+    console.log(data)
+
     return (
-        <div className="product-card product-card_basket product-card_orders">
+        <CardStyled className="product-card product-card_basket product-card_orders">
             <div className="product-card__top">
-                <a href="" className="product-card__image-ibg">
-                    <picture>
-                        <source srcSet="img/main-img/product.webp" type="image/webp"/>
-                        <img
-                            src="img/main-img/product.png" alt=""/>
-                    </picture>
-                </a>
+                <NavLink to={'/products/'+data.productCode} className="product-card__image-ibg">
+                    <img src={getApiLink("v1/public/images/"+data.imagesNames[0])} alt=""/>
+                </NavLink>
                 <ul className="product-card__list">
                     <li>
-                        код 0008+ 000B
+                        код {data.productCode}
                     </li>
                 </ul>
                 <h4 className="product-card__title">
-                    <a href="">
-                        Lorem Ipsum - це текст-"риба", що використовується в друкарстві та дизайні.
-                        Lorem
-                        Ipsum є, фактично, стандартною "рибою" аж з XVI
-                    </a>
+                    <NavLink to={'/products/'+data.productCode} href="profileOrder/components">
+                        {data.productName}
+                    </NavLink>
                 </h4>
                 <div className="product-card__items">
                     <div className="card-quantity">
                         <div className="card-quantity__title">
-                            уп 100 шт
+                            {/*уп {data.productPackagesSizes.} шт*/}
                         </div>
                         <div className="card-quantity__wrap">
                             <div className="card-quantity__row">
@@ -34,7 +34,7 @@ const OrderItem = () => {
                                     Кол-во уп
                                 </div>
                                 <div className="card-quantity__value">
-                                    0 шт
+                                    {data.productPackagesSizes.big.productAmount} {data.productMetric}
                                 </div>
                             </div>
                             <div className="card-quantity__row">
@@ -42,7 +42,7 @@ const OrderItem = () => {
                                     Ціна за уп.
                                 </div>
                                 <div className="card-quantity__value">
-                                    1 грн
+                                    {data.productPackagesSizes.big.productPackagePrice} грн
                                 </div>
                             </div>
                             <div className="card-quantity__row">
@@ -50,7 +50,7 @@ const OrderItem = () => {
                                     Сума
                                 </div>
                                 <div className="card-quantity__value">
-                                    0 грн
+                                    {data.productPackagesSizes.big.productAmount * data.productPackagesSizes.big.productPackagePrice} грн
                                 </div>
                             </div>
                         </div>
@@ -65,7 +65,7 @@ const OrderItem = () => {
                                     Кол-во уп
                                 </div>
                                 <div className="card-quantity__value">
-                                    0 шт
+                                    {data.productPackagesSizes.mid.productAmount} {data.productMetric}
                                 </div>
                             </div>
                             <div className="card-quantity__row">
@@ -73,7 +73,7 @@ const OrderItem = () => {
                                     Ціна за уп.
                                 </div>
                                 <div className="card-quantity__value">
-                                    1 грн
+                                    {data.productPackagesSizes.mid.productPackagePrice} грн
                                 </div>
                             </div>
                             <div className="card-quantity__row">
@@ -81,7 +81,7 @@ const OrderItem = () => {
                                     Сума
                                 </div>
                                 <div className="card-quantity__value">
-                                    0 грн
+                                    {data.productPackagesSizes.mid.productAmount * data.productPackagesSizes.mid.productPackagePrice} грн
                                 </div>
                             </div>
                         </div>
@@ -96,7 +96,7 @@ const OrderItem = () => {
                                     Кол-во уп
                                 </div>
                                 <div className="card-quantity__value">
-                                    0 шт
+                                    {data.productPackagesSizes.small.productAmount} {data.productMetric}
                                 </div>
                             </div>
                             <div className="card-quantity__row">
@@ -104,7 +104,7 @@ const OrderItem = () => {
                                     Ціна за уп.
                                 </div>
                                 <div className="card-quantity__value">
-                                    1 грн
+                                    {data.productPackagesSizes.small.productPackagePrice} грн
                                 </div>
                             </div>
                             <div className="card-quantity__row">
@@ -112,15 +112,14 @@ const OrderItem = () => {
                                     Сума
                                 </div>
                                 <div className="card-quantity__value">
-                                    0 грн
+                                    {data.productPackagesSizes.small.productAmount * data.productPackagesSizes.small.productPackagePrice} грн
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-        </div>
+        </CardStyled>
     );
 };
 

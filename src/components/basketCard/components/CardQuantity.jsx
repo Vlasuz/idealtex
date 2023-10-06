@@ -1,21 +1,42 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import minus from './../../../assets/initial/img/icons/minus.svg'
 import plus from './../../../assets/initial/img/icons/plus.svg'
 import {useMaxDiscount} from "../../../hooks/maxDiscount";
 import {useGetGeneralDiscount} from "../../../hooks/getGeneralDiscount";
 import {calculatePriceWithDiscount} from "../../../functions/calculatePriceWithDiscount";
-import {useDispatch} from "react-redux";
-import {addBasketPrice, changeBasketItem} from "../../../redux/toolkitSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {addBasketPrice, changeBasketItem, setBasketPriceDiscount} from "../../../redux/toolkitSlice";
+import {AllAmountContext} from "../../../pages/basket/Basket";
 
-const CardQuantity = ({productPackage, isProductAuction, count, handleChangeProduct, size}) => {
+const CardQuantity = ({productPackage, isProductAuction, count, setCount}) => {
 
     const [value, setValue] = useState(count)
     const {maxDiscount} = useMaxDiscount()
     const {discount} = useGetGeneralDiscount()
+    const dispatch = useDispatch()
+    const basketPrice = useSelector(state => state.toolkit.basketPrice)
+    const setAllAmount = useContext(AllAmountContext)
 
     const priceWithDiscount = calculatePriceWithDiscount(productPackage?.productPackagePrice, !isProductAuction ? discount : 0)
-    const finalAmount = (calculatePriceWithDiscount(productPackage?.productPackagePrice, !isProductAuction ? discount : 0) * value).toFixed(2)
+    const finalAmount = (priceWithDiscount * value).toFixed(2)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setAllAmount(0)
+        }, 20)
+        setTimeout(() => {
+            setAllAmount(prev => prev + +(calculatePriceWithDiscount(productPackage?.productPackagePrice, !isProductAuction ? discount : 0) * value))
+        }, 30)
+    }, [discount])
+
+    useEffect(() => {
+        setAllAmount(0)
+        setTimeout(() => {
+            setAllAmount(prev => prev + +(calculatePriceWithDiscount(productPackage?.productPackagePrice, !isProductAuction ? discount : 0) * value))
+        }, 10)
+    }, [basketPrice, discount])
+
 
     return (
         <div className="card-quantity">
@@ -46,17 +67,21 @@ const CardQuantity = ({productPackage, isProductAuction, count, handleChangeProd
                 </div>
                 <div className="quantity quantity_basket">
                     <button onClick={_ => {
+                        if (value <= 0) return;
                         setValue(prev => prev > 0 ? prev - 1 : prev)
-                        handleChangeProduct(value > 0 ? value - 1 : value, size)
+                        setCount(value > 0 ? value - 1 : value)
+                        dispatch(addBasketPrice(-productPackage?.productPackagePrice))
                     }} type="button" className="quantity__button quantity__button_minus">
                         <img src={minus} alt=""/>
                     </button>
                     <div className="quantity__input">
-                        <input autoComplete="off" onChange={e => setValue(+e.target.value)} type="number" value={value}/>
+                        <input autoComplete="off" onChange={e => setValue(+e.target.value)} type="number"
+                               value={value}/>
                     </div>
                     <button onClick={_ => {
                         setValue(prev => prev + 1)
-                        handleChangeProduct(value + 1, size)
+                        setCount(value + 1)
+                        dispatch(addBasketPrice(productPackage?.productPackagePrice))
                     }} type="button" className="quantity__button quantity__button_plus">
                         <img src={plus} alt=""/>
                     </button>
