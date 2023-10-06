@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CategoriesHead } from "./components/CategoriesHead/CategoriesHead";
 import { getAllCategories } from "../../../../api/categories";
+import { Loader } from "../../../../components/loader/Loader";
 import CategoryCard from "../../../../components/categoryCard/CategoryCard";
 
 export const Categories = () => {
@@ -12,30 +13,28 @@ export const Categories = () => {
       .then(({ categories }) => {
         setCategories(categories);
         setLoading(false);
-        console.log("Получил категории", categories);
       })
       .catch((error) => {
-        console.error("Ошибка я не получил категорий:", error);
+        console.error(error);
         setLoading(false);
       });
   }, []);
 
-  const categoryCards = categories.map((category) => (
-    <CategoryCard
-      key={category.categoryAlias}
-      data={category}
-      type={"page-home"}
-    />
-  ));
-
   return (
     <div className="category">
       <div className="category__container">
-        <CategoriesHead />
-
-        <div className="category__grid-layout">
-          {!loading ? categoryCards : <p>Загрузка...</p>}
-        </div>
+        {loading ? (
+          <Loader />
+        ) : categories.length > 0 ? (
+          <>
+            <CategoriesHead />
+            <div className="category__grid-layout">
+              {categories.map((category) => (
+                <CategoryCard key={category.categoryAlias} data={category} type={"page-home"} />
+              ))}
+            </div>
+          </>
+        ) : null}
       </div>
     </div>
   );

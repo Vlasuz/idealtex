@@ -7,8 +7,13 @@ import basket from "../../../../assets/initial/img/icons/basket.svg";
 import logoBig from "../../../../assets/initial/img/main-img/logo-big.webp";
 import logoBig2 from "../../../../assets/initial/img/main-img/logo-big.png";
 import HeaderLanguage from "../HeaderLanguage/HeaderLanguage";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 export const HeaderAside = ({onClose}) => {
+    const basketProducts = useSelector(state => state.toolkit.basket)
+    console.log(basketProducts);
+
     return (
         <aside className="main-header__menu menu">
             <button className="menu__close button-icon" onClick={onClose}>
@@ -30,13 +35,16 @@ export const HeaderAside = ({onClose}) => {
                     </a>
                 </li>
                 <li>
-                    <a href="">
-            <span className="menu__icon button-icon">
-              <img src={basket} alt="icon"/>
-            </span>
+                    <NavLink to={'/basket'}>
+                        <span className="menu__icon button-icon">
+                        <img src={basket} alt="icon"/>
+                        </span>
                         Кошик
-                        <span className="menu__count-product">12</span>
-                    </a>
+                        {basketProducts.length > 0 &&
+                            <span className="menu__count-product">
+                            {basketProducts.length}
+                        </span>}
+                    </NavLink>
                 </li>
             </ul>
             <div className="menu__lang">

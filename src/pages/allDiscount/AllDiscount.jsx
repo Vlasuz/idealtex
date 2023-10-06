@@ -1,46 +1,62 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { getAllProducts } from "../../api/categories";
-import Card from "../../components/card/Card";
 import { BreadCrumbs } from "./components/BreadCrumbs/BreadCrumbs";
+import { ProductsNotFound } from "../productsNotFound/ProductsNotFound";
+import { Loader } from "../../components/loader/Loader";
+import Card from "../../components/card/Card";
 
 export const AllDiscount = () => {
+  const [discountProducts, setDiscountProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
+  const [offset, setOffset] = useState(0);
 
-    const [discountProducts, setDiscountProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const loadMore = () => {
+    getAllProducts({ type: "discount", limit: 12, offset: offset })
+      .then(({ products }) => {
+        if (products.length === 0) {
+          setHasMore(false);
+        } else {
+          setDiscountProducts((prevProducts) => [...prevProducts, ...products]);
+          setOffset(offset + 12);
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Помилка при завантаженні додаткових продуктів: ", error);
+      });
+  };
 
-    useEffect(() =>{
-        getAllProducts({type: 'discount'})
-            .then(({products}) =>{
-                setDiscountProducts(products);
-                setLoading(false);
-                console.log('Получил продукты аукционные next st', products);
-            })
-            .catch((error) =>{
-                console.error("Ошибка я не получил продукты for next st:", error);
-                setLoading(false);    
-            })
-    }, [])
-
-    const AllProductDiscount = discountProducts.map((product) =>(
-        <Card
-            key={product.productCode}
-            data={product}
-        />
-    ))
+  useEffect(() => {
+    loadMore();
+  }, []);
 
   return (
     <>
-        <BreadCrumbs />
-        <div className="products">
-            <div className="sale__container">
-                <h2 class="category2__title title">
-                    АКЦІЙНІ ПРОПОЗИЦІЇ
-                </h2>
-                <div className="sale__grid-layout">
-                    {!loading ? AllProductDiscount : <p>Загрузка...</p>}       
-                </div>
+      <BreadCrumbs />
+      <div className="products">
+        <div className="sale__container">
+          <h2 className="category2__title title">АКЦІЙНІ ПРОПОЗИЦІЇ</h2>
+
+          {!loading && discountProducts.length === 0 && <ProductsNotFound />}
+          {loading && <Loader />}
+
+          <InfiniteScroll
+            dataLength={discountProducts.length}
+            next={loadMore}
+            hasMore={hasMore}
+            loader={!loading && <Loader />}
+            style={{ overflow: 'unset' }}
+          >
+            <div className="sale__grid-layout">
+              {discountProducts.map((product) => (
+                <Card key={product.productCode} data={product} />
+              ))}
             </div>
+          </InfiniteScroll>
         </div>
+      </div>
     </>
-  )
-}
+  );
+};

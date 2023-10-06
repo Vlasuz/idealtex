@@ -45,8 +45,7 @@ const Search = () => {
                   {loading && <Loader/>}
 
                   <div className="products__grid-layout">
-                      {!loading && searchResults.map((searchResult) => <Card data={searchResult} key={searchResult.productCode} />)
-                      }
+                      {!loading && searchResults.map((searchResult) => <Card data={searchResult} key={searchResult.productCode} />)}
                   </div>
               </div>
           </div>

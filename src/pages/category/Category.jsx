@@ -1,9 +1,10 @@
 import axios from "axios";
-import React, {useEffect, useState} from "react";
-import {getApiLink} from "../../hooks/getApiLink";
+import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import Card from "../../components/card/Card";
+import {getApiLink} from "../../hooks/getApiLink";
 import { ProductsNotFound } from "../productsNotFound/ProductsNotFound";
+import { Loader } from "../../components/loader/Loader";
+import Card from "../../components/card/Card";
 
 export const Category = () => {
     const {categoryAlias} = useParams();
@@ -41,13 +42,10 @@ export const Category = () => {
                 </h2>
 
                 {!loading && products.length === 0 && <ProductsNotFound/>}
+                {loading && <Loader/>}
 
                 <div className="products__grid-layout">
-                    {
-                        !loading ?
-                            products.map((product) => <Card data={product} key={product.productCode}/>)
-                            : <p>Загрузка...</p>
-                    }
+                    {!loading && products.map((product) => <Card data={product} key={product.productCode}/>)}
                 </div>
             </div>
         </div>
