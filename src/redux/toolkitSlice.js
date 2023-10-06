@@ -10,6 +10,7 @@ const toolkitSlice = createSlice({
         language: '',
         discounts: [],
         basket: [],
+        basketCheckout: [],
         basketPrice: 0,
     },
     reducers: {
@@ -34,15 +35,36 @@ const toolkitSlice = createSlice({
             state.basketPrice = finalAmount
         },
         addBasketItem(state, action) {
-            state.basket = [...state.basket, action.payload]
-            state.basketPrice = state.basketPrice + (action.payload.package.data.productPackagePrice * action.payload.package.count)
+            const isDouble = state.basket.some(item => item.product.productCode === action.payload.product.productCode)
+
+            state.basket = isDouble ? state.basket : [...state.basket, action.payload]
+            state.basketPrice = isDouble ? state.basketPrice : state.basketPrice + (action.payload.package.data.productPackagePrice * action.payload.package.count)
 
             setCookie('basket', JSON.stringify(state.basket))
         },
-        removeBasketItem(state, action) {
-            state.basket = state.basket.filter(item => item.productCode !== action.productCode)
+        setBasketCheckout(state, action) {
+            // state.basket.filter(item => item.product.productCode === action.payload.product.productCode)[0].package = action.payload.package
+            // setCookie('basket', JSON.stringify(state.basket))
 
-            setCookie('basket', state.basket.filter(item => item.productCode !== action.productCode))
+            state.basketCheckout = []
+
+        },
+        removeBasketItem(state, action) {
+            state.basket = state.basket.filter(item => item.product.productCode !== action.payload.productCode)
+            setCookie('basket', JSON.stringify(state.basket))
+
+            // CALCULATE GENERAL AMOUNT
+            const productsCount = JSON.parse(getCookies('basket')).map(item => item.package).map(item => item?.count)
+            const productsPrice = JSON.parse(getCookies('basket')).map(item => item.package).map(item => item?.data).map(item => item?.productPackagePrice)
+            const arrayOfPrices = productsPrice.map((item, index) => item * productsCount[index])
+            const finalAmount = arrayOfPrices.reduce((acc, num) => acc + num, 0);
+            // CALCULATE GENERAL AMOUNT
+
+            state.basketPrice = finalAmount
+        },
+
+        addBasketPrice(state, action) {
+            state.basketPrice = state.basketPrice + action.payload
         },
 
         setDiscounts(state, action) {
@@ -64,7 +86,10 @@ export const {
     setDiscounts,
 
     setBasketItems,
+    setBasketCheckout,
     addBasketItem,
     removeBasketItem,
+
+    addBasketPrice,
 
 } = toolkitSlice.actions;

@@ -9,7 +9,7 @@ export const useGetGeneralDiscount = () => {
 
     useEffect(() => {
         setDiscount(discounts.map(item => basketPrice >= item.price && item).map(item => item.discount).sort((a, b) => b - a)[0] ?? 0)
-    }, [basketPrice])
+    }, [basketPrice, discounts])
 
     return {discount}
 

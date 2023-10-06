@@ -1,13 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {CardStyled} from "./Card.styled";
-import CardOption from "./components/CardOption";
-import CardOptionEmpty from "./components/CardOptionEmpty";
-import {getApiLink} from "../../hooks/getApiLink";
 
 import basketWhite from './../../assets/initial/img/icons/basket-white.svg'
-import plus from './../../assets/initial/img/icons/plus.svg'
-import minus from './../../assets/initial/img/icons/minus.svg'
-import {NavLink} from "react-router-dom";
 import CardDiscounts from "./components/CardDiscounts";
 import {useDispatch, useSelector} from "react-redux";
 import {addBasketItem} from "../../redux/toolkitSlice";
@@ -33,8 +27,9 @@ const Card = ({data}) => {
             "product": data,
             "isAuction": isProductAuction,
             "package": {
-                "data": activePackage,
-                "count": countOfProduct
+                "data": activePackage.package,
+                "size": activePackage.id,
+                "count": countOfProduct,
             },
         }
 
@@ -64,8 +59,8 @@ const Card = ({data}) => {
 
                 <CardList data={data}/>
                 <CardTitle data={data}/>
-                <CardInfo productPackage={activePackage} isProductAuction={isProductAuction}/>
-                <CardPrice productPackage={activePackage} countOfProduct={countOfProduct} isProductAuction={isProductAuction}/>
+                <CardInfo productPackage={activePackage?.package} isProductAuction={isProductAuction}/>
+                <CardPrice productPackage={activePackage?.package} countOfProduct={countOfProduct} isProductAuction={isProductAuction}/>
 
             </div>
             <div className="product-card__bottom">
