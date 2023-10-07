@@ -13,7 +13,7 @@ export const AllDiscount = () => {
   const [offset, setOffset] = useState(0);
 
   const loadMore = () => {
-    getAllProducts({ type: "discount", limit: 12, offset: offset })
+    getAllProducts({ type: "discount", offset: offset })
       .then(({ products }) => {
         if (products.length === 0) {
           setHasMore(false);
@@ -50,8 +50,8 @@ export const AllDiscount = () => {
             style={{ overflow: 'unset' }}
           >
             <div className="sale__grid-layout">
-              {discountProducts.map((product) => (
-                <Card key={product.productCode} data={product} />
+              {discountProducts.map((product, index) => (
+                <Card key={index} data={product} />
               ))}
             </div>
           </InfiniteScroll>
