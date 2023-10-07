@@ -11,9 +11,11 @@ export async function getAllProducts(evt) {
     const limit = evt.limit ? `limit=${evt.limit}` : '';
     const type = evt.type ? `type=${evt.type}` : '';
     const offset = evt.offset ? `offset=${evt.offset}` : '';
+    const categoryAlias = evt.categoryAlias ? `categoryAlias=${evt.categoryAlias}` : '';
+    const search = evt.search ? `search=${evt.search}` : '';
     
     try {
-        const response = await axios.get(getApiLink(`v1/public/products?${limit}&${type}&${offset}`));
+        const response = await axios.get(getApiLink(`v1/public/products?${limit}&${type}&${offset}&${categoryAlias}&${search}`));
         return response.data;
     } catch (error) {
         console.log('помилка при отриманні продуктів з апі з лімітом', error);

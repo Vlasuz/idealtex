@@ -19,12 +19,12 @@ export const HeaderAside = ({onClose}) => {
             <button className="menu__close button-icon" onClick={onClose}>
                 <img src={closeBlue} alt="icon"/>
             </button>
-            <a href="" className="menu__logo">
+            <NavLink to={'/'} className="menu__logo" onClick={onClose}>
                 <picture>
                     <source srcSet={logoBig} type="image/webp"/>
                     <img src={logoBig2} alt="img"/>
                 </picture>
-            </a>
+            </NavLink>
             <ul className="menu__main-list">
                 <li>
                     <a href="">
@@ -35,7 +35,7 @@ export const HeaderAside = ({onClose}) => {
                     </a>
                 </li>
                 <li>
-                    <NavLink to={'/basket'}>
+                    <NavLink to={'/basket'} onClick={onClose}>
                         <span className="menu__icon button-icon">
                         <img src={basket} alt="icon"/>
                         </span>
