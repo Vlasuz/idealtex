@@ -13,7 +13,7 @@ export const AllDiscount = () => {
   const [offset, setOffset] = useState(0);
 
   const loadMore = () => {
-    getAllProducts({ type: "discount", offset: offset })
+    getAllProducts({ type: "discount", offset: offset, limit: 12 })
       .then(({ products }) => {
         if (products.length === 0) {
           setHasMore(false);
@@ -28,8 +28,14 @@ export const AllDiscount = () => {
       });
   };
 
+  useEffect(() =>{
+    offset === 0 && window.scrollTo(0, 2)
+    console.log('dis', offset);
+  }, [offset])
+
   useEffect(() => {
-    loadMore();
+    window.scrollTo(0, 0)
+    setOffset(0);
   }, []);
 
   return (
@@ -50,8 +56,8 @@ export const AllDiscount = () => {
             style={{ overflow: 'unset' }}
           >
             <div className="sale__grid-layout">
-              {discountProducts.map((product, index) => (
-                <Card key={index} data={product} />
+              {discountProducts.map((product) => (
+                <Card key={product.productCode} data={product} />
               ))}
             </div>
           </InfiniteScroll>

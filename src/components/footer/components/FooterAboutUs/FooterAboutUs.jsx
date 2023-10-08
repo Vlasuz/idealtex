@@ -20,7 +20,6 @@ export const FooterAboutUs = () => {
         .then(({data}) => {
             const mail = data.companyEmail;
             setMail(mail);
-            console.log('получил почту', mail);
         })
 
     axios
