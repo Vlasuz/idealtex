@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-export const BreadCrumbs = ({onSearch}) => {
+export const BreadCrumbsCategory = ({onCategory}) => {
   return (
     <div class="breadcrumbs">
       <div class="breadcrumbs__container">
@@ -9,13 +9,13 @@ export const BreadCrumbs = ({onSearch}) => {
             <NavLink to={"/"}>Головна</NavLink>
           </li>
           <li>
-            <NavLink to={'/products'}>Всі продукти</NavLink>
+            <NavLink to={'/categories'}>Всі категорії</NavLink>
           </li>
           <li>
-            <span>{onSearch}</span>
+            <span>{onCategory}</span>
           </li>
         </ul>
       </div>
     </div>
-  );
-};
+  )
+}

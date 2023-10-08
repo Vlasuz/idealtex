@@ -11,11 +11,6 @@ export const BreadCrumbs = () => {
                     </NavLink>
                 </li>
                 <li>
-                    <a href="">
-                        Каталог товарів
-                    </a>
-                </li>
-                <li>
                     <span>Акційні пропозиції</span>
                 </li>
             </ul>
