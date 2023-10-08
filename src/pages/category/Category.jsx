@@ -35,17 +35,21 @@ export const Category = () => {
     
   
     useEffect(() => {
-        
-        axios // запит для отримання назви категорій
-        .get(getApiLink(`v1/public/categories/${categoryAlias}`))
-        .then(({ data }) => {
-            setCategory(data);
-        })
-        .catch((error) => {
-            console.log("Помилка при завантаженні категорії:", error);
-        });
-        loadMore();
-    }, []);
+      axios // запит для отримання назви категорій
+      .get(getApiLink(`v1/public/categories/${categoryAlias}`))
+      .then(({ data }) => {
+        setCategory(data);
+      })
+      .catch((error) => {
+        console.log("Помилка при завантаженні категорії:", error);
+      });
+
+      setOffset(0);
+
+      loadMore();
+      
+      setProducts([]);
+    }, [categoryAlias]);
   
     return (
       <div className="products">
