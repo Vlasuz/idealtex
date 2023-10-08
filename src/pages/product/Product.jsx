@@ -20,6 +20,7 @@ import ProductQuantity from "./components/ProductQuantity";
 import {useChooseProductPackage} from "../../hooks/chooseProductPackage";
 import {useMaxDiscount} from "../../hooks/maxDiscount";
 import {useGetGeneralDiscount} from "../../hooks/getGeneralDiscount";
+import { ProductBreadCrumbs } from './components/ProductBreadCrumbs';
 
 const Product = () => {
 
@@ -58,66 +59,70 @@ const Product = () => {
 
 
     return (
-        <ProductStyled className="product">
-            <div className="product__container">
-                <div className="product__row">
-                    <div className="product__left">
-                        <ProductSlider product={product} />
-                        <ProductInfo product={product} activePackage={activePackage}/>
-                    </div>
-                    <div className="product__right">
-                        <div className="product__options options options_2">
+        <>
+            <ProductBreadCrumbs product={product}/>
 
-                            {product?.productPackagesSizes?.small?.displayPackageCount && cardOption('small')}
-                            {product?.productPackagesSizes?.mid?.displayPackageCount && cardOption('mid')}
-                            {product?.productPackagesSizes?.big?.displayPackageCount && cardOption('big')}
-
+            <ProductStyled className="product">
+                <div className="product__container">
+                    <div className="product__row">
+                        <div className="product__left">
+                            <ProductSlider product={product} />
+                            <ProductInfo product={product} activePackage={activePackage}/>
                         </div>
-                        <ul className="product__list">
-                            {+activePackage?.package?.displayPackageCount !== 0 && <li>
-                                <div className="product__list-label">
-                                    Кількість
-                                </div>
-                                <div className="product__list-value">
-                                    <ProductQuantity setCountOfProduct={setCountOfProduct}/>
-                                </div>
-                            </li>}
-                            <li>
-                                {
-                                    !isProductAuction && discount > 0 &&
-                                    <div className="product-card__procent">
-                                        {discount}%
-                                    </div>
-                                }
+                        <div className="product__right">
+                            <div className="product__options options options_2">
 
-                                {
-                                    isProductAuction && <div className="product-card__procent">
-                                        {maxDiscount}%
+                                {product?.productPackagesSizes?.small?.displayPackageCount && cardOption('small')}
+                                {product?.productPackagesSizes?.mid?.displayPackageCount && cardOption('mid')}
+                                {product?.productPackagesSizes?.big?.displayPackageCount && cardOption('big')}
+
+                            </div>
+                            <ul className="product__list">
+                                {+activePackage?.package?.displayPackageCount !== 0 && <li>
+                                    <div className="product__list-label">
+                                        Кількість
                                     </div>
-                                }
-                                <div className="product__list-label">
-                                    Сума
-                                </div>
-                                <div className="product__list-value">
-                                    <div className="product__price">
-                                        {(activePackage?.package?.productPackagePrice * countOfProduct).toFixed(2)} грн
+                                    <div className="product__list-value">
+                                        <ProductQuantity setCountOfProduct={setCountOfProduct}/>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
-                        {+activePackage?.package?.displayPackageCount === 0 ?
-                            <div className="product__empty">
-                                <span>Немає в наявності</span>
-                            </div> :
-                            <button onClick={handleAddToCart} className="product__buy button button_green">
-                                Купити
-                            </button>
-                        }
-                        <CardDiscounts isProductAuction={isProductAuction} data={activePackage?.package}/>
+                                </li>}
+                                <li>
+                                    {
+                                        !isProductAuction && discount > 0 &&
+                                        <div className="product-card__procent">
+                                            {discount}%
+                                        </div>
+                                    }
+
+                                    {
+                                        isProductAuction && <div className="product-card__procent">
+                                            {maxDiscount}%
+                                        </div>
+                                    }
+                                    <div className="product__list-label">
+                                        Сума
+                                    </div>
+                                    <div className="product__list-value">
+                                        <div className="product__price">
+                                            {(activePackage?.package?.productPackagePrice * countOfProduct).toFixed(2)} грн
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            {+activePackage?.package?.displayPackageCount === 0 ?
+                                <div className="product__empty">
+                                    <span>Немає в наявності</span>
+                                </div> :
+                                <button onClick={handleAddToCart} className="product__buy button button_green">
+                                    Купити
+                                </button>
+                            }
+                            <CardDiscounts isProductAuction={isProductAuction} data={activePackage?.package}/>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </ProductStyled>
+            </ProductStyled>
+        </>
     );
 };
 
