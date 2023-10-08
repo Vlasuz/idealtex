@@ -36,12 +36,14 @@ const Basket = () => {
                         {basket.length ? (
                             <div className="basket__grid-layout">
 
+
                                 {
                                     basket.map(item => <BasketCard data={item.product}
                                                                                 productsToCheckout={productsToCheckout}
                                                                                 setProductsToCheckout={setProductsToCheckout}
                                                                                 selectedPackage={item.package}/>) 
                                 }
+
 
                             </div>
 

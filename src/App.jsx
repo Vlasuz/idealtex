@@ -5,16 +5,17 @@ import {Footer} from "./components/footer/Footer";
 import getCookies from "./functions/getCookies";
 import {useEffect, useRef, useState} from "react";
 import getUserInfo from "./hooks/getUserInfo";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {routes} from "./functions/routes";
 import {discounts} from "./api/discounts";
 import {setBasketItems} from "./redux/toolkitSlice";
+import {profileOrders} from "./api/profileOrders";
 
 export const App = () => {
     const dispatch = useDispatch();
     const [routesList] = useState(routes());
     const headerBlock = useRef()
-    const [headerHeight, setHeaderHeight] = useState(0)
+    const userInfo = useSelector(state => state.toolkit.user)
 
     useEffect(() => {
         dispatch(setBasketItems())
@@ -23,11 +24,11 @@ export const App = () => {
     }, []);
 
     useEffect(() => {
-        // setHeaderHeight(headerBlock.current.clientHeight)
-    }, [])
+        profileOrders({dispatch, userInfo})
+    }, [userInfo])
 
     return (
-        <div className={"wrapper"} style={{paddingTop: headerHeight+"px"}}>
+        <div className={"wrapper"}>
             <Header block={headerBlock} />
 
             <Routes>

@@ -2,11 +2,10 @@ import React from 'react';
 
 import userIcon from '../../assets/initial/img/icons/user.svg'
 import orderIcon from '../../assets/initial/img/icons/order.svg'
-// import userIcon from './../../../assets/initial/img/icons/user.svg'
 import {useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
 
-const ProfileSidebar = ({setOrderItems}) => {
+const ProfileSidebar = () => {
 
     const userInfo = useSelector(state => state.toolkit.user)
 
@@ -28,12 +27,12 @@ const ProfileSidebar = ({setOrderItems}) => {
             <div className="orders__aside-menu">
                 <ul className="menu__main-list">
                     <li>
-                        <button onClick={_ => setOrderItems([])}>
+                        <NavLink to={"/profile"}>
                             <span className="menu__icon button-icon">
                                 <img src={orderIcon} alt=""/>
                             </span>
                             Замовлення
-                        </button>
+                        </NavLink>
                     </li>
                     <li>
                         <a href="https://admin.idealtex.com.ua" target={'_blank'}>

@@ -5,8 +5,6 @@ import {NavLink} from "react-router-dom";
 
 const OrderItem = ({data}) => {
 
-    console.log(data)
-
     return (
         <CardStyled className="product-card product-card_basket product-card_orders">
             <div className="product-card__top">
@@ -26,7 +24,7 @@ const OrderItem = ({data}) => {
                 <div className="product-card__items">
                     <div className="card-quantity">
                         <div className="card-quantity__title">
-                            {/*уп {data.productPackagesSizes.} шт*/}
+                            {/*уп {data.productPackagesSizes.} {data.productMetric}*/}
                         </div>
                         <div className="card-quantity__wrap">
                             <div className="card-quantity__row">
@@ -42,7 +40,7 @@ const OrderItem = ({data}) => {
                                     Ціна за уп.
                                 </div>
                                 <div className="card-quantity__value">
-                                    {data.productPackagesSizes.big.productPackagePrice} грн
+                                    {(data.productPackagesSizes.big.productPackagePrice).toFixed(2)} грн
                                 </div>
                             </div>
                             <div className="card-quantity__row">
@@ -50,14 +48,14 @@ const OrderItem = ({data}) => {
                                     Сума
                                 </div>
                                 <div className="card-quantity__value">
-                                    {data.productPackagesSizes.big.productAmount * data.productPackagesSizes.big.productPackagePrice} грн
+                                    {(data.productPackagesSizes.big.productAmount * data.productPackagesSizes.big.productPackagePrice).toFixed(2)} грн
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="card-quantity">
                         <div className="card-quantity__title">
-                            уп 50 шт
+                            {/*уп 50 шт*/}
                         </div>
                         <div className="card-quantity__wrap">
                             <div className="card-quantity__row">
@@ -73,7 +71,7 @@ const OrderItem = ({data}) => {
                                     Ціна за уп.
                                 </div>
                                 <div className="card-quantity__value">
-                                    {data.productPackagesSizes.mid.productPackagePrice} грн
+                                    {(data.productPackagesSizes.mid.productPackagePrice).toFixed(2)} грн
                                 </div>
                             </div>
                             <div className="card-quantity__row">
@@ -81,14 +79,14 @@ const OrderItem = ({data}) => {
                                     Сума
                                 </div>
                                 <div className="card-quantity__value">
-                                    {data.productPackagesSizes.mid.productAmount * data.productPackagesSizes.mid.productPackagePrice} грн
+                                    {(data.productPackagesSizes.mid.productAmount * data.productPackagesSizes.mid.productPackagePrice).toFixed(2)} грн
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="card-quantity">
                         <div className="card-quantity__title">
-                            уп 10 шт
+                            {/*уп 10 шт*/}
                         </div>
                         <div className="card-quantity__wrap">
                             <div className="card-quantity__row">
@@ -104,7 +102,7 @@ const OrderItem = ({data}) => {
                                     Ціна за уп.
                                 </div>
                                 <div className="card-quantity__value">
-                                    {data.productPackagesSizes.small.productPackagePrice} грн
+                                    {(data.productPackagesSizes.small.productPackagePrice).toFixed(2)} грн
                                 </div>
                             </div>
                             <div className="card-quantity__row">
@@ -112,7 +110,7 @@ const OrderItem = ({data}) => {
                                     Сума
                                 </div>
                                 <div className="card-quantity__value">
-                                    {data.productPackagesSizes.small.productAmount * data.productPackagesSizes.small.productPackagePrice} грн
+                                    {(data.productPackagesSizes.small.productAmount * data.productPackagesSizes.small.productPackagePrice).toFixed(2)} грн
                                 </div>
                             </div>
                         </div>

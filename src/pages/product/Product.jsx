@@ -18,6 +18,8 @@ import ProductInfo from "./components/ProductInfo";
 import CardQuantity from "../../components/card/components/CardQuantity";
 import ProductQuantity from "./components/ProductQuantity";
 import {useChooseProductPackage} from "../../hooks/chooseProductPackage";
+import {useMaxDiscount} from "../../hooks/maxDiscount";
+import {useGetGeneralDiscount} from "../../hooks/getGeneralDiscount";
 
 const Product = () => {
 
@@ -34,6 +36,9 @@ const Product = () => {
     }, [])
 
     const [isProductAuction, setIsProductAuction] = useState([])
+
+    const {maxDiscount} = useMaxDiscount()
+    const {discount} = useGetGeneralDiscount()
 
     const {cardOption, activePackage} = useChooseProductPackage({data: product})
 
@@ -58,7 +63,7 @@ const Product = () => {
                 <div className="product__row">
                     <div className="product__left">
                         <ProductSlider product={product} />
-                        <ProductInfo product={product}/>
+                        <ProductInfo product={product} activePackage={activePackage}/>
                     </div>
                     <div className="product__right">
                         <div className="product__options options options_2">
@@ -69,16 +74,27 @@ const Product = () => {
 
                         </div>
                         <ul className="product__list">
-                            <li>
+                            {+activePackage?.package?.displayPackageCount !== 0 && <li>
                                 <div className="product__list-label">
                                     Кількість
                                 </div>
                                 <div className="product__list-value">
-                                    <ProductQuantity setCountOfProduct={setCountOfProduct} />
+                                    <ProductQuantity setCountOfProduct={setCountOfProduct}/>
                                 </div>
-
-                            </li>
+                            </li>}
                             <li>
+                                {
+                                    !isProductAuction && discount > 0 &&
+                                    <div className="product-card__procent">
+                                        {discount}%
+                                    </div>
+                                }
+
+                                {
+                                    isProductAuction && <div className="product-card__procent">
+                                        {maxDiscount}%
+                                    </div>
+                                }
                                 <div className="product__list-label">
                                     Сума
                                 </div>
