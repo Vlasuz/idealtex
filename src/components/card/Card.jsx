@@ -64,7 +64,7 @@ const Card = ({data}) => {
 
             </div>
             <div className="product-card__bottom">
-                {+activePackage?.displayPackageCount === 0 ? <CardEmpty/> :
+                {+activePackage?.package?.displayPackageCount === 0 ? <CardEmpty/> :
                     <div className="product-card__row">
 
                         <CardQuantity setCountOfProduct={setCountOfProduct}/>

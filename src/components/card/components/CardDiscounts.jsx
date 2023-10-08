@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import discountIcon from './../../../assets/initial/img/icons/arrow-spoller.svg'
 import {useSelector} from "react-redux";
 import {calculatePriceWithDiscount} from "../../../functions/calculatePriceWithDiscount";
@@ -9,15 +9,27 @@ const CardDiscounts = ({data, isProductAuction}) => {
     const packagePriceOne = data?.productPrice
     const countInPackage = data?.productCountInPackage
 
+    const [isOpen, setIsOpen] = useState(true)
+    const [blockHeight, setBlockHeight] = useState(300)
+    const blockBody = useRef(null)
+
+    useEffect(() => {
+        setBlockHeight(blockBody.current.clientHeight)
+    }, [])
+
+    useEffect(() => {
+        blockHeight && setIsOpen(false)
+    }, [blockHeight])
+
     const discounts = useSelector(state => state.toolkit.discounts)
 
     return (
         <div className="product-card__spoller spoller-product">
-            <details className="spoller-product__item">
-                <summary className="spoller-product__button">
+            <div className="spoller-product__item">
+                <div className={"spoller-product__button" + (isOpen ? " _spoller-active" : "")} onClick={_ => setIsOpen(prev => !prev)}>
                     Знижки <img src={discountIcon} alt=""/>
-                </summary>
-                <div className="spoller-product__body">
+                </div>
+                <div ref={blockBody} className={"spoller-product__body" + (isOpen ? " _active" : "")} style={{maxHeight: isOpen ? blockHeight + "px" : "0px"}}>
                     <div className="spoller-product__table-wrap">
                         <table className="spoller-product__table">
                             <thead className="spoller-product__thead">
@@ -54,7 +66,7 @@ const CardDiscounts = ({data, isProductAuction}) => {
                         </table>
                     </div>
                 </div>
-            </details>
+            </div>
         </div>
     );
 };

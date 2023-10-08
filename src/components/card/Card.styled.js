@@ -20,7 +20,20 @@ export const CardStyled = styled.div `
   padding: 16px 16px 0;
   -webkit-transition: all 0.3s cubic-bezier(0.5, 0.02, 0.13, 0.5);
   transition: all 0.3s cubic-bezier(0.5, 0.02, 0.13, 0.5);
-
+  
+  .spoller-product__body {
+    position: absolute;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border-bottom: 0;
+    padding: 0 16px 0;
+    &._active {
+      border-bottom: 2px solid var(--grey);
+      padding: 0 16px 16px;
+      border-top: 0;
+    }
+  }
+  
   .options {
     display: flex;
     &__item {

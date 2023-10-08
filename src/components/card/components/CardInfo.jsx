@@ -7,7 +7,6 @@ import {useGetGeneralDiscount} from "../../../hooks/getGeneralDiscount";
 const CardInfo = ({productPackage, isProductAuction}) => {
 
     const {maxDiscount} = useMaxDiscount()
-
     const {discount} = useGetGeneralDiscount()
 
     return (

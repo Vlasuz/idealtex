@@ -5,6 +5,33 @@ export const ProductStyled = styled.section`
     position: relative;
   }
 
+  .product-card__procent {
+    position: absolute;
+    border-radius: 5px;
+    background: red;
+    top: -4px;
+    right: -9px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 15px;
+    padding: 1px 4px;
+    color: #fff; 
+  }
+
+  .product__right .spoller-product__body {
+    overflow: hidden;
+    transition: all 0.3s ease;
+    &._active {
+      border-top: 0;
+    }
+  }
+  
+  .product__list {
+    li {
+      position: relative;
+    }
+  }
+  
   .options {
     display: flex;
     &__item {
