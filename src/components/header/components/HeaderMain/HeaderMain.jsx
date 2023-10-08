@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HeaderAside } from "../HeaderAside/HeaderAside";
 import { HeaderCatalog } from "../HeaderCatalog/HeaderCatalog";
 import { HeaderPhone } from "../HeaderPhone/HeaderPhone";
@@ -49,25 +49,30 @@ export const HeaderMain = () => {
   }
 
   const handleCloseCatalog = () => {
-    setCatalogOpen(false);
     document.documentElement.classList.remove('open-catalog')
+    setCatalogOpen(false);
   };
 
   const handleOpenPhone = (evt) => {
     const phoneBtn = document.querySelector("[data-phone]");
     phoneBtn.parentElement.classList.toggle("_active-phone");
-    setPhoneOpen(true);
   };
 
   const handleSearch = (evt) =>{
     evt.preventDefault();
+    if (!searchQuery.trim()) {
+      alert("Будь ласка, введіть запит для пошуку.");
+      return;
+    }
     navigate('/search/' + searchQuery)
     setSearchQuery('');
   }
 
+
   return (
+    
     <HeaderMainStyled className="header__main main-header">
-      <div className="header__overlay"></div>
+      <div className="header__overlay" onClick={handleCloseAside}></div>
 
       {catalogOpen && <HeaderCatalog onClose={handleCloseCatalog} />}
 
@@ -106,7 +111,7 @@ export const HeaderMain = () => {
                 <img src={phone} alt="icon" />
               </button>
 
-              {phoneOpen && <HeaderPhone />}
+              <HeaderPhone />
             </div>
           </div>
           <div className="main-header__right">

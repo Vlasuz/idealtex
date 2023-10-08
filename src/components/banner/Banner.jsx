@@ -8,11 +8,17 @@ import { Loader } from "../../components/loader/Loader";
 import { getApiLink } from "../../hooks/getApiLink";
 import arrowLeft from '../../assets/initial/img/icons/arrow-left.svg';
 import arrowRight from '../../assets/initial/img/icons/arrow-left.svg';
+import { NavLink, useHistory, useNavigate } from "react-router-dom";
 
 
 export const Banner = ({apiEndpoint, showNavigation}) => {
     const [loading, setLoading] = useState(true);
-    const [settingImage, setSettingImage] = useState([])
+    const [settingImage, setSettingImage] = useState([]);
+    const navigate = useNavigate();
+
+    const slideClick = (route) => {
+        navigate(route)
+    }
 
     useEffect(() =>{
         axios
@@ -50,7 +56,7 @@ export const Banner = ({apiEndpoint, showNavigation}) => {
                         {
                             settingImage.map(image =>
                                 <SwiperSlide key={image.imageName} >
-                                    <div className="banner__image-ibg">
+                                    <div className="banner__image-ibg" onClick={() => slideClick(image.route)}>
                                         <img src={getApiLink("v1/public/images/" + image.imageName)} alt=""/>
                                     </div>
                                 </SwiperSlide>
