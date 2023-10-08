@@ -9,7 +9,6 @@ import { ProductsNotFound } from "../productsNotFound/ProductsNotFound";
 export const CatalogPage = () => {
     const {categoriesAlias} = useParams();
     const [products, setProducts] = useState([]);
-    // const [category, setCategory] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() =>{

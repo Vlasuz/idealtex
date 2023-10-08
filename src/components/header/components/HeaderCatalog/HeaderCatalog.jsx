@@ -13,7 +13,6 @@ export const HeaderCatalog = ({ onClose }) => {
       .then(({categories}) =>{
           setCategories(categories)
           setAlias(categories ? categories[0]?.categoryAlias : '')
-          // setLoading(false);
       })
       .catch((error) => {
           console.error('я не получил категории', error);
@@ -130,10 +129,10 @@ export const HeaderCatalog = ({ onClose }) => {
               </div>
             </div>
           </div>
-          <div data-tabs-body className="header-catalog__content">
 
+
+          <div data-tabs-body className="header-catalog__content">
             <CatalogBody alias={alias} onClose={onClose}/>
-            
           </div>
         </div>
       </div>

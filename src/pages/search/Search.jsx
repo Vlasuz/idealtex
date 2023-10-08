@@ -15,55 +15,53 @@ const Search = () => {
   const [offset, setOffset] = useState(0);
 
   const fetchData = () => {
-    // виконання запиту та обробка результатів
     setLoading(true);
-      getAllProducts({offset: offset, limit: 12, search: search})
-      .then(({products}) => {
-        // const searchResults = response.data.products;
+
+    getAllProducts({ offset: offset, limit: 12, search: search })
+      .then(({ products }) => {
         if (products.length === 0) {
-          setHasMore(false)
+          setHasMore(false);
         } else {
-          setSearchResults((prevProducts) => [...prevProducts, ...products])
-          setOffset(offset + 12)
+          setSearchResults((prevProducts) => [...prevProducts, ...products]);
+          setOffset(offset + 12);
         }
         setLoading(false);
-        console.log("А что тут у нас? search):", products);
       })
       .catch((error) => {
-        console.error("Ошибочка при поиске на странице search:", error);
+        console.error("Помилка під час пошуку:", error);
       });
   };
 
   useEffect(() => {
+    setSearchResults([]);
     fetchData();
   }, [search]);
 
   return (
-      <>
-          <BreadCrumbs />
+    <>
+      <BreadCrumbs onSearch={search}/>
 
-          <div className="products">
-              <div className="products__container">
-                  <h2 className="title products__title">Пошук за значенням: {search}</h2>
+      <div className="products">
+        <div className="products__container">
+          <h2 className="title products__title">Пошук за значенням: {search}</h2>
 
-                  {!loading && searchResults.length === 0 && <ProductsNotFound/>}
-                  {loading && <Loader/>}
+          {!loading && searchResults.length === 0 && <ProductsNotFound/>}
+          {loading && <Loader/>}
 
-                  <InfiniteScroll
-                    dataLength={searchResults.length}
-                    next={fetchData}
-                    hasMore={hasMore}
-                    loader={!loading && <Loader/>}
-                    style={{overflow: 'unset'}}
-                  >
-                    <div className="products__grid-layout">
-                        {searchResults.map((searchResult, index) => <Card data={searchResult} key={index} />)}
-                    </div>
-                  </InfiniteScroll>
-
-              </div>
-          </div>
-      </>
+          <InfiniteScroll
+            dataLength={searchResults.length}
+            next={fetchData}
+            hasMore={hasMore}
+            loader={<Loader/>}
+            style={{overflow: 'unset'}}
+          >
+            <div className="products__grid-layout">
+                {searchResults.map((searchResult, index) => <Card data={searchResult} key={index} />)}
+            </div>
+          </InfiniteScroll>
+        </div>
+      </div>
+    </>
   );
 };
 
