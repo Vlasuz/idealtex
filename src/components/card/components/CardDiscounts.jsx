@@ -9,17 +9,9 @@ const CardDiscounts = ({data, isProductAuction}) => {
     const packagePriceOne = data?.productPrice
     const countInPackage = data?.productCountInPackage
 
-    const [isOpen, setIsOpen] = useState(true)
-    const [blockHeight, setBlockHeight] = useState(300)
+    const [isOpen, setIsOpen] = useState(false)
+    const [blockHeight] = useState(200)
     const blockBody = useRef(null)
-
-    useEffect(() => {
-        setBlockHeight(blockBody.current.clientHeight)
-    }, [])
-
-    useEffect(() => {
-        blockHeight && setIsOpen(false)
-    }, [blockHeight])
 
     const discounts = useSelector(state => state.toolkit.discounts)
 

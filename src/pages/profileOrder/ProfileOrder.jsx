@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import OrderItem from "../profile/components/OrderItem";
 import {useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
@@ -9,6 +9,11 @@ const ProfileOrder = () => {
 
     const {orderId} = useParams()
     const orders = useSelector(state => state.toolkit.profileOrders)
+    const [orderItems, setOrderItems] = useState(orders.filter(item => +item.orderNumber === +orderId)[0]?.orderProducts)
+
+    useEffect(() => {
+        setOrderItems(orders.filter(item => +item.orderNumber === +orderId)[0]?.orderProducts)
+    }, [orders])
 
     return (
         <ProfileStyled className="orders">
@@ -22,7 +27,7 @@ const ProfileOrder = () => {
 
                         <div className="orders__info">
                             <div className="orders__info-item">
-                                Замовлення 466 від 12.12.2000
+                                Замовлення {orderId}
                             </div>
                             <div className="orders__info-item">
                                 Загальна сумма: <span className="green">500 грн</span>
@@ -34,8 +39,8 @@ const ProfileOrder = () => {
                         </div>
                         <div className="orders__items">
                             {
-                                orders.filter(item => +item.orderNumber === +orderId)[0]?.orderProducts.map((item, index) =>
-                                    <OrderItem key={index} data={item}/>)
+                                orderItems?.length ? orderItems?.map((item, index) =>
+                                    <OrderItem key={index} data={item}/>) : "Ничего нет =("
                             }
                         </div>
                     </div>

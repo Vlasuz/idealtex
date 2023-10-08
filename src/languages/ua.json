@@ -1,5 +1,9 @@
 {
   "product_code": "Код продукту",
   "product_country": "Країна",
-  "product_residue": "Залишок"
+  "product_residue": "Залишок",
+  "catalog_tovarov": "Каталог товарів",
+  "basket": "Кошик",
+  "language": "Мова",
+  "info_text": "Інформація"
 }
