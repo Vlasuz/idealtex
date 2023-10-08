@@ -9,10 +9,10 @@ import logoBig2 from "../../../../assets/initial/img/main-img/logo-big.png";
 import HeaderLanguage from "../HeaderLanguage/HeaderLanguage";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import Translate from "../../../translate/Translate";
 
 export const HeaderAside = ({onClose}) => {
     const basketProducts = useSelector(state => state.toolkit.basket)
-    console.log(basketProducts);
 
     return (
         <aside className="main-header__menu menu">
@@ -31,7 +31,7 @@ export const HeaderAside = ({onClose}) => {
             <span className="menu__icon button-icon">
               <img src={catalog} alt="icon"/>
             </span>
-                      Каталог товарів
+                      <Translate>catalog_tovarov</Translate>
                     </a>
                 </li>
                 <li>
@@ -39,7 +39,7 @@ export const HeaderAside = ({onClose}) => {
                         <span className="menu__icon button-icon">
                         <img src={basket} alt="icon"/>
                         </span>
-                        Кошик
+                        <Translate>basket</Translate>
                         {basketProducts.length > 0 &&
                             <span className="menu__count-product">
                             {basketProducts.length}
@@ -48,11 +48,15 @@ export const HeaderAside = ({onClose}) => {
                 </li>
             </ul>
             <div className="menu__lang">
-                <div className="menu__lang-title">Мова</div>
+                <div className="menu__lang-title">
+                    <Translate>language</Translate>
+                </div>
                 <HeaderLanguage/>
             </div>
             <div className="menu__info">
-                <div className="menu__title">Інформація</div>
+                <div className="menu__title">
+                    <Translate>info_text</Translate>
+                </div>
                 <ul className="menu__list">
                     <li>
                         <a href="">Про нас</a>

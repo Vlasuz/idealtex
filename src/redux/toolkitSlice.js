@@ -13,6 +13,8 @@ const toolkitSlice = createSlice({
         basketCheckout: [],
         basketPrice: 0,
         basketPriceDiscount: 0,
+
+        profileOrders: [],
     },
     reducers: {
         setUser(state, action) {
@@ -80,6 +82,10 @@ const toolkitSlice = createSlice({
         setLanguage(state, action) {
             state.language = action.payload
         },
+
+        setProfileOrders(state, action) {
+            state.profileOrders = action.payload
+        }
     }
 })
 
@@ -99,5 +105,7 @@ export const {
 
     addBasketPrice,
     setBasketPriceDiscount,
+
+    setProfileOrders,
 
 } = toolkitSlice.actions;

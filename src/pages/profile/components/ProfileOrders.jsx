@@ -2,24 +2,14 @@ import React, {useEffect, useState} from 'react';
 import {NavLink} from "react-router-dom";
 import axios from "axios";
 import {getApiLink} from "../../../hooks/getApiLink";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import getCookies from "../../../functions/getCookies";
+import {setProfileOrders} from "../../../redux/toolkitSlice";
+import {profileOrders} from "../../../api/profileOrders";
 
-const ProfileOrders = ({setOrderItems}) => {
+const ProfileOrders = () => {
 
-    const userInfo = useSelector(state => state.toolkit.user)
-    const [orders, setOrders] = useState([])
-
-    useEffect(() => {
-        if(!Object.keys(userInfo).length) return;
-
-        axios.defaults.headers.get['Authorization'] = `Bearer ${getCookies('token')}`
-        axios.get(getApiLink(`v1/public/users/${userInfo?.userId}/orders?limit=50`)).then(({data}) => {
-            setOrders(data.orders)
-        }).catch(er => {
-            console.log(er)
-        })
-    }, [userInfo])
+    const orders = useSelector(state => state.toolkit.profileOrders)
 
     return (
         <ul className="orders__list">
@@ -27,9 +17,9 @@ const ProfileOrders = ({setOrderItems}) => {
             {
                 !!orders.length ? orders?.map(item =>
                     <li key={item.orderNumber}>
-                        <button onClick={_ => setOrderItems(item.orderProducts)} className="orders__item">
+                        <NavLink to={"/profile/"+item.orderNumber} className="orders__item">
                             Замовлення {item.orderNumber}
-                        </button>
+                        </NavLink>
                     </li>
                 ) : "Нічого не знайдено =("
             }

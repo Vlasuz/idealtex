@@ -2018,7 +2018,9 @@ textarea.input_admin {
   font-weight: 500;
   line-height: 110.8%;
   padding: 8px;
-  min-width: 30px;
+  width: 33px;
+  height: 33px;
+  text-align: center;
 }
 
 .menu__lang {
@@ -2032,6 +2034,10 @@ textarea.input_admin {
       -ms-flex-align: center;
           align-items: center;
   gap: 32px;
+}
+
+.menu__lang li {
+  cursor: pointer;
 }
 
 .menu__lang ul {

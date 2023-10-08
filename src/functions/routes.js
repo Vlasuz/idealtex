@@ -7,12 +7,13 @@ import Product from "../pages/product/Product";
 import PageNotFound from "../pages/pageNotFound/pageNotFound";
 import { Category } from "../pages/category/Category";
 import Profile from "../pages/profile/Profile";
-import ProfileOrder from "../pages/profile/components/ProfileOrder";
 import Checkout from "../pages/checkout/Checkout";
 import { AllCategories } from "../pages/allCategories/AllCategories";
 import { AllDiscount } from "../pages/allDiscount/AllDiscount";
 import ThankYou from "../pages/thankYou/ThankYou";
 import Basket from "../pages/basket/Basket";
+import ProfileOrder from "../pages/profileOrder/ProfileOrder";
+import ChangePasswordNewPassword from "../pages/changePasswordNewPassword/ChangePasswordNewPassword";
 
 export const routes = () => {
 
@@ -38,6 +39,10 @@ export const routes = () => {
             element: <ChangePassword/>
         },
         {
+            path: '/change-pass/:token',
+            element: <ChangePasswordNewPassword/>
+        },
+        {
             path: '/search/:search',
             element: <Search/>
         },
@@ -60,6 +65,10 @@ export const routes = () => {
         {
             path: '/profile',
             element: <Profile/>
+        },
+        {
+            path: '/profile/:orderId',
+            element: <ProfileOrder/>
         },
         {
             path: '/basket',

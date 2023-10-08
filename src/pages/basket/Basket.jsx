@@ -32,7 +32,7 @@ const Basket = () => {
                         <div className="basket__grid-layout">
 
                             {
-                                basket.length ? basket.map(item => <BasketCard data={item.product}
+                                basket.length ? basket.map(item => <BasketCard data={item.product} key={item.product.productCode}
                                                                                productsToCheckout={productsToCheckout}
                                                                                setProductsToCheckout={setProductsToCheckout}
                                                                                selectedPackage={item.package}/>) : "Нічого немає =("
