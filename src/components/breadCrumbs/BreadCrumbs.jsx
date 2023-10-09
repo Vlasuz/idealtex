@@ -8,8 +8,8 @@ export const BreadCrumbs = ({pages}) => {
           <li>
             <NavLink to={"/"}>Головна</NavLink>
           </li>
-          {pages.map(item => 
-              <li>
+          {pages.map((item, index) => 
+              <li key={index}>
                 {item.route ? <NavLink to={item.route}>{item.page}</NavLink> : <span>{item.page}</span>}
               </li>
             )

@@ -30,7 +30,6 @@ export const AllDiscount = () => {
 
   useEffect(() =>{
     offset === 0 && window.scrollTo(0, 2)
-    console.log('dis', offset);
   }, [offset])
 
   useEffect(() => {
