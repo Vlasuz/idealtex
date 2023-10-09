@@ -8,6 +8,7 @@ import getCookies from "../../functions/getCookies";
 import {useRandomUUID4} from "../../hooks/randomUUID4";
 import {useNavigate} from "react-router-dom";
 import {useGetGeneralDiscount} from "../../hooks/getGeneralDiscount";
+import Select from "./components/select";
 
 const Checkout = () => {
 
@@ -45,9 +46,11 @@ const Checkout = () => {
     useEffect(() => {
         axios.get(getApiLink("v1/public/settings/communicationMethods")).then(({data}) => {
             setReqComm(data.communicationMethods)
+            setCommunicate(data.communicationMethods[0])
         })
         axios.get(getApiLink("v1/public/settings/paymentMethods")).then(({data}) => {
             setReqBank(data.paymentMethods)
+            setBank(data.paymentMethods[0])
         })
     }, [])
 
@@ -201,23 +204,19 @@ const Checkout = () => {
                         </h2>
                         <div className="user__grid-layout">
                             <label className="input-item ">
-									<span className="input-item__title">
-										Як з вами можна зв'язатися
-									</span>
-                                <select name="form[]" onChange={e => setCommunicate(e.target.value)} className="form">
-                                    {
-                                        reqComm.map(option => <option key={option} value={option}>{option}</option>)
-                                    }
-                                </select>
+                                <span className="input-item__title">
+                                    Як з вами можна зв'язатися
+                                </span>
+
+                                <Select list={reqComm} setValue={setCommunicate} value={communicate} />
 
                             </label>
                             <label className="input-item">
-									<span className="input-item__title">
-										Який банк вам зручніше
-									</span>
-                                <select name="form[]" onChange={e => setBank(e.target.value)} className="form">
-                                    {reqBank.map(option => <option key={option} value={option}>{option}</option>)}
-                                </select>
+                                <span className="input-item__title">
+                                    Який банк вам зручніше
+                                </span>
+
+                                <Select list={reqBank} setValue={setBank} value={bank} />
 
                             </label>
                             <label className="input-item w-100">
