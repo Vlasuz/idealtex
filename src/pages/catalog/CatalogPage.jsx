@@ -36,7 +36,7 @@ export const CatalogPage = () => {
   return (
     <div className="products">
       <div className="products__container">
-        <h2 class="title products__title">
+        <h2 className="title products__title">
           Категорія: {category.categoryName}
         </h2>
 

@@ -1,26 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
 import axios from "axios";
+import {useEffect, useState} from 'react';
+import {useParams} from "react-router-dom";
 import {getApiLink} from "../../hooks/getApiLink";
-import {Swiper, SwiperSlide} from 'swiper/react';
 import {ProductStyled} from "./Product.styled";
-import {Navigation, Pagination} from "swiper";
-
-import arrNext from './../../assets/initial/img/icons/arrow-left.svg'
-import CardOption from "../../components/card/components/CardOption";
-import CardOptionEmpty from "../../components/card/components/CardOptionEmpty";
-import Translate from "../../components/translate/Translate";
-import CardDiscounts from "../../components/card/components/CardDiscounts";
 import {useDispatch, useSelector} from "react-redux";
 import {addBasketItem} from "../../redux/toolkitSlice";
-import ProductSlider from "./components/ProductSlider";
-import ProductInfo from "./components/ProductInfo";
-import CardQuantity from "../../components/card/components/CardQuantity";
-import ProductQuantity from "./components/ProductQuantity";
 import {useChooseProductPackage} from "../../hooks/chooseProductPackage";
 import {useMaxDiscount} from "../../hooks/maxDiscount";
 import {useGetGeneralDiscount} from "../../hooks/getGeneralDiscount";
-import { ProductBreadCrumbs } from './components/ProductBreadCrumbs';
+import {BreadCrumbs} from '../../components/breadCrumbs/BreadCrumbs';
+import CardDiscounts from "../../components/card/components/CardDiscounts";
+import ProductSlider from "./components/ProductSlider";
+import ProductInfo from "./components/ProductInfo";
+import ProductQuantity from "./components/ProductQuantity";
 
 const Product = () => {
 
@@ -60,7 +52,7 @@ const Product = () => {
 
     return (
         <>
-            <ProductBreadCrumbs product={product}/>
+            <BreadCrumbs pages={[{route: '/products', page: 'Всі продукти'}, {page: product.productName}]}/>
 
             <ProductStyled className="product">
                 <div className="product__container">

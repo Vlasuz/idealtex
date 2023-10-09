@@ -7,7 +7,7 @@ import {Loader} from "../../components/loader/Loader";
 import Card from "../../components/card/Card";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {getAllProducts} from "../../api/categories";
-import {BreadCrumbsCategory} from "./breadCrumbsCategory/BreadCrumbsCategory";
+import {BreadCrumbs} from "../../components/breadCrumbs/BreadCrumbs";
 
 export const Category = () => {
     const {categoryAlias} = useParams();
@@ -31,7 +31,7 @@ export const Category = () => {
             })
             .catch((error) => {
                 console.log("Помилка при завантаженні категорії:", error);
-            });
+            })
     };
 
     useEffect(() => {
@@ -55,13 +55,12 @@ export const Category = () => {
 
         setOffset(0);
         setProducts([]);
-        setLoading(false);
 
     }, [categoryAlias]);
 
     return (
         <>
-            <BreadCrumbsCategory onCategory={category.categoryName}/>
+            <BreadCrumbs pages={[{route: '/categories', page: 'Всі категорії'}, {page: category.categoryName}]}/>
 
             <div className="products">
                 <div className="products__container">
@@ -70,12 +69,13 @@ export const Category = () => {
                     </h2>
 
                     {!loading && products.length === 0 && <ProductsNotFound/>}
+                    {loading && <Loader />}
 
                     <InfiniteScroll
-                        dataLength={category.hasChildren ? 10 : 0}
+                        dataLength={products.length}
                         next={loadMore}
                         hasMore={hasMore}
-                        loader={<Loader/>}
+                        loader={!loading && <Loader />}
                         style={{overflow: "unset"}}
                     >
                         <div className="products__grid-layout">
