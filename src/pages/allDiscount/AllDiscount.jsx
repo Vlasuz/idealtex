@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { getAllProducts } from "../../api/categories";
-import { BreadCrumbs } from "./components/BreadCrumbs/BreadCrumbs";
 import { ProductsNotFound } from "../productsNotFound/ProductsNotFound";
 import { Loader } from "../../components/loader/Loader";
 import Card from "../../components/card/Card";
+import { BreadCrumbs } from "../../components/breadCrumbs/BreadCrumbs";
 
 export const AllDiscount = () => {
   const [discountProducts, setDiscountProducts] = useState([]);
@@ -40,7 +40,7 @@ export const AllDiscount = () => {
 
   return (
     <>
-      <BreadCrumbs />
+      <BreadCrumbs pages={[{page: 'Акційні пропозиції'}]} />
       <div className="products">
         <div className="sale__container">
           <h2 className="category2__title title">АКЦІЙНІ ПРОПОЗИЦІЇ</h2>

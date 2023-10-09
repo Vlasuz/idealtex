@@ -7,7 +7,7 @@ import {Loader} from "../../components/loader/Loader";
 import Card from "../../components/card/Card";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {getAllProducts} from "../../api/categories";
-import {BreadCrumbsCategory} from "./breadCrumbsCategory/BreadCrumbsCategory";
+import {BreadCrumbs} from "../../components/breadCrumbs/BreadCrumbs";
 
 export const Category = () => {
     const {categoryAlias} = useParams();
@@ -24,7 +24,7 @@ export const Category = () => {
                     setHasMore(false);
                 } else {
                     setProducts((prevProducts) => [...prevProducts, ...products]);
-                    setOffset(prev => prev + 12);
+                    setOffset(prevOffset => prevOffset + 12);
                     setHasMore(true)
                 }
                 setLoading(false);
@@ -61,7 +61,7 @@ export const Category = () => {
 
     return (
         <>
-            <BreadCrumbsCategory onCategory={category.categoryName}/>
+            <BreadCrumbs pages={[{route: '/categories', page: 'Всі категорії'}, {page: category.categoryName}]}/>
 
             <div className="products">
                 <div className="products__container">

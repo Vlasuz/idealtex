@@ -3,9 +3,8 @@ import BasketCard from "../../components/basketCard/BasketCard";
 import {useDispatch, useSelector} from "react-redux";
 import BasketBottom from "./components/BasketBottom";
 import {setBasketCheckout, setBasketPriceDiscount} from "../../redux/toolkitSlice";
-import { BreadCrumbsBasket } from './components/BreadCrumbsBasket';
+import { BreadCrumbs } from '../../components/breadCrumbs/BreadCrumbs';
 import { BasketEmpty } from './components/BasketEmpty/BasketEmpty';
-// import { BasketEmpty } from './components/BasketEmpty';
 
 export const AllAmountContext = createContext(null);
 
@@ -26,7 +25,7 @@ const Basket = () => {
 
     return (
         <AllAmountContext.Provider value={setAllAmountPrice}>
-            <BreadCrumbsBasket/>
+            <BreadCrumbs pages={[{page: 'Кошик'}]}/>
             <section className="basket">
                 <div className="basket__top">
                     <div className="basket__container">

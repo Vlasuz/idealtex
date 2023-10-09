@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { getAllCategories } from "../../api/categories";
 import CategoryCard from "../../components/categoryCard/CategoryCard";
-import { BreadCrumbs } from "./components/breadCrumbs/BreadCrumbs";
 import { ProductsNotFound } from "../productsNotFound/ProductsNotFound";
 import { Loader } from "../../components/loader/Loader";
+import { BreadCrumbs } from "../../components/breadCrumbs/BreadCrumbs";
 
 export const AllCategories = () => {
 
@@ -23,7 +23,7 @@ export const AllCategories = () => {
 
   return (
     <>
-      <BreadCrumbs/>
+      <BreadCrumbs pages={[{page: 'Всі категорії'}]} />
       <div className="category2">
         <div className="category2__container">
           <h2 className="category2__title title">

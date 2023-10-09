@@ -45,7 +45,7 @@ const Search = () => {
 
   return (
     <>
-      <BreadCrumbs onSearch={search}/>
+      <BreadCrumbs pages={[{route: '/products', page: 'Всі продукти'}, {page: search}]}/>
 
       <div className="products">
         <div className="products__container">

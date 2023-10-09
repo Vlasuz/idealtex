@@ -16,10 +16,6 @@ export const Banner = ({apiEndpoint, showNavigation}) => {
     const [settingImage, setSettingImage] = useState([]);
     const navigate = useNavigate();
 
-    const slideClick = (route) => {
-        navigate(route)
-    }
-
     useEffect(() => {
         axios
             .get(getApiLink(apiEndpoint)).then(({data}) => {
@@ -56,7 +52,7 @@ export const Banner = ({apiEndpoint, showNavigation}) => {
                         {
                             settingImage.map(image =>
                                 <SwiperSlide key={image.imageName}>
-                                    <div className="banner__image-ibg" onClick={() => slideClick(image.route)}>
+                                    <div className="banner__image-ibg">
                                         <NavLink to={image.route}>
                                             <img src={getApiLink("v1/public/images/" + image.imageName)} alt=""/>
                                         </NavLink>

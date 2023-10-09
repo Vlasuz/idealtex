@@ -4,8 +4,7 @@ import { getAllProducts } from "../../api/categories";
 import { ProductsNotFound } from "../productsNotFound/ProductsNotFound";
 import { Loader } from "../../components/loader/Loader";
 import Card from "../../components/card/Card";
-import { BreadCrumbs } from "../allCategories/components/breadCrumbs/BreadCrumbs";
-import { BreadCrumbsProducts } from "./components/BreadCrumbsProducts";
+import { BreadCrumbs } from "../../components/breadCrumbs/BreadCrumbs";
 
 
 export const AllProducts = () => {
@@ -41,7 +40,7 @@ export const AllProducts = () => {
 
   return (
     <>
-      <BreadCrumbsProducts />
+      <BreadCrumbs pages={[{page: 'Всі продукти'}]}/>
       <div className="products">
         <div className="sale__container">
           <h2 className="category2__title title">Всі продукти</h2>
