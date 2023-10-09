@@ -5,6 +5,7 @@ import Input from "../../components/input/Input";
 import axios from "axios";
 import {getApiLink} from "../../hooks/getApiLink";
 import {ChangePasswordNewPasswordStyled} from "./ChangePasswordNewPassword.styled";
+import SuccessChange from "../../components/successChange/SuccessChange";
 
 const ChangePasswordNewPassword = () => {
 
@@ -36,14 +37,16 @@ const ChangePasswordNewPassword = () => {
     return (
         <ChangePasswordNewPasswordStyled className="login">
             <div className="login__container">
-                <div className="login__wrap">
+                {!success ? <div className="login__wrap">
                     <h2 className="login__title">
                         Зміна паролю
                     </h2>
                     <form onSubmit={e => handleChangePassword(e)} className="login__form">
                         <div className="login__items">
-                            <Input placeholder={"Пароль"} setValue={setNewPassword} value={newPassword} type={"password"} icon={passwordIcon} />
-                            <Input placeholder={"Пароль"} setValue={setNewPasswordRepeat} value={newPasswordRepeat} type={"password"} icon={passwordIcon} />
+                            <Input placeholder={"Пароль"} setValue={setNewPassword} value={newPassword}
+                                   type={"password"} icon={passwordIcon}/>
+                            <Input placeholder={"Пароль"} setValue={setNewPasswordRepeat} value={newPasswordRepeat}
+                                   type={"password"} icon={passwordIcon}/>
                             {error && <div className={"change-pass-error"}>
                                 Пароли не совпадают
                             </div>}
@@ -56,7 +59,7 @@ const ChangePasswordNewPassword = () => {
                         </button>
 
                     </form>
-                </div>
+                </div> : <SuccessChange title={"Ви змінили пароль"} />}
             </div>
         </ChangePasswordNewPasswordStyled>
     );

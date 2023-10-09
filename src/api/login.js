@@ -13,7 +13,6 @@ export const login = (data, dispatch) => {
     axios.get(getApiLink(`v1/public/users/${payloadObj.uid}`), {
         userId: payloadObj.uid
     }).then((res) => {
-        console.log('user', res.data)
         dispatch(setUser(res.data))
     })
 }
