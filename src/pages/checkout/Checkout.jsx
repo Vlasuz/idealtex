@@ -83,11 +83,8 @@ const Checkout = () => {
         }
 
         axios.post(getApiLink('v1/public/orders'), bodyOfOrder).then(({data}) => {
-            console.log(data)
             navigate('/thx')
-        }).catch(er => {
-            console.log(er)
-        })
+        }).catch(er => {console.log(er)})
 
     }
 
