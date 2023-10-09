@@ -31,7 +31,7 @@ export const Category = () => {
             })
             .catch((error) => {
                 console.log("Помилка при завантаженні категорії:", error);
-            });
+            })
     };
 
     useEffect(() => {
@@ -55,7 +55,6 @@ export const Category = () => {
 
         setOffset(0);
         setProducts([]);
-        setLoading(false);
 
     }, [categoryAlias]);
 
@@ -70,12 +69,13 @@ export const Category = () => {
                     </h2>
 
                     {!loading && products.length === 0 && <ProductsNotFound/>}
+                    {loading && <Loader />}
 
                     <InfiniteScroll
                         dataLength={products.length}
                         next={loadMore}
                         hasMore={hasMore}
-                        loader={<Loader/>}
+                        loader={!loading && <Loader />}
                         style={{overflow: "unset"}}
                     >
                         <div className="products__grid-layout">
