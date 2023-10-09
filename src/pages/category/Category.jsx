@@ -24,7 +24,7 @@ export const Category = () => {
                     setHasMore(false);
                 } else {
                     setProducts((prevProducts) => [...prevProducts, ...products]);
-                    setOffset(prevOffset => prevOffset + 12);
+                    setOffset(prev => prev + 12);
                     setHasMore(true)
                 }
                 setLoading(false);
@@ -72,7 +72,7 @@ export const Category = () => {
                     {!loading && products.length === 0 && <ProductsNotFound/>}
 
                     <InfiniteScroll
-                        dataLength={category.hasChildren ? 10 : 0}
+                        dataLength={products.length}
                         next={loadMore}
                         hasMore={hasMore}
                         loader={<Loader/>}
