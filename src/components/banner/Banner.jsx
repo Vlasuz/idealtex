@@ -4,11 +4,11 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import {useEffect, useState} from "react";
 import {Navigation, Pagination} from "swiper";
 import {BannerStyled} from "./Banner.styled";
-import { Loader } from "../../components/loader/Loader";
-import { getApiLink } from "../../hooks/getApiLink";
+import {Loader} from "../../components/loader/Loader";
+import {getApiLink} from "../../hooks/getApiLink";
 import arrowLeft from '../../assets/initial/img/icons/arrow-left.svg';
 import arrowRight from '../../assets/initial/img/icons/arrow-left.svg';
-import { NavLink, useHistory, useNavigate } from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 
 
 export const Banner = ({apiEndpoint, showNavigation}) => {
@@ -20,12 +20,12 @@ export const Banner = ({apiEndpoint, showNavigation}) => {
         navigate(route)
     }
 
-    useEffect(() =>{
+    useEffect(() => {
         axios
-            .get(getApiLink(apiEndpoint)).then(({data}) =>{
-                setSettingImage(data.settings);
-                setLoading(false);            
-            })
+            .get(getApiLink(apiEndpoint)).then(({data}) => {
+            setSettingImage(data.settings);
+            setLoading(false);
+        })
             .catch((error) => {
                 console.error("Ошибка я не получил swiper", error);
                 setLoading(false);
@@ -36,10 +36,10 @@ export const Banner = ({apiEndpoint, showNavigation}) => {
     return (
         <BannerStyled>
             <div className="banner__container">
-                {loading ? <Loader /> :
-                    <Swiper 
-                        className="banner__slider" 
-                        navigation={ showNavigation ? {
+                {loading ? <Loader/> :
+                    <Swiper
+                        className="banner__slider"
+                        navigation={showNavigation ? {
                             prevEl: ".banner__arrow_prev",
                             nextEl: ".banner__arrow_next",
                         } : false}
@@ -55,29 +55,31 @@ export const Banner = ({apiEndpoint, showNavigation}) => {
                     >
                         {
                             settingImage.map(image =>
-                                <SwiperSlide key={image.imageName} >
+                                <SwiperSlide key={image.imageName}>
                                     <div className="banner__image-ibg" onClick={() => slideClick(image.route)}>
-                                        <img src={getApiLink("v1/public/images/" + image.imageName)} alt=""/>
+                                        <NavLink to={image.route}>
+                                            <img src={getApiLink("v1/public/images/" + image.imageName)} alt=""/>
+                                        </NavLink>
                                     </div>
                                 </SwiperSlide>
                             )
                         }
                         <div className="banner__pagination"></div>
-                        {showNavigation 
-                            ?    <div className="banner__arrows">
-                                    <button className="banner__arrow banner__arrow_prev">
-                                        <img src={arrowLeft} alt="icon"/>
-                                    </button>
-                                    <button className="banner__arrow banner__arrow_next">
-                                        <img src={arrowRight} alt="icon"/>
-                                    </button>
-                                </div>
-                                
+                        {showNavigation
+                            ? <div className="banner__arrows">
+                                <button className="banner__arrow banner__arrow_prev">
+                                    <img src={arrowLeft} alt="icon"/>
+                                </button>
+                                <button className="banner__arrow banner__arrow_next">
+                                    <img src={arrowRight} alt="icon"/>
+                                </button>
+                            </div>
+
                             : false
                         }
                     </Swiper>
                 }
-            </div>            
+            </div>
         </BannerStyled>
     );
 };

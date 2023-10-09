@@ -2,9 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { getApiLink } from "../../hooks/getApiLink";
 
+import imagePlaceholder from './../../assets/initial/img/defaultImage.jpg'
+
 const CategoryCard = ({ data, type }) => {
-  // page-categories
-  // page-home
 
   const isHomePageClass = (homeClass, catClass) => {
     return type === "page-home" ? homeClass : catClass;
@@ -22,7 +22,7 @@ const CategoryCard = ({ data, type }) => {
         )}
       >
         <picture>
-          <img src={getApiLink("v1/public/images/" + data.imageName)} alt="" />
+          <img src={data.imageName ? getApiLink("v1/public/images/" + data.imageName) : imagePlaceholder} alt="" />
         </picture>
       </div>
       <div

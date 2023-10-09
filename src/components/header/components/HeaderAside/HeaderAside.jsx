@@ -14,6 +14,11 @@ import Translate from "../../../translate/Translate";
 export const HeaderAside = ({onClose}) => {
     const basketProducts = useSelector(state => state.toolkit.basket)
 
+    const handleOpenCatalog = () => {
+        onClose()
+        document.querySelector("html").classList.add('open-catalog')
+    }
+
     return (
         <aside className="main-header__menu menu">
             <button className="menu__close button-icon" onClick={onClose}>
@@ -27,12 +32,12 @@ export const HeaderAside = ({onClose}) => {
             </NavLink>
             <ul className="menu__main-list">
                 <li>
-                    <a href="">
+                    <button onClick={handleOpenCatalog}>
             <span className="menu__icon button-icon">
               <img src={catalog} alt="icon"/>
             </span>
                       <Translate>catalog_tovarov</Translate>
-                    </a>
+                    </button>
                 </li>
                 <li>
                     <NavLink to={'/basket'} onClick={onClose}>

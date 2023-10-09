@@ -7,7 +7,9 @@ import CardQuantity from "./components/CardQuantity";
 import {NavLink} from "react-router-dom";
 import CardQuantityNull from "./components/CardQuantityNull";
 import {useDispatch} from "react-redux";
-import {removeBasketItem, setBasketCheckout, setBasketPriceDiscount} from "../../redux/toolkitSlice";
+import {removeBasketItem} from "../../redux/toolkitSlice";
+
+import imagePlaceholder from './../../assets/initial/img/defaultImage.jpg'
 
 const BasketCard = ({data, selectedPackage, setProductsToCheckout, productsToCheckout}) => {
 
@@ -52,7 +54,7 @@ const BasketCard = ({data, selectedPackage, setProductsToCheckout, productsToChe
         <CardStyled className="product-card product-card_basket">
             <div className="product-card__top">
                 <NavLink to={"/products/" + data.productCode} className="product-card__image-ibg">
-                    <img src={getApiLink(`v1/public/images/${data.imagesNames[0]}`)} alt=""/>
+                    <img src={data.imagesNames[0] ? getApiLink(`v1/public/images/${data.imagesNames[0]}`) : imagePlaceholder} alt=""/>
                 </NavLink>
                 <ul className="product-card__list">
                     <li>
