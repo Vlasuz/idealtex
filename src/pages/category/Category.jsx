@@ -18,7 +18,7 @@ export const Category = () => {
   const [offset, setOffset] = useState(0);
 
   const loadMore = () => {
-      getAllProducts({ offset: offset, categoryAlias: categoryAlias })
+      getAllProducts({ offset: offset, categoryAlias: categoryAlias, limit: 12 })
         .then(({ products }) => {
             console.log(products);
             if (products.length === 0) {
@@ -33,22 +33,25 @@ export const Category = () => {
           console.log("Помилка при завантаженні категорії:", error);
         });
   };
+
+  useEffect(() => {
+    offset === 0 && window.scrollTo(0, 2)
+    console.log(offset);
+  }, [offset])
   
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     axios // запит для отримання назви категорій
-    .get(getApiLink(`v1/public/categories/${categoryAlias}`))
-    .then(({ data }) => {
-      setCategory(data);
-    })
-    .catch((error) => {
-      console.log("Помилка при завантаженні категорії:", error);
-    });
+      .get(getApiLink(`v1/public/categories/${categoryAlias}`))
+      .then(({ data }) => {
+        setCategory(data);
+      })
+      .catch((error) => {
+        console.log("Помилка при завантаженні категорії:", error);
+      });
 
     setOffset(0);
-
-    loadMore();
-    
     setProducts([]);
   }, [categoryAlias]);
 
@@ -73,8 +76,8 @@ export const Category = () => {
             style={{ overflow: "unset" }}
           >
             <div className="products__grid-layout">
-              {products.map((product, index) => (
-                <Card data={product} key={index} />
+              {products.map((product) => (
+                <Card data={product} key={product.productCode} />
               ))}
             </div>
           </InfiniteScroll>

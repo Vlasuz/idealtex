@@ -14,6 +14,7 @@ import ThankYou from "../pages/thankYou/ThankYou";
 import Basket from "../pages/basket/Basket";
 import ProfileOrder from "../pages/profileOrder/ProfileOrder";
 import ChangePasswordNewPassword from "../pages/changePasswordNewPassword/ChangePasswordNewPassword";
+import { AllProducts } from "../pages/allProducts/AllProducts";
 
 export const routes = () => {
 
@@ -52,6 +53,10 @@ export const routes = () => {
         },
         {
             path: '/products',
+            element: <AllProducts/>
+        },
+        {
+            path: '/discount',
             element: <AllDiscount/>
         },
         {

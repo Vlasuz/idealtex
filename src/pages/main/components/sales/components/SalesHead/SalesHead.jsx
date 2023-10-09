@@ -7,7 +7,7 @@ export const SalesHead = () => {
         <h2 className="title sale__title">
             АКЦІЙНІ ПРОПОЗИЦІЇ
         </h2>
-        <NavLink to={'/products'} className="link">
+        <NavLink to={'/discount'} className="link">
             Показати всі <img src={arrowLink} alt="icon" />
         </NavLink>
     </div>

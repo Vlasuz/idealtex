@@ -33,8 +33,14 @@ const Search = () => {
   };
 
   useEffect(() => {
+    offset === 0 && window.scrollTo(0, 2)
+    console.log('ser', offset, searchResults);
+  }, [offset]);
+  
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    setOffset(0);
     setSearchResults([]);
-    fetchData();
   }, [search]);
 
   return (
@@ -46,7 +52,6 @@ const Search = () => {
           <h2 className="title products__title">Пошук за значенням: {search}</h2>
 
           {!loading && searchResults.length === 0 && <ProductsNotFound/>}
-          {loading && <Loader/>}
 
           <InfiniteScroll
             dataLength={searchResults.length}
@@ -56,7 +61,7 @@ const Search = () => {
             style={{overflow: 'unset'}}
           >
             <div className="products__grid-layout">
-                {searchResults.map((searchResult, index) => <Card data={searchResult} key={index} />)}
+                {searchResults.map((searchResult) => <Card data={searchResult} key={searchResult.productCode} />)}
             </div>
           </InfiniteScroll>
         </div>
