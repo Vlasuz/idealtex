@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {HeaderAside} from "../HeaderAside/HeaderAside";
 import {HeaderCatalog} from "../HeaderCatalog/HeaderCatalog";
 import {HeaderPhone} from "../HeaderPhone/HeaderPhone";
@@ -19,9 +19,6 @@ import logo from "../../../../assets/initial/img/main-img/logo.webp";
 import logo2 from "../../../../assets/initial/img/main-img/logo.png";
 
 export const HeaderMain = () => {
-    const [asideOpen, setAsideOpen] = useState(false);
-    const [catalogOpen, setCatalogOpen] = useState(false);
-    const [phoneOpen, setPhoneOpen] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
