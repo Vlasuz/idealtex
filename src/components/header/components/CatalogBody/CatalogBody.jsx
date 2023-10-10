@@ -4,7 +4,7 @@ import { getApiLink } from "../../../../hooks/getApiLink";
 import { NavLink } from "react-router-dom";
 import { Loader } from "../../../loader/Loader";
 import { ProductsNotFound } from "../../../../pages/productsNotFound/ProductsNotFound";
-import defaultImage from '../../../../assets/initial/img/defaultImage.jpg'
+import imagePlaceholder from '../../../../assets/initial/img/defaultImage.jpg'
 
 export const CatalogBody = ({alias, onClose}) => {
     const [loading, setLoading] = useState(true);
@@ -39,8 +39,7 @@ export const CatalogBody = ({alias, onClose}) => {
                         >
                             <div className="category-card__image-ibg">
                             <picture>
-                                <source srcSet={defaultImage} type="image/webp" />
-                                <img src={defaultImage} alt="photo" />
+                                <img src={category.imageName ? getApiLink("v1/public/images/" + category.imageName) : imagePlaceholder} alt="photo" />
                             </picture>
                             </div>
                             <h4 className="category-card__title">

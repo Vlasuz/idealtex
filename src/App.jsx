@@ -28,7 +28,7 @@ export const App = () => {
     }, [userInfo])
 
     document.addEventListener('click', (e) => {
-        if(e.target.closest('.header-catalog') === null && e.target.closest('.main-header__catalog-button') === null && e.target.closest('.menu__main-list') === null) {
+        if(e.target.closest('.header-catalog') === null && e.target.closest('.main-header__catalog-button') === null && e.target.closest('.menu__main-list') === null && e.target.closest('.header-catalog__wrap') !== null) {
             document.querySelector('html').classList.remove('open-catalog')
         }
         if(e.target.closest('.main-header__phone') === null) {

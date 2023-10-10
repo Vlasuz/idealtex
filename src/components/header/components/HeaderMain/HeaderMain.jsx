@@ -6,6 +6,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {HeaderMainStyled} from "./HeaderMain.styled";
 import {handleExit} from "../../../../functions/exitAccount";
 import {NavLink, useNavigate} from "react-router-dom";
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import menu from "../../../../assets/initial/img/icons/menu.svg";
 import catalog from "../../../../assets/initial/img/icons/catalog.svg";
@@ -23,6 +26,7 @@ export const HeaderMain = () => {
     const navigate = useNavigate()
 
     const [searchQuery, setSearchQuery] = useState('');
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
 
     const userInfo = useSelector((state) => state.toolkit.user);
 
@@ -42,27 +46,41 @@ export const HeaderMain = () => {
         document.documentElement.classList.remove('open-catalog')
     };
 
-    const handleOpenPhone = (evt) => {
+    const handleOpenPhone = () => {
         const phoneBtn = document.querySelector("[data-phone]");
         phoneBtn.parentElement.classList.toggle("_active-phone");
     };
 
+    const handleOpenSearch = () => {
+        document.documentElement.classList.add('open-search');
+    }
+
+    const handleCloseSearch = (evt) => {
+        // evt.stopPropagation();
+        toast.dismiss();
+        setIsSearchOpen(false);
+        document.documentElement.classList.remove('open-search');
+    }
+
     const handleSearch = (evt) => {
         evt.preventDefault();
-        if (!searchQuery.trim()) {
-            alert("Будь ласка, введіть запит для пошуку.");
-            return;
-        }
-        navigate('/search/' + searchQuery)
         setSearchQuery('');
+        if (!searchQuery.trim()) {
+            if (isSearchOpen) {
+                toast.info('Будь ласка, введіть коректний запит для пошуку.');
+            }
+            return; 
+        }
+        navigate('/search/' + searchQuery);
     }
+    
 
 
     return (
 
         <HeaderMainStyled className="header__main main-header">
             <div className="header__overlay" onClick={handleCloseAside}></div>
-
+            <ToastContainer theme="dark"/>
             <HeaderCatalog onClose={handleCloseCatalog}/>
             <HeaderAside onClose={handleCloseAside}/>
 
@@ -106,9 +124,9 @@ export const HeaderMain = () => {
                         <div className="main-header__search search-header">
                             <form action="#" className="search-header__form" onSubmit={handleSearch}>
                                 <div className="search-header__item">
-                  <span className="search-header__icon">
-                    <img src={search} alt="icon"/>
-                  </span>
+                                    <span className="search-header__icon">
+                                        <img src={search} alt="icon"/>
+                                    </span>
                                     <input
                                         placeholder="Пошук"
                                         type="text"
@@ -118,12 +136,12 @@ export const HeaderMain = () => {
                                     />
                                     <button className="search-header__button">Знайти</button>
                                 </div>
-                                <button className="search-header__close button-icon">
+                                <button className="search-header__close button-icon" onClick={handleCloseSearch}>
                                     <img src={closeBlue} alt="icon"/>
                                 </button>
                             </form>
                         </div>
-                        <button className="main-header__search-open button-icon">
+                        <button className="main-header__search-open button-icon" onClick={handleOpenSearch}>
                             <img src={search2} alt="icon"/>
                         </button>
                         <div className="header__user">
