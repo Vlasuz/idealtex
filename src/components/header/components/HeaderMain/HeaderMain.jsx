@@ -58,8 +58,8 @@ export const HeaderMain = () => {
     const handleCloseSearch = (evt) => {
         // evt.stopPropagation();
         toast.dismiss();
-        setIsSearchOpen(false);
         document.documentElement.classList.remove('open-search');
+        setIsSearchOpen(false);
     }
 
     const handleSearch = (evt) => {
@@ -68,10 +68,11 @@ export const HeaderMain = () => {
         if (!searchQuery.trim()) {
             if (isSearchOpen) {
                 toast.info('Будь ласка, введіть коректний запит для пошуку.');
-            }
+            }  
             return; 
         }
         navigate('/search/' + searchQuery);
+        handleCloseSearch()
     }
     
 

@@ -10,7 +10,7 @@ import { BreadCrumbs } from "../../components/breadCrumbs/BreadCrumbs";
 export const AllProducts = () => {
     const [allProducts, setAllProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [hasMore, setHasMore] = useState(true);
+    const [hasMore, setHasMore] = useState(false);
     const [offset, setOffset] = useState(0);
 
     const loadMore = () => {
@@ -21,6 +21,7 @@ export const AllProducts = () => {
             } else {
               setAllProducts((prevProducts) => [...prevProducts, ...products]);
               setOffset(offset + 12);
+              setHasMore(true);
             }
             setLoading(false);
           })
@@ -36,6 +37,7 @@ export const AllProducts = () => {
     
       useEffect(() => {
         setOffset(0);
+        loadMore();
       }, []);
 
   return (
