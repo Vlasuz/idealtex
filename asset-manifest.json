@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/idealtex/static/css/main.4022a313.css",
-    "main.js": "/idealtex/static/js/main.f8d80e92.js",
+    "main.css": "/idealtex/static/css/main.bbfdb72d.css",
+    "main.js": "/idealtex/static/js/main.e6d66799.js",
     "static/media/text-img.png": "/idealtex/static/media/text-img.6fb2e796eb7b96bef899.png",
     "static/media/Inter-Bold.woff": "/idealtex/static/media/Inter-Bold.23eedfa7d7d7b2baf345.woff",
     "static/media/Inter-SemiBold.woff": "/idealtex/static/media/Inter-SemiBold.4597ef96de6a83f8b322.woff",
@@ -56,16 +56,17 @@
     "static/media/plus.svg": "/idealtex/static/media/plus.d294c6bce751862901306d466ce640b4.svg",
     "static/media/close-blue.svg": "/idealtex/static/media/close-blue.42feea70c830e0b0f750c0f72fa2afbb.svg",
     "static/media/search.svg": "/idealtex/static/media/search.0426bd159ff593d0407c5a013ca86783.svg",
+    "static/media/arrow-back.svg": "/idealtex/static/media/arrow-back.9b7d8aff43ff5d2993db3ad9fee0db4a.svg",
     "static/media/arrow-select.svg": "/idealtex/static/media/arrow-select.1f49c379d1c948af0b89.svg",
     "static/media/minus.svg": "/idealtex/static/media/minus.c7b84600287811e5b1cecbe3f760ebc3.svg",
     "static/media/arrow-left.svg": "/idealtex/static/media/arrow-left.c38aabcbddf289b5905543efc9b9b4de.svg",
     "static/media/scrolltop.svg": "/idealtex/static/media/scrolltop.d2792788bccb67e77855ecfdf976e7c7.svg",
     "static/media/arrow-spoller.svg": "/idealtex/static/media/arrow-spoller.2a4438b5d5f65d771452c01abd7c3844.svg",
-    "main.4022a313.css.map": "/idealtex/static/css/main.4022a313.css.map",
-    "main.f8d80e92.js.map": "/idealtex/static/js/main.f8d80e92.js.map"
+    "main.bbfdb72d.css.map": "/idealtex/static/css/main.bbfdb72d.css.map",
+    "main.e6d66799.js.map": "/idealtex/static/js/main.e6d66799.js.map"
   },
   "entrypoints": [
-    "static/css/main.4022a313.css",
-    "static/js/main.f8d80e92.js"
+    "static/css/main.bbfdb72d.css",
+    "static/js/main.e6d66799.js"
   ]
 }
