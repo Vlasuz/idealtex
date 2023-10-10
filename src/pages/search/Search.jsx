@@ -34,7 +34,6 @@ const Search = () => {
 
   useEffect(() => {
     offset === 0 && window.scrollTo(0, 2)
-    console.log('ser', offset, searchResults);
   }, [offset]);
   
   useEffect(() => {
