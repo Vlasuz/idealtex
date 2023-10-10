@@ -11,7 +11,7 @@ const Search = () => {
   const { search } = useParams();
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
   const [offset, setOffset] = useState(0);
 
   const fetchData = () => {
@@ -24,6 +24,7 @@ const Search = () => {
         } else {
           setSearchResults((prevProducts) => [...prevProducts, ...products]);
           setOffset(offset + 12);
+          setHasMore(true);
         }
         setLoading(false);
       })
@@ -34,13 +35,13 @@ const Search = () => {
 
   useEffect(() => {
     offset === 0 && window.scrollTo(0, 2)
-    console.log('ser', offset, searchResults);
   }, [offset]);
   
   useEffect(() => {
     window.scrollTo(0, 0)
     setOffset(0);
     setSearchResults([]);
+    fetchData();
   }, [search]);
 
   return (
