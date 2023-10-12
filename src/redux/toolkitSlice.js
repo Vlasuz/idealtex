@@ -72,7 +72,9 @@ const toolkitSlice = createSlice({
             state.basketPriceDiscount = action.payload
         },
         addBasketPrice(state, action) {
-            state.basketPrice = state.basketPrice + action.payload
+            // state.basketPrice = state.basketPrice + action.payload
+            console.log(action.payload?.price)
+            state.basketPrice = action.payload?.price ? action.payload?.price : state.basketPrice + action.payload
         },
 
         setDiscounts(state, action) {

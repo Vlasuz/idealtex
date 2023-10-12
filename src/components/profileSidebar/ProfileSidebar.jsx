@@ -34,14 +34,14 @@ const ProfileSidebar = () => {
                             Замовлення
                         </NavLink>
                     </li>
-                    <li>
+                    {userInfo.role === "administrator" && <li>
                         <a href="https://admin.idealtex.com.ua" target={'_blank'}>
                             <span className="menu__icon button-icon">
                                 <img src={userIcon} alt=""/>
                             </span>
                             Admin
                         </a>
-                    </li>
+                    </li>}
                 </ul>
             </div>
         </div>

@@ -7,12 +7,19 @@ import basket from "../../../../assets/initial/img/icons/basket.svg";
 import logoBig from "../../../../assets/initial/img/main-img/logo-big.webp";
 import logoBig2 from "../../../../assets/initial/img/main-img/logo-big.png";
 import HeaderLanguage from "../HeaderLanguage/HeaderLanguage";
-import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {NavLink} from "react-router-dom";
 import Translate from "../../../translate/Translate";
+
+import userIcon from './../../../../assets/initial/img/icons/user.svg'
+import orderIcon from './../../../../assets/initial/img/icons/order.svg'
+import logoutIcon from './../../../../assets/initial/img/icons/logout.svg'
+import {handleExit} from "../../../../functions/exitAccount";
 
 export const HeaderAside = ({onClose}) => {
     const basketProducts = useSelector(state => state.toolkit.basket)
+    const dispatch = useDispatch()
+    const userInfo = useSelector(state => state.toolkit.user)
 
     const handleOpenCatalog = () => {
         onClose()
@@ -36,7 +43,7 @@ export const HeaderAside = ({onClose}) => {
             <span className="menu__icon button-icon">
               <img src={catalog} alt="icon"/>
             </span>
-                      <Translate>catalog_tovarov</Translate>
+                        <Translate>catalog_tovarov</Translate>
                     </button>
                 </li>
                 <li>
@@ -51,6 +58,30 @@ export const HeaderAside = ({onClose}) => {
                         </span>}
                     </NavLink>
                 </li>
+                {!!Object.keys(userInfo).length && <li>
+                    <NavLink to={"/profile"} onClick={onClose}>
+                        <span className="menu__icon button-icon">
+                            <img src={orderIcon} alt=""/>
+                        </span>
+                        Замовлення
+                    </NavLink>
+                </li>}
+                {!!Object.keys(userInfo).length && userInfo?.role === "administrator" && <li>
+                    <a href={"http://admin.idealtex.com.ua"} onClick={onClose} target={"_blank"}>
+                        <span className="menu__icon button-icon">
+                            <img src={userIcon} alt=""/>
+                        </span>
+                        Admin
+                    </a>
+                </li>}
+                {!!Object.keys(userInfo).length && <li>
+                    <button onClick={_ => handleExit(dispatch)}>
+                        <span className="menu__icon button-icon">
+                            <img src={logoutIcon} alt=""/>
+                        </span>
+                        Вийти
+                    </button>
+                </li>}
             </ul>
             <div className="menu__lang">
                 <div className="menu__lang-title">

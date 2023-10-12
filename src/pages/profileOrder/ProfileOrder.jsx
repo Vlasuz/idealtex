@@ -9,11 +9,13 @@ const ProfileOrder = () => {
 
     const {orderId} = useParams()
     const orders = useSelector(state => state.toolkit.profileOrders)
-    const [orderItems, setOrderItems] = useState(orders.filter(item => +item.orderNumber === +orderId)[0]?.orderProducts)
+    const [thisOrder, setThisOrder] = useState([])
 
     useEffect(() => {
-        setOrderItems(orders.filter(item => +item.orderNumber === +orderId)[0]?.orderProducts)
+        setThisOrder(orders.filter(item => +item.orderNumber === +orderId)[0])
     }, [orders])
+
+    console.log(orders)
 
     return (
         <ProfileStyled className="orders">
@@ -30,16 +32,16 @@ const ProfileOrder = () => {
                                 Замовлення {orderId}
                             </div>
                             <div className="orders__info-item">
-                                Загальна сумма: <span className="green">500 грн</span>
+                                Загальна сумма: <span className="green">{thisOrder?.totalSumOfProducts} грн</span>
                             </div>
                             <div className="orders__info-item">
                                 Знижка:
-                                <span className="blue">0%</span>
+                                <span className="blue">{thisOrder?.discount}%</span>
                             </div>
                         </div>
                         <div className="orders__items">
                             {
-                                orderItems?.length ? orderItems?.map((item, index) =>
+                                thisOrder?.orderProducts?.length ? thisOrder?.orderProducts?.map((item, index) =>
                                     <OrderItem key={index} data={item}/>) : "Ничего нет =("
                             }
                         </div>

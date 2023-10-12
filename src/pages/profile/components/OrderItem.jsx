@@ -24,7 +24,7 @@ const OrderItem = ({data}) => {
                 <div className="product-card__items">
                     <div className="card-quantity">
                         <div className="card-quantity__title">
-                            {/*уп {data.productPackagesSizes.} {data.productMetric}*/}
+                            уп {data.productPackagesSizes.big?.productCountInPackage} {data.productMetric}
                         </div>
                         <div className="card-quantity__wrap">
                             <div className="card-quantity__row">
@@ -55,7 +55,7 @@ const OrderItem = ({data}) => {
                     </div>
                     <div className="card-quantity">
                         <div className="card-quantity__title">
-                            {/*уп 50 шт*/}
+                            уп {data.productPackagesSizes.mid?.productCountInPackage} {data.productMetric}
                         </div>
                         <div className="card-quantity__wrap">
                             <div className="card-quantity__row">
@@ -86,7 +86,7 @@ const OrderItem = ({data}) => {
                     </div>
                     <div className="card-quantity">
                         <div className="card-quantity__title">
-                            {/*уп 10 шт*/}
+                            уп {data.productPackagesSizes.small?.productCountInPackage} {data.productMetric}
                         </div>
                         <div className="card-quantity__wrap">
                             <div className="card-quantity__row">

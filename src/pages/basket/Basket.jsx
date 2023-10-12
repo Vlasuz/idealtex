@@ -38,6 +38,7 @@ const Basket = () => {
 
                                 {
                                     basket.map(item => <BasketCard
+                                        key={item.product.productCode}
                                         data={item.product}
                                         productsToCheckout={productsToCheckout}
                                         setProductsToCheckout={setProductsToCheckout}
