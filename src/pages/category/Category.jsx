@@ -19,13 +19,15 @@ export const Category = () => {
     const [offset, setOffset] = useState(0);
 
     const loadMore = () => {
+        setLoading(true)
+        setProducts([])
+        setCategory([])
+        setHasMore(false)
+
         getAllProducts({offset: offset, categoryAlias: categoryAlias, limit: 12})
             .then(({products}) => {
                 if (products.length === 0) {
                     // setHasMore(false);
-                    setTimeout(() => {
-                        setLoading(false);
-                      }, 100);
                 } else {
                     setProducts((prevProducts) => [...prevProducts, ...products]);
                     setOffset(prev => prev + 12);
@@ -60,7 +62,7 @@ export const Category = () => {
 
     }, [categoryAlias]);
 
-    if (!products.length) {
+    if (!loading && !products.length) {
         return <AllCategories categoryAlias={categoryAlias}/>
     }
 
@@ -75,13 +77,13 @@ export const Category = () => {
                     </h2>
 
                     {!loading && products.length === 0 && <ProductsNotFound/>}
-                    {loading && <Loader />}
+                    {loading && <Loader/>}
 
                     <InfiniteScroll
                         dataLength={products.length}
                         next={loadMore}
                         hasMore={hasMore}
-                        loader={!loading && <Loader />}
+                        loader={!loading && <Loader/>}
                         style={{overflow: "unset"}}
                     >
                         <div className="products__grid-layout">
