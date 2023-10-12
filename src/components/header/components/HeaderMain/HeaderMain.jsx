@@ -150,13 +150,6 @@ export const HeaderMain = () => {
                                      className="main-header__button button-icon">
                                 <img src={user} alt="icon"/>
                             </NavLink>
-                            {!!Object.keys(userInfo).length && (
-                                <p>
-                                    <span>{userInfo.firstName}</span>
-                                    <a href={"mailto:" + userInfo.email}>{userInfo.email}</a>
-                                    <button onClick={(_) => handleExit(dispatch)}>Exit</button>
-                                </p>
-                            )}
                         </div>
                         <NavLink to={"/basket"} className="main-header__button button-icon">
                             <img src={basket} alt="icon"/>

@@ -36,14 +36,12 @@ export const Category = () => {
 
     useEffect(() => {
         if (offset === 0 && !products.length) {
-            window.scrollTo(0, 2)
             loadMore()
         }
     }, [offset, categoryAlias])
 
 
     useEffect(() => {
-        window.scrollTo(0, 0)
         axios // запит для отримання назви категорій
             .get(getApiLink(`v1/public/categories/${categoryAlias}`))
             .then(({data}) => {

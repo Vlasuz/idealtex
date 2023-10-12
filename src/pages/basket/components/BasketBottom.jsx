@@ -6,6 +6,7 @@ import {NavLink} from "react-router-dom";
 const BasketBottom = () => {
 
     const basketPrice = useSelector(state => state.toolkit.basketPrice)
+    const basketPriceDiscount = useSelector(state => state.toolkit.basketPriceDiscount)
     const {discount} = useGetGeneralDiscount()
     const discounts = useSelector(state => state.toolkit.discounts)
     const [nextDiscount, setNextDiscount] = useState(discounts?.filter(item => item.discount !== discount && discount < item.discount)[0])
@@ -40,7 +41,7 @@ const BasketBottom = () => {
                                 Сума зі знижкою
                             </div>
                             <div className="basket__value green">
-                                {basketPrice.toFixed(2)} грн
+                                {basketPriceDiscount.toFixed(2)} грн
                             </div>
                         </li>
                         {nextDiscount && <li>

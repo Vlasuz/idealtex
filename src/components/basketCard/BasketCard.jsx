@@ -6,7 +6,7 @@ import trash from './../../assets/initial/img/icons/trash.svg'
 import CardQuantity from "./components/CardQuantity";
 import {NavLink} from "react-router-dom";
 import CardQuantityNull from "./components/CardQuantityNull";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {removeBasketItem} from "../../redux/toolkitSlice";
 
 import imagePlaceholder from './../../assets/initial/img/defaultImage.jpg'
@@ -47,6 +47,10 @@ const BasketCard = ({data, selectedPackage, setProductsToCheckout, productsToChe
             setProductsToCheckout(prev => [...prev, productToCheckout])
         }
 
+
+        if(!countOfBig && !countOfMid && !countOfSmall) {
+            dispatch(removeBasketItem(data))
+        }
 
     }, [countOfBig, countOfMid, countOfSmall])
 
