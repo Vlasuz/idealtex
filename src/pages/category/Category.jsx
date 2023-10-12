@@ -8,6 +8,7 @@ import Card from "../../components/card/Card";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {getAllProducts} from "../../api/categories";
 import {BreadCrumbs} from "../../components/breadCrumbs/BreadCrumbs";
+import {AllCategories} from '../allCategories/AllCategories'
 
 export const Category = () => {
     const {categoryAlias} = useParams();
@@ -21,7 +22,10 @@ export const Category = () => {
         getAllProducts({offset: offset, categoryAlias: categoryAlias, limit: 12})
             .then(({products}) => {
                 if (products.length === 0) {
-                    setHasMore(false);
+                    // setHasMore(false);
+                    setTimeout(() => {
+                        setLoading(false);
+                      }, 100);
                 } else {
                     setProducts((prevProducts) => [...prevProducts, ...products]);
                     setOffset(prev => prev + 12);
@@ -55,6 +59,10 @@ export const Category = () => {
         setProducts([]);
 
     }, [categoryAlias]);
+
+    if (!products.length) {
+        return <AllCategories categoryAlias={categoryAlias}/>
+    }
 
     return (
         <>
