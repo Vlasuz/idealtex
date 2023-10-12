@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/idealtex/static/css/main.bbfdb72d.css",
-    "main.js": "/idealtex/static/js/main.e6d66799.js",
+    "main.css": "/idealtex/static/css/main.9b8a7b1b.css",
+    "main.js": "/idealtex/static/js/main.acba1427.js",
     "static/media/text-img.png": "/idealtex/static/media/text-img.6fb2e796eb7b96bef899.png",
     "static/media/Inter-Bold.woff": "/idealtex/static/media/Inter-Bold.23eedfa7d7d7b2baf345.woff",
     "static/media/Inter-SemiBold.woff": "/idealtex/static/media/Inter-SemiBold.4597ef96de6a83f8b322.woff",
@@ -36,6 +36,7 @@
     "static/media/basket-white.svg": "/idealtex/static/media/basket-white.f20568daceffb40ae68269429545a85e.svg",
     "static/media/basket.svg": "/idealtex/static/media/basket.ddeb83134c3d1b5f0824e5928c455a09.svg",
     "static/media/trash.svg": "/idealtex/static/media/trash.a7fb421255b3ffcc579ea8329e0862ef.svg",
+    "static/media/logout.svg": "/idealtex/static/media/logout.e3d2d2d806e91cefd59c1fd182137a05.svg",
     "static/media/user.svg": "/idealtex/static/media/user.06ef485e460169e737999d67d4b81511.svg",
     "static/media/phone.svg": "/idealtex/static/media/phone.b8280576a0a25bc4ac98174fcd6e612f.svg",
     "static/media/phone2.svg": "/idealtex/static/media/phone2.6df36a1178cebd920c55092d8e7bf761.svg",
@@ -62,11 +63,11 @@
     "static/media/arrow-left.svg": "/idealtex/static/media/arrow-left.c38aabcbddf289b5905543efc9b9b4de.svg",
     "static/media/scrolltop.svg": "/idealtex/static/media/scrolltop.d2792788bccb67e77855ecfdf976e7c7.svg",
     "static/media/arrow-spoller.svg": "/idealtex/static/media/arrow-spoller.2a4438b5d5f65d771452c01abd7c3844.svg",
-    "main.bbfdb72d.css.map": "/idealtex/static/css/main.bbfdb72d.css.map",
-    "main.e6d66799.js.map": "/idealtex/static/js/main.e6d66799.js.map"
+    "main.9b8a7b1b.css.map": "/idealtex/static/css/main.9b8a7b1b.css.map",
+    "main.acba1427.js.map": "/idealtex/static/js/main.acba1427.js.map"
   },
   "entrypoints": [
-    "static/css/main.bbfdb72d.css",
-    "static/js/main.e6d66799.js"
+    "static/css/main.9b8a7b1b.css",
+    "static/js/main.acba1427.js"
   ]
 }
