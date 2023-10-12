@@ -38,7 +38,7 @@ export const AllCategories = ({categoryAlias, category}) => {
             <div className="category2">
                 <div className="category2__container">
                     <h2 className="category2__title title">
-                        Категорія: {category.categoryName}
+                        {category?.categoryName ? `Категорія: ${category?.categoryName}` : "Категорії"}
                     </h2>
 
                     {
