@@ -29,7 +29,9 @@ export const Categories = () => {
           <>
             <CategoriesHead />
             <div className="category__grid-layout">
-              {categories.map((category) => (
+              {categories
+                .slice(0, 8)
+                .map((category) => (
                 <CategoryCard key={category.categoryAlias} data={category} type={"page-home"} />
               ))}
             </div>
