@@ -14,6 +14,10 @@ import CardEmpty from "./components/CardEmpty";
 import CardQuantity from "./components/CardQuantity";
 import {useChooseProductPackage} from "../../hooks/chooseProductPackage";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 const Card = ({data}) => {
 
     const dispatch = useDispatch()
@@ -32,6 +36,8 @@ const Card = ({data}) => {
                 "count": countOfProduct,
             },
         }
+
+        toast.success('Ви успішно додали товар у кошик');
 
         dispatch(addBasketItem(dataItemToCart))
     }

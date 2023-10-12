@@ -14,6 +14,7 @@ import ProductSlider from "./components/ProductSlider";
 import ProductInfo from "./components/ProductInfo";
 import ProductQuantity from "./components/ProductQuantity";
 import {calculatePriceWithDiscount} from "../../functions/calculatePriceWithDiscount";
+import {toast} from "react-toastify";
 
 const Product = () => {
 
@@ -46,6 +47,8 @@ const Product = () => {
                 "count": countOfProduct,
             },
         }
+
+        toast.success('Ви успішно додали товар у кошик');
 
         dispatch(addBasketItem(dataItemToCart))
     }

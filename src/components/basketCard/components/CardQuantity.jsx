@@ -17,23 +17,29 @@ const CardQuantity = ({productPackage, isProductAuction, count, setCount}) => {
     const dispatch = useDispatch()
     const basketPrice = useSelector(state => state.toolkit.basketPrice)
     const setAllAmount = useContext(AllAmountContext)
+    const [load, setLoad] = useState(true)
+    const [load2, setLoad2] = useState(true)
 
     const priceWithDiscount = calculatePriceWithDiscount(productPackage?.productPackagePrice, !isProductAuction ? discount : 0)
-    const finalAmount = (priceWithDiscount * value).toFixed(2)
+    const finalAmount = (priceWithDiscount * (value ?? 0)).toFixed(2)
+
+    // console.log(value)
 
     useEffect(() => {
+        setLoad2(false)
         setTimeout(() => {
-            setAllAmount(0)
+            !load2 && setAllAmount(0)
         }, 20)
         setTimeout(() => {
-            setAllAmount(prev => prev + +(calculatePriceWithDiscount(productPackage?.productPackagePrice, !isProductAuction ? discount : 0) * value))
+            !load2 && setAllAmount(prev => prev + +(calculatePriceWithDiscount(productPackage?.productPackagePrice, !isProductAuction ? discount : 0) * (value ?? 0)))
         }, 30)
     }, [discount])
 
     useEffect(() => {
         setAllAmount(0)
+        setLoad(false)
         setTimeout(() => {
-            setAllAmount(prev => prev + +(calculatePriceWithDiscount(productPackage?.productPackagePrice, !isProductAuction ? discount : 0) * value))
+            !load && setAllAmount(prev => prev + +(calculatePriceWithDiscount(productPackage?.productPackagePrice, !isProductAuction ? discount : 0) * (value ?? 0)))
         }, 10)
     }, [basketPrice, discount])
 
@@ -82,8 +88,8 @@ const CardQuantity = ({productPackage, isProductAuction, count, setCount}) => {
                         }} type="number" placeholder={"0"} value={value === 0 ? "" : value}/>
                     </div>
                     <button onClick={_ => {
-                        setValue(prev => prev + 1)
-                        setCount(prev => prev + 1)
+                        setValue(prev => (prev ?? 0) + 1)
+                        setCount(prev => (prev ?? 0) + 1)
                         dispatch(addBasketPrice(productPackage?.productPackagePrice))
                     }} type="button" className="quantity__button quantity__button_plus">
                         <img src={plus} alt=""/>

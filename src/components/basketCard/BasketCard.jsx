@@ -13,6 +13,7 @@ import imagePlaceholder from './../../assets/initial/img/defaultImage.jpg'
 
 const BasketCard = ({data, selectedPackage, setProductsToCheckout, productsToCheckout}) => {
 
+    const basket = useSelector(state => state.toolkit.basket)
     const [isProductAuction] = useState(Object.values(data.productPackagesSizes).map(item => item !== null && item).filter(item => item)[0].productAuction)
     const dispatch = useDispatch()
 
@@ -52,9 +53,7 @@ const BasketCard = ({data, selectedPackage, setProductsToCheckout, productsToChe
             dispatch(removeBasketItem(data))
         }
 
-        console.log(data)
     }, [countOfBig, countOfMid, countOfSmall])
-
 
     return (
         <CardStyled className="product-card product-card_basket">
@@ -76,17 +75,20 @@ const BasketCard = ({data, selectedPackage, setProductsToCheckout, productsToChe
 
                     {data.productPackagesSizes.small ?
                         <CardQuantity setCount={setCountOfSmall}
-                                      count={selectedPackage.size.includes('small') ? selectedPackage.count : 0}
+                                      // count={selectedPackage.size.includes('small') ? selectedPackage.count : 0}
+                                      count={basket?.filter(item => item.product?.productCode === data.productCode && item.package.size.includes('small')) ? basket?.filter(item => item.product?.productCode === data.productCode && item.package.size.includes('small'))[0]?.package.count : 0}
                                       isProductAuction={isProductAuction}
                                       productPackage={data.productPackagesSizes.small}/> : <CardQuantityNull/>}
                     {data.productPackagesSizes.mid ?
                         <CardQuantity setCount={setCountOfMid}
-                                      count={selectedPackage.size.includes('mid') ? selectedPackage.count : 0}
+                                      // count={selectedPackage.size.includes('mid') ? selectedPackage.count : 0}
+                                      count={basket?.filter(item => item.product?.productCode === data.productCode && item.package.size.includes('mid')) ? basket?.filter(item => item.product?.productCode === data.productCode && item.package.size.includes('mid'))[0]?.package.count : 0}
                                       isProductAuction={isProductAuction}
                                       productPackage={data.productPackagesSizes.mid}/> : <CardQuantityNull/>}
                     {data.productPackagesSizes.big ?
                         <CardQuantity setCount={setCountOfBig}
-                                      count={selectedPackage.size.includes('big') ? selectedPackage.count : 0}
+                                      // count={selectedPackage.size.includes('big') ? selectedPackage.count : 0}
+                                      count={basket?.filter(item => item.product?.productCode === data.productCode && item.package.size.includes('big')) ? basket?.filter(item => item.product?.productCode === data.productCode && item.package.size.includes('big'))[0]?.package.count : 0}
                                       isProductAuction={isProductAuction}
                                       productPackage={data.productPackagesSizes.big}/> : <CardQuantityNull/>}
 

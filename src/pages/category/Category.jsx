@@ -19,15 +19,11 @@ export const Category = () => {
     const [offset, setOffset] = useState(0);
 
     const loadMore = () => {
-        setLoading(true)
-        setProducts([])
-        setCategory([])
-        setHasMore(false)
 
         getAllProducts({offset: offset, categoryAlias: categoryAlias, limit: 12})
             .then(({products}) => {
                 if (products.length === 0) {
-                    // setHasMore(false);
+                    setHasMore(false);
                 } else {
                     setProducts((prevProducts) => [...prevProducts, ...products]);
                     setOffset(prev => prev + 12);
@@ -59,11 +55,13 @@ export const Category = () => {
 
         setOffset(0);
         setProducts([]);
+        setLoading(true)
+        setHasMore(false)
 
     }, [categoryAlias]);
 
-    if (!loading && !products.length) {
-        return <AllCategories categoryAlias={categoryAlias}/>
+    if (!loading && category.hasChildren) {
+        return <AllCategories categoryAlias={categoryAlias} category={category}/>
     }
 
     return (

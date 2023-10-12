@@ -5,7 +5,7 @@ import {ProductsNotFound} from "../productsNotFound/ProductsNotFound";
 import {Loader} from "../../components/loader/Loader";
 import {BreadCrumbs} from "../../components/breadCrumbs/BreadCrumbs";
 
-export const AllCategories = ({categoryAlias}) => {
+export const AllCategories = ({categoryAlias, category}) => {
 
     const [loading, setLoading] = useState(true);
     const [allCategories, setAllCategories] = useState([]);
@@ -38,7 +38,7 @@ export const AllCategories = ({categoryAlias}) => {
             <div className="category2">
                 <div className="category2__container">
                     <h2 className="category2__title title">
-                        Категорії
+                        Категорія: {category.categoryName}
                     </h2>
 
                     {

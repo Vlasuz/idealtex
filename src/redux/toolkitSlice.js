@@ -38,7 +38,22 @@ const toolkitSlice = createSlice({
             state.basketPrice = finalAmount
         },
         addBasketItem(state, action) {
-            const isDouble = state.basket.some(item => item.product.productCode === action.payload.product.productCode)
+            const isDouble = state.basket.some(item => item.product.productCode === action.payload.product.productCode && item.package.size === action.payload.package.size)
+
+            if(isDouble) {
+                // state.basket = state.basket.filter(item => (item.product.productCode === action.payload.product.productCode && item.package.size === action.payload.package.size) ? item.package.count + action.payload.package.count : item)
+                state.basket = state.basket.filter(item => {
+                    let newItem = {}
+                    if(item.product.productCode === action.payload.product.productCode && item.package.size === action.payload.package.size) {
+                        console.log(item)
+                        newItem = item
+                        newItem.package.count = newItem.package.count + action.payload.package.count
+                        return newItem
+                    } else {
+                        return item
+                    }
+                })
+            }
 
             state.basket = isDouble ? state.basket : [...state.basket, action.payload]
             state.basketPrice = isDouble ? state.basketPrice : state.basketPrice + (action.payload.package.data.productPackagePrice * action.payload.package.count)

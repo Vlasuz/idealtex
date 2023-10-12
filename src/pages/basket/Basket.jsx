@@ -20,8 +20,12 @@ const Basket = () => {
     }, [productsToCheckout])
 
     useEffect(() => {
-        dispatch(setBasketPriceDiscount(allAmountPrice))
-    }, [allAmountPrice])
+        if(basket.length === 0) {
+            dispatch(setBasketPriceDiscount(0))
+        } else {
+            dispatch(setBasketPriceDiscount(allAmountPrice))
+        }
+    }, [allAmountPrice, basket])
 
     return (
         <AllAmountContext.Provider value={setAllAmountPrice}>
@@ -37,7 +41,12 @@ const Basket = () => {
 
 
                                 {
-                                    basket.map(item => <BasketCard
+                                    basket.reduce((o, i) => {
+                                        if (!o.find(v => v.product.productCode === i.product.productCode)) {
+                                            o.push(i);
+                                        }
+                                        return o;
+                                    }, []).filter(item => basket.some(item2 => item2.product.productCode === item.product.productCode) ? item : '').map(item => <BasketCard
                                         key={item.product.productCode}
                                         data={item.product}
                                         productsToCheckout={productsToCheckout}
