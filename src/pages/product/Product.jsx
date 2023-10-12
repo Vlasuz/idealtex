@@ -97,7 +97,7 @@ const Product = () => {
                                     </div>
                                     <div className="product__list-value">
                                         <div className="product__price">
-                                            {calculatePriceWithDiscount(activePackage?.package?.productPackagePrice * countOfProduct, discount)} грн
+                                            {calculatePriceWithDiscount(activePackage?.package?.productPackagePrice * countOfProduct, isProductAuction ? 0 : discount)} грн
                                         </div>
                                     </div>
                                 </li>

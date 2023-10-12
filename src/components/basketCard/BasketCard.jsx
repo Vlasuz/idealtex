@@ -52,7 +52,9 @@ const BasketCard = ({data, selectedPackage, setProductsToCheckout, productsToChe
             dispatch(removeBasketItem(data))
         }
 
+        console.log(data)
     }, [countOfBig, countOfMid, countOfSmall])
+
 
     return (
         <CardStyled className="product-card product-card_basket">
