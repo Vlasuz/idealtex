@@ -3,8 +3,8 @@ import BasketCard from "../../components/basketCard/BasketCard";
 import {useDispatch, useSelector} from "react-redux";
 import BasketBottom from "./components/BasketBottom";
 import {setBasketCheckout, setBasketPriceDiscount} from "../../redux/toolkitSlice";
-import { BreadCrumbs } from '../../components/breadCrumbs/BreadCrumbs';
-import { BasketEmpty } from './components/BasketEmpty/BasketEmpty';
+import {BreadCrumbs} from '../../components/breadCrumbs/BreadCrumbs';
+import {BasketEmpty} from './components/BasketEmpty/BasketEmpty';
 
 export const AllAmountContext = createContext(null);
 
@@ -37,10 +37,11 @@ const Basket = () => {
 
 
                                 {
-                                    basket.map(item => <BasketCard data={item.product}
-                                                                                productsToCheckout={productsToCheckout}
-                                                                                setProductsToCheckout={setProductsToCheckout}
-                                                                                selectedPackage={item.package}/>) 
+                                    basket.map(item => <BasketCard
+                                        data={item.product}
+                                        productsToCheckout={productsToCheckout}
+                                        setProductsToCheckout={setProductsToCheckout}
+                                        selectedPackage={item.package}/>)
                                 }
 
 

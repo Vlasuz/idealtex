@@ -51,13 +51,13 @@ const Card = ({data}) => {
 
                 <div className="product-card__options options">
 
-                    {data?.productPackagesSizes?.small?.displayPackageCount && cardOption('small')}
-                    {data?.productPackagesSizes?.mid?.displayPackageCount && cardOption('mid')}
-                    {data?.productPackagesSizes?.big?.displayPackageCount && cardOption('big')}
+                    {cardOption('small')}
+                    {cardOption('mid')}
+                    {cardOption('big')}
 
                 </div>
 
-                <CardList data={data}/>
+                <CardList data={data} activePackage={activePackage}/>
                 <CardTitle data={data}/>
                 <CardInfo productPackage={activePackage?.package} isProductAuction={isProductAuction}/>
                 <CardPrice productPackage={activePackage?.package} countOfProduct={countOfProduct} isProductAuction={isProductAuction}/>

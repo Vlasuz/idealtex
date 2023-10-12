@@ -38,7 +38,7 @@ const CardInfo = ({productPackage, isProductAuction}) => {
                 </span>
                 <span className="product-card__value">
                     {
-                        calculatePriceWithDiscount(productPackage?.productPrice) + " грн"
+                        calculatePriceWithDiscount(productPackage?.productPrice, discount) + " грн"
                     }
                 </span>
             </li>
@@ -61,7 +61,7 @@ const CardInfo = ({productPackage, isProductAuction}) => {
                 </span>
                 <span className="product-card__value blue">
                     {
-                        calculatePriceWithDiscount(productPackage?.productPackagePrice) + " грн"
+                        calculatePriceWithDiscount(productPackage?.productPackagePrice, discount) + " грн"
                     }
                 </span>
             </li>

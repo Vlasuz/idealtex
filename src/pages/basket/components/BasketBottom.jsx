@@ -21,7 +21,7 @@ const BasketBottom = () => {
                     <ul className="basket__list">
                         <li>
                             <div className="basket__label">
-                                Оформити замовлення
+                                Сума
                             </div>
                             <div className="basket__value green">
                                 {basketPrice.toFixed(2)} грн
@@ -33,6 +33,14 @@ const BasketBottom = () => {
                             </div>
                             <div className="basket__value">
                                 {discount}%
+                            </div>
+                        </li>
+                        <li>
+                            <div className="basket__label">
+                                Сума зі знижкою
+                            </div>
+                            <div className="basket__value green">
+                                {basketPrice.toFixed(2)} грн
                             </div>
                         </li>
                         {nextDiscount && <li>

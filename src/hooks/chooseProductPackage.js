@@ -31,8 +31,11 @@ export const useChooseProductPackage = ({data}) => {
         setActivePackage(packages[productPackage?.slice(0, productPackage.indexOf('|'))]?.package)
     }, [productPackage])
 
+    if(!Object.keys(data).length) return {cardOption: () => {}, activePackage: ""};
+
     const cardOption = (type) => {
-        if (data?.productPackagesSizes[type]?.displayPackageCount !== '0')
+        console.log(data)
+        if (data?.productPackagesSizes[type] !== null)
             return (<CardOption
                 id={packages[type]?.id}
                 data={data}

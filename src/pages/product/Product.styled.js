@@ -45,6 +45,7 @@ export const ProductStyled = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
+    left: 50%;
   }
   .product__pagination .swiper-pagination-bullet {
     background: var(--blue);

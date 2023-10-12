@@ -13,6 +13,7 @@ import CardDiscounts from "../../components/card/components/CardDiscounts";
 import ProductSlider from "./components/ProductSlider";
 import ProductInfo from "./components/ProductInfo";
 import ProductQuantity from "./components/ProductQuantity";
+import {calculatePriceWithDiscount} from "../../functions/calculatePriceWithDiscount";
 
 const Product = () => {
 
@@ -64,9 +65,9 @@ const Product = () => {
                         <div className="product__right">
                             <div className="product__options options options_2">
 
-                                {product?.productPackagesSizes?.small?.displayPackageCount && cardOption('small')}
-                                {product?.productPackagesSizes?.mid?.displayPackageCount && cardOption('mid')}
-                                {product?.productPackagesSizes?.big?.displayPackageCount && cardOption('big')}
+                                {cardOption('small')}
+                                {cardOption('mid')}
+                                {cardOption('big')}
 
                             </div>
                             <ul className="product__list">
@@ -96,7 +97,7 @@ const Product = () => {
                                     </div>
                                     <div className="product__list-value">
                                         <div className="product__price">
-                                            {(activePackage?.package?.productPackagePrice * countOfProduct).toFixed(2)} грн
+                                            {calculatePriceWithDiscount(activePackage?.package?.productPackagePrice * countOfProduct, discount)} грн
                                         </div>
                                     </div>
                                 </li>
