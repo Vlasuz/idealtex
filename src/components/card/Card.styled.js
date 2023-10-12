@@ -67,6 +67,9 @@ export const CardStyled = styled.div `
     width: 100%;
     text-align: center;
     outline: none;
+    &:disabled {
+      background: white;
+    }
   }
   .quantity__input input::-webkit-outer-spin-button,
   .quantity__input input::-webkit-inner-spin-button {

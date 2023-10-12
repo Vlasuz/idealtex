@@ -75,11 +75,10 @@ const CardQuantity = ({productPackage, isProductAuction, count, setCount}) => {
                         <img src={minus} alt=""/>
                     </button>
                     <div className="quantity__input">
-                        <input autoComplete="off" onChange={e => {
+                        <input disabled autoComplete="off" onChange={e => {
                             setValue(+e.target.value)
                             setCount(+e.target.value)
-                            dispatch(addBasketPrice({price: basketPrice + productPackage?.productPackagePrice * +e.target.value
-                        }))
+                            // dispatch(addBasketPrice({price: basketPrice + productPackage?.productPackagePrice * +e.target.value}))
                         }} type="number" placeholder={"0"} value={value === 0 ? "" : value}/>
                     </div>
                     <button onClick={_ => {
