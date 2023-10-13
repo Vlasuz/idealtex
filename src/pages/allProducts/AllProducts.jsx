@@ -32,7 +32,6 @@ export const AllProducts = () => {
 
     useEffect(() =>{
         offset === 0 && loadMore()
-        console.log('prodAll', offset);
       }, [offset])
     
       useEffect(() => {

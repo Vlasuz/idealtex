@@ -370,7 +370,7 @@
         }
         function functions_FLS(message) {
             setTimeout((() => {
-                if (window.FLS) console.log(message);
+                // if (window.FLS) console.log(message);
             }), 0);
         }
         function removeClasses(array, className) {

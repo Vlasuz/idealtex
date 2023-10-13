@@ -48,8 +48,8 @@ const CardDiscounts = ({data, isProductAuction}) => {
                                 discounts?.map(item =>
                                     <tr key={item.price}>
                                         <td>{item.discount}%</td>
-                                        <td>{calculatePriceWithDiscount(packagePriceOne, (!isProductAuction ? item.discount : 0))}</td>
-                                        <td>{calculatePriceWithDiscount(packagePrice, (!isProductAuction ? item.discount : 0))}</td>
+                                        <td>{calculatePriceWithDiscount(packagePriceOne, (!isProductAuction ? item?.discount : 0))}</td>
+                                        <td>{calculatePriceWithDiscount(packagePrice, (!isProductAuction ? item?.discount : 0))}</td>
                                     </tr>
                                 )
                             }

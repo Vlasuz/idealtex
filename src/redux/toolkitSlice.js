@@ -34,8 +34,6 @@ const toolkitSlice = createSlice({
             const finalAmount = arrayOfPrices.reduce((acc, num) => acc + num, 0);
             // CALCULATE GENERAL AMOUNT
 
-            console.log(finalAmount)
-
             state.basket = JSON.parse(getCookies('basket'))
             state.basketPrice = finalAmount
         },
@@ -43,11 +41,9 @@ const toolkitSlice = createSlice({
             const isDouble = state.basket.some(item => item.product.productCode === action.payload.product.productCode && item.package.size === action.payload.package.size)
 
             if(isDouble) {
-                // state.basket = state.basket.filter(item => (item.product.productCode === action.payload.product.productCode && item.package.size === action.payload.package.size) ? item.package.count + action.payload.package.count : item)
                 state.basket = state.basket.filter(item => {
                     let newItem = {}
                     if(item.product.productCode === action.payload.product.productCode && item.package.size === action.payload.package.size) {
-                        console.log(item)
                         newItem = item
                         newItem.package.count = newItem.package.count + action.payload.package.count
                         return newItem
@@ -90,7 +86,6 @@ const toolkitSlice = createSlice({
         },
         addBasketPrice(state, action) {
             // state.basketPrice = state.basketPrice + action.payload
-            console.log(action.payload?.price)
             state.basketPrice = action.payload?.price ? action.payload?.price : state.basketPrice + action.payload
         },
 

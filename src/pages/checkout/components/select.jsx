@@ -22,7 +22,7 @@ const Select = ({list, setValue, value}) => {
                 <div className="select__scroll">
                     {
                         list.map(option =>
-                            <button onClick={_ => handleSelect(option)} className="select__option"
+                            <button key={option} onClick={_ => handleSelect(option)} className="select__option"
                                     data-value={option} type="button">
                                 {option}
                             </button>
