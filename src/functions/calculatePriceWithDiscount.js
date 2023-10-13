@@ -10,7 +10,7 @@ export const calculatePriceWithDiscount = (price, discount) => {
         exp = +exp;
         // Если значение не является числом, либо степень не является целым числом...
         if (isNaN(value) || !(typeof exp === "number" && exp % 1 === 0)) {
-            return NaN;
+            return 0;
         }
         // Сдвиг разрядов
         value = value.toString().split("e");

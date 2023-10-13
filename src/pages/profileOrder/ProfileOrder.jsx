@@ -15,8 +15,6 @@ const ProfileOrder = () => {
         setThisOrder(orders.filter(item => +item.orderNumber === +orderId)[0])
     }, [orders])
 
-    console.log(orders)
-
     return (
         <ProfileStyled className="orders">
             <div className="orders__container">

@@ -19,8 +19,6 @@ const Basket = () => {
         dispatch(setBasketCheckout(productsToCheckout))
     }, [productsToCheckout])
 
-    console.log(allAmountPrice)
-
     useEffect(() => {
         if(basket.length === 0) {
             dispatch(setBasketPriceDiscount(0))
