@@ -54,7 +54,7 @@ export const HeaderMain = () => {
         document.documentElement.classList.add('open-search');
     }
 
-    const handleCloseSearch = (evt) => {
+    const handleCloseSearch = () => {
         toast.dismiss();
         document.documentElement.classList.remove('open-search');
         setIsSearchOpen(false);
@@ -132,8 +132,7 @@ export const HeaderMain = () => {
                                     />
                                     <button type={'submit'} className="search-header__button">Знайти</button>
                                 </div>
-                                <div style={{cursor: 'pointer'}} className="search-header__close button-icon"
-                                     onClick={handleCloseSearch}>
+                                <div className="search-header__close button-icon" onClick={handleCloseSearch}>
                                     <img src={closeBlue} alt="icon"/>
                                 </div>
                             </form>
