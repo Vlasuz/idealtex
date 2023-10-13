@@ -6,8 +6,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {HeaderMainStyled} from "./HeaderMain.styled";
 import {handleExit} from "../../../../functions/exitAccount";
 import {NavLink, useNavigate} from "react-router-dom";
-import { toast } from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
+import {toast} from 'react-toastify';
+import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import menu from "../../../../assets/initial/img/icons/menu.svg";
@@ -22,7 +22,6 @@ import logo from "../../../../assets/initial/img/main-img/logo.webp";
 import logo2 from "../../../../assets/initial/img/main-img/logo.png";
 
 export const HeaderMain = () => {
-    const dispatch = useDispatch();
     const navigate = useNavigate()
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -56,7 +55,6 @@ export const HeaderMain = () => {
     }
 
     const handleCloseSearch = (evt) => {
-        // evt.stopPropagation();
         toast.dismiss();
         document.documentElement.classList.remove('open-search');
         setIsSearchOpen(false);
@@ -66,15 +64,12 @@ export const HeaderMain = () => {
         evt.preventDefault();
         setSearchQuery('');
         if (!searchQuery.trim()) {
-            if (isSearchOpen) {
-                toast.info('Будь ласка, введіть коректний запит для пошуку.');
-            }  
-            return; 
+            toast.info('Будь ласка, введіть коректний запит для пошуку.');
+            return;
         }
         navigate('/search/' + searchQuery);
         handleCloseSearch()
     }
-    
 
 
     return (
@@ -135,11 +130,12 @@ export const HeaderMain = () => {
                                         value={searchQuery}
                                         onChange={(evt) => setSearchQuery(evt.target.value.replace(/\s+/g, ' '))}
                                     />
-                                    <button className="search-header__button">Знайти</button>
+                                    <button type={'submit'} className="search-header__button">Знайти</button>
                                 </div>
-                                <button className="search-header__close button-icon" onClick={handleCloseSearch}>
+                                <div style={{cursor: 'pointer'}} className="search-header__close button-icon"
+                                     onClick={handleCloseSearch}>
                                     <img src={closeBlue} alt="icon"/>
-                                </button>
+                                </div>
                             </form>
                         </div>
                         <button className="main-header__search-open button-icon" onClick={handleOpenSearch}>
